@@ -40,6 +40,7 @@ public class SetupInput {
                 System.out.println("Player " + (i+1) + " is named " + input);
             }
         }
+        System.out.println("\n\n");
         return players;
     }
 }
