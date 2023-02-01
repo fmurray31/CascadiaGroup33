@@ -5,6 +5,10 @@ public class Cascadia {
         Score score = new Score();
         Tiles tiles = new Tiles();
 
+        // testing ui
+        HabitatTiles habitatTiles = new HabitatTiles("forest","forest","forest","forest","forest","forest","elk","salmon","fox");
+        System.out.println(habitatTiles);
+
         int numUsers = setupInput.numPlayer();
         Player[] playerArray;
 
@@ -16,6 +20,5 @@ public class Cascadia {
         System.out.println("\n\n-----------------------------------------------------------\n\n");
 
         tiles.setupTiles();
-        System.out.println(tiles.getAnimalAL());
     }
 }
