@@ -1,10 +1,12 @@
 public class Player {
     public String userName;
     public int score;
+    public String[][] map;
 
-    public Player(String userName) {
+    public Player(String userName, String[][] map) {
         this.userName = userName;
         score = 0;
+        this.map = map;
     }
 
     public String getUserName() {
@@ -26,5 +28,9 @@ public class Player {
     @Override
     public String toString() {
         return userName + ", score: " + score;
+    }
+
+    public String[][] getMap () {
+        return map;
     }
 }
