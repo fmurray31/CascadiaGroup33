@@ -6,8 +6,10 @@ public class Cascadia {
         Tiles tiles = new Tiles();
 
         // testing ui
-        HabitatTiles habitatTiles = new HabitatTiles("forest","forest","forest","forest","forest","forest","elk","salmon","fox");
-        System.out.println(habitatTiles);
+//        HabitatTiles testHab = new HabitatTiles("mountain","mountain","mountain","forest","forest","forest","elk","salmon","fox");
+//        System.out.println(testHab);
+//        testHab.rotateTile(3);
+//        System.out.println(testHab);
 
         int numUsers = setupInput.numPlayer();
         Player[] playerArray;
@@ -20,6 +22,8 @@ public class Cascadia {
         System.out.println("\n\n-----------------------------------------------------------\n\n");
 
         tiles.setupTiles();
+
+        tiles.drawCentralTiles();
+        tiles.displayCentralTiles();
     }
-    
 }

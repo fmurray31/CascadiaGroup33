@@ -1,6 +1,6 @@
 public class Player {
-    public String userName;
-    public int score;
+    private String userName;
+    private int score;
 
     public Player(String userName) {
         this.userName = userName;

@@ -1,38 +1,50 @@
+import java.net.PortUnreachableException;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Tiles {
+    HabitatTiles habitatTiles = new HabitatTiles("","","","","","","","","");
+    AnimalTiles animalTiles = new AnimalTiles("");
+
+    ArrayList<HabitatTiles> centralHabitats;
+    ArrayList<AnimalTiles> centralAnimals;
+
+
     public void setupTiles() {
-        generateAnimals();
-        shuffleAnimals();
-
-    }
-    ArrayList<AnimalTiles> animalAL = new ArrayList<>();
-
-    public ArrayList<AnimalTiles> getAnimalAL() {
-        return animalAL;
+        animalTiles.animalSetup();
+        habitatTiles.habitatSetup();
     }
 
-    private void generateAnimals() {
-        for (int i=0; i<20; i++) {
-            getAnimalAL().add(new AnimalTiles("Hawk"));
-            getAnimalAL().add(new AnimalTiles("Bear"));
-            getAnimalAL().add(new AnimalTiles("Elk"));
-            getAnimalAL().add(new AnimalTiles("Salmon"));
-            getAnimalAL().add(new AnimalTiles("Fox"));
+    public ArrayList<HabitatTiles> getHabitatTiles() {
+        return habitatTiles.getHabitatArray();
+    }
+
+    public ArrayList<AnimalTiles> getAnimalTiles() {
+        return animalTiles.getAnimalAL();
+    }
+
+    public void drawCentralTiles() {
+        centralHabitats = new ArrayList<>();
+        int i = 0;
+        while (centralHabitats.size() < 4){
+            centralHabitats.add(habitatTiles.getHabitatArray().get(i));
+            habitatTiles.getHabitatArray().remove(i);
+            i++;
+        }
+
+        centralAnimals = new ArrayList<>();
+        i=0;
+        while (centralAnimals.size() < 4){
+            centralAnimals.add(animalTiles.getAnimalAL().get(i));
+            animalTiles.getAnimalAL().remove(i);
+            i++;
         }
     }
 
-    private void shuffleAnimals() {
-        Random rand = new Random();
-        int tempInt;
-
-        for (int i=0; i<80; i++) {
-            tempInt = rand.nextInt(80);
-            AnimalTiles temp = getAnimalAL().get(i);
-            getAnimalAL().get(i).setAnimal(getAnimalAL().get(tempInt).getAnimal());
-            getAnimalAL().get(tempInt).setAnimal(temp.getAnimal());
+    public void displayCentralTiles() {
+        for (int i=0; i<4; i++) {
+            System.out.println(centralHabitats.get(i));
+            System.out.println(centralAnimals.get(i));
         }
     }
-
 }
