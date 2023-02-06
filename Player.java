@@ -2,9 +2,17 @@ public class Player {
     private String userName;
     private int score;
 
-    public Player(String userName) {
+    //Map
+    public int[][] map;
+
+    public Player(String userName, int[][] map) {
         this.userName = userName;
         score = 0;
+        this.map = map;
+    }
+
+    public int[][] getMap() {
+        return map;
     }
 
     public String getUserName() {
@@ -27,4 +35,5 @@ public class Player {
     public String toString() {
         return userName + ", score: " + score;
     }
+
 }
