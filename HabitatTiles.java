@@ -32,7 +32,7 @@ public class HabitatTiles {
     }
 
     // Method that converts each tile type into a coloured ascii representation of the tile
-    private String terrainToAscii (String input) {
+    public String terrainToAscii (String input) {
         switch (input) {
             case "forest":
                 return "\u001b[42m" + "        " + "\u001b[0m";
@@ -49,12 +49,13 @@ public class HabitatTiles {
             case "prairie":
                 return "\u001b[43m" + "        " + "\u001b[0m";
 
-            default: throw new IllegalArgumentException("Invalid terrain passed to terrainToAscii" + input);
+            default: throw new IllegalArgumentException("Invalid terrain passed to terrainToAscii: " + input);
         }
     }
 
     // Method that converts each animal type into a coloured representation of the animal tile
-    private String animalToString (String input) {
+    public String animalToString (String input) {
+        input = input.toLowerCase();
         switch (input) {
             case "hawk":
                 return "\u001b[34m" + "Hawk    " + "\u001b[0m";
@@ -129,5 +130,41 @@ public class HabitatTiles {
                 terrainToAscii(west) + animalToString(creature1) + animalToString(creature2) + terrainToAscii(east) + "\n" +
                 terrainToAscii(west) + animalToString(creature3) + "        " + terrainToAscii(east) + "\n" +
                 terrainToAscii(southEast) + terrainToAscii(southEast) + terrainToAscii(southWest) + terrainToAscii(southWest) + "\n";
+    }
+
+    public String getNorthWest() {
+        return northWest;
+    }
+
+    public String getNorthEast() {
+        return northEast;
+    }
+
+    public String getWest() {
+        return west;
+    }
+
+    public String getEast() {
+        return east;
+    }
+
+    public String getSouthWest() {
+        return southWest;
+    }
+
+    public String getSouthEast() {
+        return southEast;
+    }
+
+    public String getCreature1() {
+        return creature1;
+    }
+
+    public String getCreature2() {
+        return creature2;
+    }
+
+    public String getCreature3() {
+        return creature3;
     }
 }

@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.net.PortUnreachableException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -42,9 +43,45 @@ public class Tiles {
     }
 
     public void displayCentralTiles() {
-        for (int i=0; i<4; i++) {
-            System.out.println(centralHabitats.get(i));
-            System.out.println(centralAnimals.get(i));
+        // TODO: 06/02/2023 change to print habitats line by line, with animals beneath
+        for (int j=0; j<=4; j++) {
+            for (int i=0; i<4; i++) {
+                switch (j) {
+                    case 0:
+                        System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getNorthWest()));
+                        System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getNorthWest()));
+                        System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getNorthEast()));
+                        System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getNorthEast())+ " ");
+                        break;
+
+                    case 1:
+                        System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getWest()));
+                        System.out.print(habitatTiles.animalToString(centralHabitats.get(i).getCreature1()));
+                        System.out.print(habitatTiles.animalToString(centralHabitats.get(i).getCreature2()));
+                        System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getEast())+ " ");
+                        break;
+
+                    case 2:
+                        System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getWest()));
+                        System.out.print(habitatTiles.animalToString(centralHabitats.get(i).getCreature3()));
+                        System.out.print("        ");
+                        System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getWest()) + " ");
+                        break;
+
+                    case 3:
+                        System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getSouthWest()));
+                        System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getSouthWest()));
+                        System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getSouthEast()));
+                        System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getSouthEast())+ " ");
+                        break;
+                }
+                if (j==4) {
+                    System.out.print(habitatTiles.animalToString(centralAnimals.get(i).toString()));
+                    System.out.print("\t\t\t\t\t\t   ");
+                }
+            }
+            System.out.println("");
         }
+        
     }
 }
