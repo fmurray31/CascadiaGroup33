@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class SetupInput {
+
     public int numPlayer() {
         int numUsers = 0;
         Scanner in = new Scanner(System.in);
