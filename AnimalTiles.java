@@ -40,6 +40,7 @@ public class AnimalTiles {
         return al;
     }
 
+    // shuffles the arraylist using collections
     private ArrayList<AnimalTiles> shuffleAnimals(ArrayList<AnimalTiles> al) {
         Collections.shuffle(al, new Random());
         return al;

@@ -49,12 +49,15 @@ public class HabitatTiles {
             case "prairie":
                 return "\u001b[43m" + "        " + "\u001b[0m";
 
+            case "blank":
+                return "        ";
+
             default: throw new IllegalArgumentException("Invalid terrain passed to terrainToAscii: " + input);
         }
     }
 
     // Method that converts each animal type into a coloured representation of the animal tile
-    public String animalToString (String input) {
+    public String animalToAscii (String input) {
         input = input.toLowerCase();
         switch (input) {
             case "hawk":
@@ -92,6 +95,7 @@ public class HabitatTiles {
         }
     }
 
+    // creates an arraylist of habitats
     private ArrayList<HabitatTiles> generateHabitats() {
         ArrayList<HabitatTiles> output = new ArrayList<>();
         for (int i=0; i<5; i++) {
@@ -107,7 +111,7 @@ public class HabitatTiles {
         return output;
     }
 
-    // helper function to turn an int into an animal string
+    // helper function to turn an int into an animal string, populates habitats with animals, needs adding to
     private String generateHabitatHelper(int num) {
         switch (num+1) {
             case 1: return "hawk";
@@ -120,15 +124,17 @@ public class HabitatTiles {
         }
     }
 
+    // uses collections to randomise the order of the arraylist
     private void shuffleHabitats(ArrayList<HabitatTiles> al) {
         Collections.shuffle(al, new Random());
     }
 
+    // toString to print a single habitat tile
     @Override
     public String toString() {
         return terrainToAscii(northWest) + terrainToAscii(northWest) + terrainToAscii(northEast) + terrainToAscii(northEast) + "\n" +
-                terrainToAscii(west) + animalToString(creature1) + animalToString(creature2) + terrainToAscii(east) + "\n" +
-                terrainToAscii(west) + animalToString(creature3) + "        " + terrainToAscii(east) + "\n" +
+                terrainToAscii(west) + animalToAscii(creature1) + animalToAscii(creature2) + terrainToAscii(east) + "\n" +
+                terrainToAscii(west) + animalToAscii(creature3) + "        " + terrainToAscii(east) + "\n" +
                 terrainToAscii(southEast) + terrainToAscii(southEast) + terrainToAscii(southWest) + terrainToAscii(southWest) + "\n";
     }
 

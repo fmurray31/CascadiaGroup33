@@ -5,6 +5,7 @@ public class SetupInput {
         int numUsers = 0;
         Scanner in = new Scanner(System.in);
 
+        // Takes user input for number of players with error checking, only allows integer inputs
         System.out.println("Enter the number of players, between 2 and 4:");
         while (numUsers == 0) {
             try {
@@ -25,6 +26,7 @@ public class SetupInput {
         return numUsers;
     }
 
+    // Takes usernames from users, only invalid entries are blank names
     public Player[] userNameRequest(int numUsers) {
         String input = "";
 

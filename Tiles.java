@@ -24,6 +24,7 @@ public class Tiles {
         return animalTiles.getAnimalAL();
     }
 
+    // removes up to four habitats and animals from their respective arraylists and adds them to separate arraylists representing the central tiles
     public void drawCentralTiles() {
         centralHabitats = new ArrayList<>();
         int i = 0;
@@ -42,6 +43,7 @@ public class Tiles {
         }
     }
 
+    // displays the central four habitat and animal tiles
     public void displayCentralTiles() {
         for (int j=0; j<=4; j++) {
             for (int i=0; i<4; i++) {
@@ -55,14 +57,14 @@ public class Tiles {
 
                     case 1:
                         System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getWest()));
-                        System.out.print(habitatTiles.animalToString(centralHabitats.get(i).getCreature1()));
-                        System.out.print(habitatTiles.animalToString(centralHabitats.get(i).getCreature2()));
+                        System.out.print(habitatTiles.animalToAscii(centralHabitats.get(i).getCreature1()));
+                        System.out.print(habitatTiles.animalToAscii(centralHabitats.get(i).getCreature2()));
                         System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getEast())+ " ");
                         break;
 
                     case 2:
                         System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getWest()));
-                        System.out.print(habitatTiles.animalToString(centralHabitats.get(i).getCreature3()));
+                        System.out.print(habitatTiles.animalToAscii(centralHabitats.get(i).getCreature3()));
                         System.out.print("        ");
                         System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getWest()) + " ");
                         break;
@@ -75,7 +77,7 @@ public class Tiles {
                         break;
                 }
                 if (j==4) {
-                    System.out.print(habitatTiles.animalToString(centralAnimals.get(i).toString()));
+                    System.out.print(habitatTiles.animalToAscii(centralAnimals.get(i).toString()));
                     System.out.print("\t\t\t\t\t\t   ");
                 }
             }

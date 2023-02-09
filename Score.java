@@ -8,6 +8,7 @@ public class Score {
         }
     }
 
+    // Randomises the order of players
     public void setOrder(Player[] playerArray) {
         Random rand = new Random();
         int tempInt;
@@ -22,6 +23,7 @@ public class Score {
         }
     }
 
+    // Prints the player array and displays their order
     public void printOrder(Player[] playerArray) {
         for (int i=0; i< playerArray.length; i++) {
             System.out.println("Player " + (i+1) + " is " + playerArray[i].getUserName());
