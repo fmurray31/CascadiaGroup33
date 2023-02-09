@@ -28,10 +28,6 @@ public class SetupInput {
     public Player[] userNameRequest(int numUsers) {
         String input = "";
 
-        //Could pass this variable but would need to initialize before passing
-        //May need to determine size of map beforehand?
-        int[][] passMap = new int[50][50];
-
         Player[] players = new Player[numUsers];
         Scanner in = new Scanner(System.in);
         for (int i=0; i<numUsers; i++) {
@@ -41,7 +37,7 @@ public class SetupInput {
                 System.out.println("Username may not be blank");
                 i--;
             } else {
-                players[i] = new Player(input, passMap); //passMap);
+                players[i] = new Player(input); //passMap);
                 System.out.println("Player " + (i+1) + " is named " + input);
             }
         }

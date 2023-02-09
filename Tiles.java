@@ -43,7 +43,6 @@ public class Tiles {
     }
 
     public void displayCentralTiles() {
-        // TODO: 06/02/2023 change to print habitats line by line, with animals beneath
         for (int j=0; j<=4; j++) {
             for (int i=0; i<4; i++) {
                 switch (j) {
