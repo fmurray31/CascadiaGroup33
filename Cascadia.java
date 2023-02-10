@@ -11,12 +11,39 @@ public class Cascadia {
         Scanner in = new Scanner(System.in);
         int inPlay;
 
+        System.out.println("\t\t -------- Welcome to Cascadia --------");
+
+        // testing UI
+        HabitatTiles testHab = new HabitatTiles("mountain", "mountain","mountain",
+                "forest","forest","forest",
+                "elk","salmon","fox");
+        //System.out.println(testHab);
+        //testHab.rotateTile(3);
+        //System.out.println(testHab);
+
+        int numUsers = setupInput.numPlayer();
+        Player[] playerArray;
+
+        playerArray = setupInput.userNameRequest(numUsers);
+
+        score.setOrder(playerArray);
+        score.printOrder(playerArray);
+
+        System.out.println("\n\n-----------------------------------------------------------\n\n");
+
+        tiles.setupTiles();
+
+        tiles.drawCentralTiles();
+        tiles.displayCentralTiles();
+
+
+
         //Do While loop, prompts the user if they would like to play
         do {
             System.out.println("\t\t -------- Welcome to Cascadia --------");
             System.out.println("\n\nWould you like to play?");
             System.out.println("\n[1] Yes");
-            System.out.println("\n[2] No\n");
+            System.out.println("\n[2] No\n\n");
             inPlay = in.nextInt();
             /*
             if (inPlay != 1 && inPlay != 2) {
@@ -50,6 +77,30 @@ public class Cascadia {
             tiles.drawCentralTiles();
             tiles.displayCentralTiles();
 
+            int i = 0;
+            while (i < numUsers) {
+                playerArray[i].addHabitatToMap(testHab, 1, 1);
+                playerArray[i].printMap(playerArray[i]);
+
+                System.out.println("[1] View next player's map");
+                System.out.println("[2] Exit program");
+                inPlay = in.nextInt();
+
+                if(inPlay != 1 && inPlay != 2) {
+                    System.out.println("Invalid choice!");
+                    System.out.println("[1] View next player's map");
+                    System.out.println("[2] Exit program");
+                    inPlay = in.nextInt();
+                } else if(inPlay == 1) {
+                    i++;
+                } else if(inPlay == 2) {
+                    System.exit(0);
+                }
+            }
+        } else if (inPlay == 2) {
+            System.exit(0);
+        }
+/*
             /*
             // initialise all new habitats in map to "blank" habitats, add functionality to print blank habitats in terrainToAscii and animalToAscii
             playerArray[0].addHabitatToMap(testHab, 1, 1);
