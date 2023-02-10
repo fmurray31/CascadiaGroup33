@@ -74,7 +74,6 @@ public class Cascadia {
                     i++;
                 }
             }
-
         } else if (inPlay == 2) {
             System.exit(0);
         }
