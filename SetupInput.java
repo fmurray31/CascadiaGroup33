@@ -56,7 +56,9 @@ public class SetupInput {
             try {
                 System.out.println("Player " + playerArray[i].getUserName() + "'s" + " Habitat:\n\n");
 
-                //Display player's habitat
+                //Put code to display player's habitat here
+                //
+                //
 
                 System.out.println("\n\n[1] View next player's map");
                 System.out.println("[2] Exit program\n\n");

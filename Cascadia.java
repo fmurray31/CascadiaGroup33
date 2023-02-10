@@ -8,8 +8,6 @@ public class Cascadia {
         Score score = new Score();
         Tiles tiles = new Tiles();
         Player player;
-        Scanner in = new Scanner(System.in);
-        int inPlay;
 
         System.out.println("\t\t -------- Welcome to Cascadia --------\n\n\n");
 
