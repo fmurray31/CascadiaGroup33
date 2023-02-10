@@ -11,6 +11,12 @@ public class Cascadia {
         Scanner in = new Scanner(System.in);
         int inPlay;
 
+        // testing UI
+        HabitatTiles testHab = new HabitatTiles("mountain", "mountain","mountain","forest","forest","forest","elk","salmon","fox");
+        //System.out.println(testHab);
+        //testHab.rotateTile(3);
+        //System.out.println(testHab);
+
         //Do While loop, prompts the user if they would like to play
         do {
             System.out.println("\t\t -------- Welcome to Cascadia --------");
@@ -27,13 +33,7 @@ public class Cascadia {
 
         //If the user would like to play....
         if(inPlay == 1) {
-            // testing UI
-            HabitatTiles testHab = new HabitatTiles("mountain", "mountain","mountain",
-                    "forest","forest","forest",
-                    "elk","salmon","fox");
-            //System.out.println(testHab);
-            //testHab.rotateTile(3);
-            //System.out.println(testHab);
+
 
             int numUsers = setupInput.numPlayer();
             Player[] playerArray;
@@ -53,7 +53,7 @@ public class Cascadia {
             /*
             // initialise all new habitats in map to "blank" habitats, add functionality to print blank habitats in terrainToAscii and animalToAscii
             playerArray[0].addHabitatToMap(testHab, 1, 1);
-            //System.out.println(playerArray[0].printSingleTile(playerArray[0], 0, 0));
+            System.out.println(playerArray[0].printSingleTile(playerArray[0], 0, 0));
             playerArray[0].printMap(playerArray[0]);
              */
 
@@ -77,17 +77,7 @@ public class Cascadia {
         } else if (inPlay == 2) {
             System.exit(0);
         }
-/*
-        SetupInput setupInput = new SetupInput();
-        Score score = new Score();
-        Tiles tiles = new Tiles();
-        Player player;
 
-        // testing ui
-        HabitatTiles testHab = new HabitatTiles("mountain","mountain","mountain","forest","forest","forest","elk","salmon","fox");
-        //System.out.println(testHab);
-        //testHab.rotateTile(3);
-        //System.out.println(testHab);
 
         int numUsers = setupInput.numPlayer();
         Player[] playerArray;
@@ -108,6 +98,5 @@ public class Cascadia {
         playerArray[0].addHabitatToMap(testHab, 1, 1);
         //System.out.println(playerArray[0].printSingleTile(playerArray[0], 0, 0));
         playerArray[0].printMap(playerArray[0]);
- */
     }
 }

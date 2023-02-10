@@ -57,7 +57,7 @@ public class Player {
             for (int j=0; j<4; j++) {
                 // columns
                 for (int k=0; k<maxMap; k++) {
-                    if (rowCheck(player, i) || columnCheck(player, k)) {
+                    if (rowCheck(player, i) && columnCheck(player, k)) {
                     switch (j) {
                         case 0:
                             // indents each line by one "side" on even rows
@@ -97,7 +97,9 @@ public class Player {
                         }
                     }
                 }
-                System.out.println("");
+                if (futureRowCheck(player, i)){
+                    System.out.println("");
+                }
             }
         }
     }
@@ -116,6 +118,15 @@ public class Player {
     private boolean columnCheck (Player player, int column) {
         for (int i=0; i<maxMap; i++) {
             if (!player.playerMap[i][column].getNorthWest().equals("blank")){
+                return true;
+            }
+        }
+        return false;
+    }
+    // check future rows
+    private boolean futureRowCheck(Player player, int row) {
+        for (int i=row; i<maxMap; i++) {
+            if (rowCheck(player, i)) {
                 return true;
             }
         }
