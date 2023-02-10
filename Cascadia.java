@@ -16,9 +16,11 @@ public class Cascadia {
                 "forest", "forest", "forest",
                 "elk", "salmon", "fox");
 
+        //Setup the number of players
         int numUsers = setupInput.numPlayer();
         Player[] playerArray;
 
+        //Set a username for each player
         playerArray = setupInput.userNameRequest(numUsers);
 
         score.setOrder(playerArray);
