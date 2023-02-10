@@ -33,6 +33,8 @@ public class Cascadia {
         tiles.drawCentralTiles();
         tiles.displayCentralTiles();
 
+        setupInput.userPrompts(playerArray, numUsers, testHab);
+
             /*
             // initialise all new habitats in map to "blank" habitats, add functionality to print blank habitats in terrainToAscii and animalToAscii
             playerArray[0].addHabitatToMap(testHab, 1, 1);
