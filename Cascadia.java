@@ -16,7 +16,7 @@ public class Cascadia {
             System.out.println("\t\t -------- Welcome to Cascadia --------");
             System.out.println("\n\nWould you like to play?");
             System.out.println("\n[1] Yes");
-            System.out.println("\n[2] No");
+            System.out.println("\n[2] No\n");
             inPlay = in.nextInt();
             /*
             if (inPlay != 1 && inPlay != 2) {
@@ -64,14 +64,18 @@ public class Cascadia {
                 playerArray[i].printMap(playerArray[i]);
 
                 System.out.println("[1] View next player's map");
+                System.out.println("[2] Exit program");
                 inPlay = in.nextInt();
 
-                if(inPlay != 1) {
+                if(inPlay != 1 && inPlay != 2) {
                     System.out.println("Invalid choice!");
                     System.out.println("[1] View next player's map");
+                    System.out.println("[2] Exit program");
                     inPlay = in.nextInt();
-                } else {
+                } else if(inPlay == 1) {
                     i++;
+                } else if(inPlay == 2) {
+                    System.exit(0);
                 }
             }
         } else if (inPlay == 2) {
