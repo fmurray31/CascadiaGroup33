@@ -96,6 +96,7 @@ public class HabitatTiles {
     }
 
     // creates an arraylist of habitats
+    // TODO: 11/02/2023 only generates keystones, with only one animal per tile, needs to be fixed
     private ArrayList<HabitatTiles> generateHabitats() {
         ArrayList<HabitatTiles> output = new ArrayList<>();
         for (int i=0; i<5; i++) {
@@ -107,7 +108,6 @@ public class HabitatTiles {
                 output.add(new HabitatTiles("prairie", "prairie", "prairie", "prairie", "prairie", "prairie", generateHabitatHelper(j), "", ""));
             }
         }
-        //output = randomiseHabitats(output);
         return output;
     }
 
@@ -129,7 +129,7 @@ public class HabitatTiles {
         Collections.shuffle(al, new Random());
     }
 
-    // toString to print a single habitat tile
+    // toString method to print a single habitat tile with correct formatting and ascii representation
     @Override
     public String toString() {
         return terrainToAscii(northWest) + terrainToAscii(northWest) + terrainToAscii(northEast) + terrainToAscii(northEast) + "\n" +
@@ -138,6 +138,7 @@ public class HabitatTiles {
                 terrainToAscii(southEast) + terrainToAscii(southEast) + terrainToAscii(southWest) + terrainToAscii(southWest) + "\n";
     }
 
+    // getters for all elements in a habitat tile
     public String getNorthWest() {
         return northWest;
     }

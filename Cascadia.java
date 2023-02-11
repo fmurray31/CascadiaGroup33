@@ -11,7 +11,7 @@ public class Cascadia {
         Scanner in = new Scanner(System.in);
         int inPlay;
 
-        System.out.println("\t\t -------- Welcome to Cascadia --------");
+        System.out.println("\t\t -------- Welcome to Cascadia --------\n\n");
 
         // testing UI
         HabitatTiles testHab = new HabitatTiles("mountain", "mountain", "mountain",
@@ -41,11 +41,7 @@ public class Cascadia {
             System.out.println("\n[1] Yes");
             System.out.println("\n[2] No\n\n");
             inPlay = in.nextInt();
-            /*
-            if (inPlay != 1 && inPlay != 2) {
-                throw new IllegalArgumentException("Please enter [1] or [2]");
-            }
-             */
+
         } while (inPlay != 1 && inPlay != 2);
 
         //If the user would like to play....
@@ -73,12 +69,6 @@ public class Cascadia {
         } else if (inPlay == 2) {
             System.exit(0);
         }
-            /*
-            // initialise all new habitats in map to "blank" habitats, add functionality to print blank habitats in terrainToAscii and animalToAscii
-            playerArray[0].addHabitatToMap(testHab, 1, 1);
-            System.out.println(playerArray[0].printSingleTile(playerArray[0], 0, 0));
-            playerArray[0].printMap(playerArray[0]);
-             */
 
         //Incomplete, supposed to loop through the list of players and their maps 1 at a time, prompts user if they would like ot continue
         int i = 0;
@@ -104,10 +94,13 @@ public class Cascadia {
             }
         }
 
-        // initialise all new habitats in map to "blank" habitats, add functionality to print blank habitats in terrainToAscii and animalToAscii
-        playerArray[0].addHabitatToMap(testHab, 1, 1);
-        //System.out.println(playerArray[0].printSingleTile(playerArray[0], 0, 0));
-        //playerArray[0].printMap(playerArray[0]);
+
+        // used for testing map printing function
+//        playerArray[0].addHabitatToMap(testHab, 1, 1);
+//        playerArray[0].addHabitatToMap(testHab, 0, 0);
+//        playerArray[0].addHabitatToMap(testHab, 1, 0);
+//        playerArray[0].addHabitatToMap(testHab, 0, 1);
+//        playerArray[0].printMap(playerArray[0]);
     }
 }
 

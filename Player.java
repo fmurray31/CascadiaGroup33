@@ -51,17 +51,24 @@ public class Player {
 
     // prints a players map of habitat tiles (WIP)
     public void printMap (Player player) {
+        boolean first;
         // rows
         for (int i=0; i<maxMap; i++) {
             // "lines" of each tile
             for (int j=0; j<4; j++) {
+                // boolean to check if a tile is the first in an even row to be printed
+                first = true;
                 // columns
                 for (int k=0; k<maxMap; k++) {
                     if (rowCheck(player, i) && columnCheck(player, k)) {
                     switch (j) {
                         case 0:
                             // indents each line by one "side" on even rows
-                            if (i % 2 == 0) System.out.println("        ");
+                            if (i % 2==0 && first) {
+                                System.out.print("                ");
+                                first = false;
+                            }
+
                             System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getNorthWest()));
                             System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getNorthWest()));
                             System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getNorthEast()));
@@ -69,7 +76,11 @@ public class Player {
                             break;
 
                         case 1:
-                            if (i % 2 == 0) System.out.println("        ");
+                            if (i % 2==0 && first) {
+                                System.out.print("                ");
+                                first = false;
+                            }
+
                             System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getWest()));
                             System.out.print(habitatTiles.animalToAscii(player.playerMap[i][k].getCreature1()));
                             System.out.print(habitatTiles.animalToAscii(player.playerMap[i][k].getCreature2()));
@@ -77,7 +88,11 @@ public class Player {
                             break;
 
                         case 2:
-                            if (i % 2 == 0) System.out.println("        ");
+                            if (i % 2==0 && first) {
+                                System.out.print("                ");
+                                first = false;
+                            }
+
                             System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getWest()));
                             System.out.print(habitatTiles.animalToAscii(player.playerMap[i][k].getCreature3()));
                             System.out.print("        ");
@@ -85,7 +100,11 @@ public class Player {
                             break;
 
                         case 3:
-                            if (i % 2 == 0) System.out.println("        ");
+                            if (i % 2==0 && first) {
+                                System.out.print("                ");
+                                first = false;
+                            }
+
                             System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getSouthWest()));
                             System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getSouthWest()));
                             System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getSouthEast()));
@@ -123,7 +142,7 @@ public class Player {
         }
         return false;
     }
-    // check future rows
+    // checks if future rows are all empty
     private boolean futureRowCheck(Player player, int row) {
         for (int i=row; i<maxMap; i++) {
             if (rowCheck(player, i)) {

@@ -45,6 +45,7 @@ public class Tiles {
 
     // displays the central four habitat and animal tiles
     public void displayCentralTiles() {
+        System.out.println("\nShared Tiles:");
         for (int j=0; j<=4; j++) {
             for (int i=0; i<4; i++) {
                 switch (j) {
@@ -83,6 +84,6 @@ public class Tiles {
             }
             System.out.println("");
         }
-        
+        System.out.println("\n-----------------------------------------------------------\n");
     }
 }
