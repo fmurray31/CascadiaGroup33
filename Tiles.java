@@ -45,6 +45,7 @@ public class Tiles {
 
     // displays the central four habitat and animal tiles
     public void displayCentralTiles() {
+        boolean first = true;
         System.out.println("\nShared Tiles:");
         for (int j=0; j<=4; j++) {
             for (int i=0; i<4; i++) {
@@ -77,6 +78,10 @@ public class Tiles {
                         System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getSouthEast())+ " ");
                         break;
                 }
+                if (j==4 && first) {
+                    System.out.println("");
+                    first = false;
+                }
                 if (j==4) {
                     System.out.print(habitatTiles.animalToAscii(centralAnimals.get(i).toString()));
                     System.out.print("\t\t\t\t\t\t   ");
@@ -84,6 +89,5 @@ public class Tiles {
             }
             System.out.println("");
         }
-        System.out.println("\n-----------------------------------------------------------\n");
     }
 }
