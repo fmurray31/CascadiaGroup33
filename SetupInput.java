@@ -49,11 +49,11 @@ public class SetupInput {
     }
 
     //Printing and Displaying map of users, with user prompts
-    public void userPrompts(Player[] playerArray, int numUsers, HabitatTiles testHab) {
+    public void userPrompts(Player[] playerArray) {
         Scanner in = new Scanner(System.in);
         int i = 0;
 
-        while (i < numUsers) {
+        while (i < playerArray.length) {
             try {
                 System.out.println("\n\n-----------------------------------------------------------\n");
                 System.out.println("Player " + playerArray[i].getUserName() + "'s" + " Habitat:\n\n");
@@ -61,7 +61,7 @@ public class SetupInput {
                 //Put code to display player's habitat here
                 playerArray[i].printMap(playerArray[i]);
 
-                if (i == numUsers - 1) {
+                if (i == playerArray.length - 1) {
                     i++;
                     break;
                 }

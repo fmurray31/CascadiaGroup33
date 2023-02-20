@@ -1,13 +1,13 @@
 import java.util.Scanner;
 
 public class Cascadia {
-
     public static void main(String[] args) {
 
         SetupInput setupInput = new SetupInput();
         Score score = new Score();
         Tiles tiles = new Tiles();
         Player player;
+        Turn turn = new Turn();
 
         System.out.println("\t\t -------- Welcome to Cascadia --------\n\n");
 
@@ -28,20 +28,27 @@ public class Cascadia {
         score.setOrder(playerArray);
         score.printOrder(playerArray);
 
-        tiles.setupTiles();
+        //tiles.setupTiles();
 
         // Showing the central 4 tiles
-        tiles.drawCentralTiles();
+        //tiles.drawCentralTiles();
         //tiles.displayCentralTiles();
-
-        setupInput.userPrompts(playerArray, numUsers, testHab);
 
         // used for testing map printing function
         playerArray[0].addHabitatToMap(testHab, 1, 1);
         playerArray[0].addHabitatToMap(testHab, 0, 0);
         playerArray[0].addHabitatToMap(testHab, 1, 0);
         playerArray[0].addHabitatToMap(testHab, 0, 1);
-        playerArray[0].printRows(playerArray[0]);
+        //playerArray[0].printRows(playerArray[0]);
+
+        //setupInput.userPrompts(playerArray);
+
+        boolean gameEnd = false;
+        int turnCount = 0;
+        while (!gameEnd) {
+            turn.turnLoop(playerArray[turnCount % playerArray.length]);
+            turnCount++;
+        }
     }
 }
 

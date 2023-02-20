@@ -43,20 +43,8 @@ public class Tiles {
         }
     }
 
-    // Returns true if all animals in an array are the same, or false otherwise
-    private boolean autoCull (ArrayList<AnimalTiles> al) {
-        boolean allSame = true;
-        AnimalTiles first = al.get(0);
-        for (int i=1; i<al.size(); i++) {
-            if (!first.equals(al.get(i))) {
-                allSame = false;
-            }
-        }
-        return allSame;
-    }
-
     // Takes an arraylist of animal tiles and returns an array of two objects, the most common tile in the list and its count
-    private Object[] optionalCull (ArrayList<AnimalTiles> al) {
+    public Object[] optionalCull (ArrayList<AnimalTiles> al) {
         int maxCount = 0;
         int tempCount;
         AnimalTiles max = al.get(0);
@@ -82,6 +70,18 @@ public class Tiles {
         output[0] = max;
         output[1] = maxCount;
         return output;
+    }
+
+    // removes an animal tile from the central tiles, adds it to the total pool and shuffles the pool before drawing a new one
+    public void redrawAnimals (AnimalTiles animal) {
+        for (int i=0; i<4; i++) {
+            if (centralAnimals.get(i).equals(animal)) {
+                animalTiles.animalAL.add(centralAnimals.get(i));
+                animalTiles.shuffleAnimals();
+                centralAnimals.add(i, animalTiles.getAnimalAL().get(getAnimalTiles().size()));
+                animalTiles.getAnimalAL().remove(getAnimalTiles().size());
+            }
+        }
     }
 
     // displays the central four habitat and animal tiles

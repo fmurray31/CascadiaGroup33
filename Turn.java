@@ -1,24 +1,46 @@
 import java.util.Scanner;
 
 public class Turn {
-    private Tiles tiles;
+    private AnimalTiles animalTiles;
 
     // this class takes a player class as input, and contains the code and driver for a single player's turn
-    public void turn(Player player){
+    public void turnLoop(Player player){
         boolean endTurn = false;
+        Tiles tiles = new Tiles();
 
         Scanner in = new Scanner(System.in);
-        int input;
+        int input = 0;
 
         while (!endTurn) {
-            System.out.println("Current player: " + player);
-            System.out.println("");
+            System.out.println("Current player: " + player.getUserName());
+            System.out.println("\n" + player.getUserName() + "'s map: \n");
 
             player.printMap(player);
             System.out.println("\n\n-----------------------------------------------------------\n");
 
-            System.out.println("Central tiles:");
-            tiles.displayCentralTiles();
+            boolean cullFinish = false;
+            while (!cullFinish) {
+                if (tiles.centralAnimals == null) {
+                    tiles.setupTiles();
+                    tiles.drawCentralTiles();
+                }
+
+                tiles.displayCentralTiles();
+
+                Object maxTiles[];
+
+                maxTiles = tiles.optionalCull(tiles.getAnimalTiles());
+                if ((Integer)maxTiles[1]  == 4) {
+                    System.out.println("All animal tiles the same, initiating automatic cull");
+                    tiles.redrawAnimals((AnimalTiles) maxTiles[0]);
+                }
+
+                if ((Integer)maxTiles[1]  == 3) {
+                    System.out.println("Would you like to redraw all " + maxTiles[0].toString() + "?");
+
+                }
+                cullFinish = true;
+            }
 
             // taking player input for central tile choice and nature token use, with error handling
             boolean choice = false;
@@ -59,6 +81,27 @@ public class Turn {
                             break;
                     }
 
+                } catch (NumberFormatException e) {
+                    System.out.println("Value entered must be an integer, without spaces or punctuation");
+                }
+            }
+            choice = false;
+
+            while (!choice) {
+                player.printRows(player);
+                System.out.println("Enter the number of the row where you want to place your habitat tile:");
+
+                try {
+                    input = Integer.parseInt(in.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Value entered must be an integer, without spaces or punctuation");
+                }
+
+                player.printSingleRow(player, input);
+                System.out.println("Enter the number of the column where you want to place your habitat tile");
+
+                try {
+                    input = Integer.parseInt(in.nextLine());
                 } catch (NumberFormatException e) {
                     System.out.println("Value entered must be an integer, without spaces or punctuation");
                 }

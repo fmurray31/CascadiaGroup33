@@ -152,6 +152,8 @@ public class Player {
         return false;
     }
 
+    // prints a player's map with a number beside each row for player input
+    // TODO: 20/02/2023 add extra blank row on the top and bottom 
     public void printRows (Player player) {
         boolean first;
         int row = 1;
@@ -246,5 +248,63 @@ public class Player {
                 }
             }
         }
+    }
+
+    // TODO: 20/02/2023 broken, also needs to account for one extra column on each side 
+    public void printSingleRow (Player player, int row) {
+        int rowFind = 0;
+        int column = 0;
+
+        while (!rowCheck(player, rowFind)) {
+            rowFind++;
+        }
+        if (rowFind == maxMap) System.out.println("no valid rows to print");
+        
+        row += rowFind;
+
+        // print row + rowfind row
+        for (int i=0; i<=4; i++) {
+            for (int j=0; j<maxMap; j++) {
+                switch (i){
+                    case 0:
+                        System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getNorthWest()));
+                        System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getNorthWest()));
+                        System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getNorthEast()));
+                        System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getNorthEast()));
+                        break;
+                        
+                    case 1:
+                        System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getWest()));
+                        System.out.print(habitatTiles.animalToAscii(player.playerMap[row][j].getCreature1()));
+                        System.out.print(habitatTiles.animalToAscii(player.playerMap[row][j].getCreature2()));
+                        System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getEast()));
+                        break;
+                        
+                    case 2:
+                        System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getWest()));
+                        System.out.print(habitatTiles.animalToAscii(player.playerMap[row][j].getCreature3()));
+                        System.out.print("        ");
+                        System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getEast()));
+                        break;
+                        
+                    case 3:
+                        System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getSouthWest()));
+                        System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getSouthWest()));
+                        System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getSouthEast()));
+                        System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getSouthEast()));
+                        break;
+
+                    case 4:
+                        if (column < 10) {
+                            System.out.print("        " + column + "       " + "        " + "        ");
+                        } else {
+                            System.out.print("        " + column + "      " + "        " + "        ");
+                        }
+                        column++;
+                }
+            }
+        }
+
+        System.out.println("");
     }
 }

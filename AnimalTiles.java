@@ -9,7 +9,7 @@ public class AnimalTiles {
     public void animalSetup() {
         animalAL = new ArrayList<>();
         animalAL = generateAnimals(animalAL);
-        animalAL = shuffleAnimals(animalAL);
+        shuffleAnimals();
     }
 
     public ArrayList<AnimalTiles> getAnimalAL() {
@@ -41,9 +41,8 @@ public class AnimalTiles {
     }
 
     // shuffles the arraylist using collections
-    private ArrayList<AnimalTiles> shuffleAnimals(ArrayList<AnimalTiles> al) {
-        Collections.shuffle(al, new Random());
-        return al;
+    public void shuffleAnimals() {
+        Collections.shuffle(animalAL, new Random());
     }
 
 
