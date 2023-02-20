@@ -32,16 +32,16 @@ public class Cascadia {
 
         // Showing the central 4 tiles
         tiles.drawCentralTiles();
-        tiles.displayCentralTiles();
+        //tiles.displayCentralTiles();
 
         setupInput.userPrompts(playerArray, numUsers, testHab);
 
         // used for testing map printing function
-//        playerArray[0].addHabitatToMap(testHab, 1, 1);
-//        playerArray[0].addHabitatToMap(testHab, 0, 0);
-//        playerArray[0].addHabitatToMap(testHab, 1, 0);
-//        playerArray[0].addHabitatToMap(testHab, 0, 1);
-//        playerArray[0].printMap(playerArray[0]);
+        playerArray[0].addHabitatToMap(testHab, 1, 1);
+        playerArray[0].addHabitatToMap(testHab, 0, 0);
+        playerArray[0].addHabitatToMap(testHab, 1, 0);
+        playerArray[0].addHabitatToMap(testHab, 0, 1);
+        playerArray[0].printRows(playerArray[0]);
     }
 }
 

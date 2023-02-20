@@ -82,7 +82,7 @@ public class HabitatTiles {
         }
     }
 
-    // Method to rotate a habitat tile clockwise
+    // Method to rotate a habitat tile 60 degrees clockwise
     public void rotateTile(int rotations) {
         for (int i=0; i<rotations; i++) {
             String temp = this.northWest;

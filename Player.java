@@ -151,4 +151,100 @@ public class Player {
         }
         return false;
     }
+
+    public void printRows (Player player) {
+        boolean first;
+        int row = 1;
+        // rows
+        for (int i=0; i<maxMap; i++) {
+            // "lines" of each tile
+            for (int j=0; j<4; j++) {
+                // boolean to check if a tile is the first in a row to be printed
+                first = true;
+                // columns
+                for (int k=0; k<maxMap; k++) {
+                    if (rowCheck(player, i) && columnCheck(player, k)) {
+                        switch (j) {
+                            case 0:
+                                if (first) {
+                                    System.out.print("   | ");
+                                }
+
+                                // indents each line by one "side" on even rows
+                                if (i % 2==0 && first) {
+                                    System.out.print("                ");
+                                }
+                                first = false;
+
+                                System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getNorthWest()));
+                                System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getNorthWest()));
+                                System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getNorthEast()));
+                                System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getNorthEast()));
+                                break;
+
+                            case 1:
+                                // code to display row numbers, with support for integers > 9
+                                if (first) {
+                                    if (row >= 10) {
+                                        System.out.print(row + " | ");
+                                    } else {
+                                        System.out.print(row + "  | ");
+                                    }
+                                    row++;
+                                }
+
+                                if (i % 2==0 && first) {
+                                    System.out.print("                ");
+                                }
+                                first = false;
+
+                                System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getWest()));
+                                System.out.print(habitatTiles.animalToAscii(player.playerMap[i][k].getCreature1()));
+                                System.out.print(habitatTiles.animalToAscii(player.playerMap[i][k].getCreature2()));
+                                System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getEast()));
+                                break;
+
+                            case 2:
+                                if (first) {
+                                    System.out.print("   | ");
+                                }
+
+                                if (i % 2==0 && first) {
+                                    System.out.print("                ");
+                                }
+                                first = false;
+
+                                System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getWest()));
+                                System.out.print(habitatTiles.animalToAscii(player.playerMap[i][k].getCreature3()));
+                                System.out.print("        ");
+                                System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getEast()));
+                                break;
+
+                            case 3:
+                                if (first) {
+                                    System.out.print("   | ");
+                                }
+
+                                if (i % 2==0 && first) {
+                                    System.out.print("                ");
+                                }
+                                first = false;
+
+                                System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getSouthWest()));
+                                System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getSouthWest()));
+                                System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getSouthEast()));
+                                System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getSouthEast()));
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+                }
+                if (futureRowCheck(player, i)){
+                    System.out.println("");
+                }
+            }
+        }
+    }
 }

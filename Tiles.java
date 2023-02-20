@@ -43,6 +43,47 @@ public class Tiles {
         }
     }
 
+    // Returns true if all animals in an array are the same, or false otherwise
+    private boolean autoCull (ArrayList<AnimalTiles> al) {
+        boolean allSame = true;
+        AnimalTiles first = al.get(0);
+        for (int i=1; i<al.size(); i++) {
+            if (!first.equals(al.get(i))) {
+                allSame = false;
+            }
+        }
+        return allSame;
+    }
+
+    // Takes an arraylist of animal tiles and returns an array of two objects, the most common tile in the list and its count
+    private Object[] optionalCull (ArrayList<AnimalTiles> al) {
+        int maxCount = 0;
+        int tempCount;
+        AnimalTiles max = al.get(0);
+        AnimalTiles temp;
+
+       for (int i=0; i<al.size(); i++) {
+           temp = al.get(i);
+           tempCount = 0;
+
+           for (int j=0; j<al.size(); j++) {
+               if (al.get(j).equals(temp)) {
+                   tempCount++;
+               }
+           }
+
+           if (tempCount>maxCount) {
+               max = temp;
+               maxCount = tempCount;
+           }
+       }
+
+        Object output[] = new Object[2];
+        output[0] = max;
+        output[1] = maxCount;
+        return output;
+    }
+
     // displays the central four habitat and animal tiles
     public void displayCentralTiles() {
         boolean first = true;
