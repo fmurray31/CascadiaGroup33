@@ -59,6 +59,8 @@ public class SetupInput {
                 System.out.println("Player " + playerArray[i].getUserName() + "'s" + " Habitat:\n\n");
 
                 //Put code to display player's habitat here
+
+                
                 playerArray[i].printMap(playerArray[i]);
 
                 if (i == playerArray.length - 1) {
