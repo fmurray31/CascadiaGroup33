@@ -36,14 +36,29 @@ public class Turn {
                 }
 
                 if ((Integer)maxTiles[1]  == 3) {
+                    while (input != 2)
                     System.out.println("Would you like to redraw all " + maxTiles[0].toString() + "?");
+                    System.out.println("Enter 1 for yes, 2 for no: ");
+                    try {
+                        input = Integer.parseInt(in.nextLine());
 
+                        if (input == 1) {
+                            tiles.redrawAnimals((AnimalTiles) maxTiles[0]);
+                            input = 2;
+                        }
+                        if (input != 1 && input != 2) {
+                            System.out.println("Value entered was neither 1 nor 2");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Value entered must be an integer, without spaces or punctuation");
+                    }
                 }
                 cullFinish = true;
             }
 
             // taking player input for central tile choice and nature token use, with error handling
             boolean choice = false;
+            int centralChoice = 0;
             while (!choice) {
                 System.out.println("Enter 1, 2, 3 or 4 to choose a habitat tile and animal tile combination from the central pool. Enter 5 to use a nature token.");
 
@@ -53,21 +68,25 @@ public class Turn {
                     switch (input){
                         case 1:
                             System.out.println("choice 1");
+                            centralChoice = 1;
                             choice = true;
                             break;
 
                         case 2:
                             System.out.println("choice 2");
+                            centralChoice = 2;
                             choice = true;
                             break;
 
                         case 3:
                             System.out.println("choice 3");
+                            centralChoice = 3;
                             choice = true;
                             break;
 
                         case 4:
                             System.out.println("choice 4");
+                            centralChoice = 4;
                             choice = true;
                             break;
 
@@ -88,11 +107,14 @@ public class Turn {
             choice = false;
 
             while (!choice) {
+                int row = 0;
+                int column = 0;
                 player.printRows(player);
                 System.out.println("Enter the number of the row where you want to place your habitat tile:");
 
                 try {
                     input = Integer.parseInt(in.nextLine());
+                    row = input;
                 } catch (NumberFormatException e) {
                     System.out.println("Value entered must be an integer, without spaces or punctuation");
                 }
@@ -102,10 +124,20 @@ public class Turn {
 
                 try {
                     input = Integer.parseInt(in.nextLine());
+                    column = input;
                 } catch (NumberFormatException e) {
                     System.out.println("Value entered must be an integer, without spaces or punctuation");
                 }
+
+                if (player.getPlayerMap()[row][column].getNorthWest() != "blank") {
+                    System.out.println("Can only add habitat tiles to a blank spot in your map");
+                } else {
+                    player.addNewHabitat(tiles.centralHabitats.get(centralChoice), row, column);
+                    player.printMap(player);
+                    choice = true;
+                }
             }
+            endTurn = true;
         }
     }
 }

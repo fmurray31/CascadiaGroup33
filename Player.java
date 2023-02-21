@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Player {
     private String userName;
     private int score;
@@ -16,6 +18,10 @@ public class Player {
                 playerMap[i][j] = new HabitatTiles("blank","blank","blank","blank","blank","blank","","","");
             }
         }
+    }
+
+    public HabitatTiles[][] getPlayerMap() {
+        return playerMap;
     }
 
     // method which prints a single habitat tile from a player's map, used for testing
@@ -49,9 +55,30 @@ public class Player {
         this.playerMap[x][y] = habitatTile;
     }
 
+    // distinct from the above method, as it integrates with user input, but does not work with an empty array
+    public void addNewHabitat(HabitatTiles habitatTile, int x, int y) {
+        int row = 0;
+        int column = 0;
+
+        while (!rowCheck(this, row+1)) {
+            row++;
+        }
+
+        while (!columnCheck(this, column+1)) {
+            column++;
+        }
+
+        x += row-1;
+        y+= column-1;
+
+        this.playerMap[x][y] = habitatTile;
+    }
+
     // prints a players map of habitat tiles (WIP)
     public void printMap (Player player) {
         boolean first;
+
+        boolean hasReachedLine = false;
         // rows
         for (int i=0; i<maxMap; i++) {
             // "lines" of each tile
@@ -61,6 +88,7 @@ public class Player {
                 // columns
                 for (int k=0; k<maxMap; k++) {
                     if (rowCheck(player, i) && columnCheck(player, k)) {
+                        hasReachedLine = true;
                     switch (j) {
                         case 0:
                             // indents each line by one "side" on even rows
@@ -116,7 +144,7 @@ public class Player {
                         }
                     }
                 }
-                if (futureRowCheck(player, i)){
+                if (futureRowCheck(player, i) && hasReachedLine){
                     System.out.println("");
                 }
             }
@@ -153,19 +181,21 @@ public class Player {
     }
 
     // prints a player's map with a number beside each row for player input
-    // TODO: 20/02/2023 add extra blank row on the top and bottom 
     public void printRows (Player player) {
         boolean first;
+
+        boolean hasReachedLine = false;
         int row = 1;
         // rows
-        for (int i=0; i<maxMap; i++) {
+        for (int i=1; i<maxMap-1; i++) {
             // "lines" of each tile
             for (int j=0; j<4; j++) {
                 // boolean to check if a tile is the first in a row to be printed
                 first = true;
                 // columns
                 for (int k=0; k<maxMap; k++) {
-                    if (rowCheck(player, i) && columnCheck(player, k)) {
+                    if ((columnCheck(player, k)) && (((rowCheck(player, i)) || (rowCheck(player, i-1)) || (rowCheck(player, i+1))))) {
+                        hasReachedLine = true;
                         switch (j) {
                             case 0:
                                 if (first) {
@@ -243,7 +273,7 @@ public class Player {
                         }
                     }
                 }
-                if (futureRowCheck(player, i)){
+                if ((hasReachedLine) && (futureRowCheck(player, i) || futureRowCheck(player, i-1))){
                     System.out.println("");
                 }
             }
@@ -253,18 +283,19 @@ public class Player {
     // TODO: 20/02/2023 broken, also needs to account for one extra column on each side 
     public void printSingleRow (Player player, int row) {
         int rowFind = 0;
-        int column = 0;
+        int column = 1;
 
         while (!rowCheck(player, rowFind)) {
             rowFind++;
         }
-        if (rowFind == maxMap) System.out.println("no valid rows to print");
+        if (rowFind == maxMap) System.out.println("No valid rows to print");
         
-        row += rowFind;
+        row += rowFind - 2;
 
         // print row + rowfind row
         for (int i=0; i<=4; i++) {
-            for (int j=0; j<maxMap; j++) {
+            for (int j=1; j<maxMap-1; j++) {
+                if (columnCheck(player, j) || columnCheck(player, j-1) || columnCheck(player, j+1))
                 switch (i){
                     case 0:
                         System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getNorthWest()));
@@ -303,8 +334,7 @@ public class Player {
                         column++;
                 }
             }
+            System.out.println("");
         }
-
-        System.out.println("");
     }
 }
