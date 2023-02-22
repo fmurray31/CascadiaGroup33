@@ -118,6 +118,8 @@ public class Turn {
                 player.printRows(player);
                 System.out.println("Enter the number of the row where you want to place your habitat tile:");
 
+                // TODO: 22/02/2023 print tile and offer rotation
+
                 try {
                     input = Integer.parseInt(in.nextLine());
                     habRow = player.rowConversion(player, input);
