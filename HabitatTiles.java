@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class HabitatTiles {
     private String northWest, northEast, west, east, southWest, southEast;
+    private boolean occupied;
 
     private String creature1, creature2, creature3;
     ArrayList<HabitatTiles> habitatArray;
@@ -29,6 +30,7 @@ public class HabitatTiles {
         this.creature1 = creature1;
         this.creature2 = creature2;
         this.creature3 = creature3;
+        this.occupied = false;
     }
 
     // Method that converts each tile type into a coloured ascii representation of the tile
@@ -175,6 +177,22 @@ public class HabitatTiles {
         return creature3;
     }
 
+    public void setCreature1(String creature1) {
+        this.creature1 = creature1;
+    }
+
+    public void setCreature2(String creature2) {
+        this.creature2 = creature2;
+    }
+
+    public void setCreature3(String creature3) {
+        this.creature3 = creature3;
+    }
+
+    public void toggleOccupied() {
+        this.occupied = !this.occupied;
+    }
+
     // returns true if the passed habitat coordinate is blank
     public boolean isBlankHabitat(Player player, int row, int column) {
         return (player.getPlayerMap()[row][column].getNorthWest().equals("blank"));
@@ -182,8 +200,20 @@ public class HabitatTiles {
 
     // returns true if all 6 tiles surrounding the given tile coordinates are blank
     public boolean isIsolated(Player player, int row, int column) {
-        return isBlankHabitat(player, row+1, column) && isBlankHabitat(player, row-1, column) &&
-                isBlankHabitat(player, row, column+1) && isBlankHabitat(player, row+1, column+1) &&
-                isBlankHabitat(player, row-1, column) && isBlankHabitat(player, row-1, column+1);
+        boolean output;
+        output = isBlankHabitat(player, row, column+1) && isBlankHabitat(player, row, column-1);
+        output = output && isBlankHabitat(player, row+1, column) && isBlankHabitat(player, row-1, column);
+
+        if (row%2 == 0) {
+            output = output && isBlankHabitat(player, row+1, column+1) && isBlankHabitat(player, row-1, column+1);
+        } else {
+            output = output && isBlankHabitat(player, row+1, column-1) && isBlankHabitat(player, row-1, column-1);
+        }
+        return output;
+    }
+
+    // returns occupied status of a habitat tile
+    public boolean isOccupied () {
+        return this.occupied;
     }
 }
