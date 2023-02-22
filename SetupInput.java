@@ -57,6 +57,7 @@ public class SetupInput {
     }
 
     //Printing and Displaying map of users, with user prompts
+    /*
     public void userPrompts(Player[] playerArray) {
         Scanner in = new Scanner(System.in);
         int i = 0;
@@ -99,4 +100,6 @@ public class SetupInput {
             }
         }
     }
+
+     */
 }
