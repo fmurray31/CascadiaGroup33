@@ -103,8 +103,8 @@ public class HabitatTiles {
         ArrayList<HabitatTiles> output = new ArrayList<>();
 
         //5 Habitat
-        for (int i=0; i<5; i++) {
-            for (int j=0; j<5; j++) {
+        for (int i = 1; i <= 5; i++) {
+            for (int j = i; j <= 5; j++) {
                 output.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", generateHabitatHelper(j), "", ""));
                 output.add(new HabitatTiles("wetland", "wetland", "wetland", "wetland", "wetland", "wetland", generateHabitatHelper(j), "", ""));
                 output.add(new HabitatTiles("river", "river", "river", "river", "river", "river", generateHabitatHelper(j), "", ""));
@@ -152,7 +152,7 @@ public class HabitatTiles {
 
     // helper function to turn an int into an animal string, populates habitats with animals, needs adding to
     private String generateHabitatHelper(int num) {
-        switch (num+1) {
+        switch (num) {
             case 1: return "hawk";
             case 2: return "bear";
             case 3: return "elk";
