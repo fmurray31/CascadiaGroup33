@@ -8,7 +8,6 @@ public class StarterHabitat{
     ArrayList<HabitatTiles> StarterHabitat4 = new ArrayList<>();
     ArrayList<HabitatTiles> StarterHabitat5 = new ArrayList<>();
 
-
    {
         StarterHabitat1.add(new HabitatTiles("wetland", "wetland", "wetland", "wetland", "wetland", "wetland", "hawk", "", ""));
         StarterHabitat1.add(new HabitatTiles("river", "river", "river", "forest", "forest", "forest", "salmon", "elk", "hawk"));
@@ -30,5 +29,4 @@ public class StarterHabitat{
         StarterHabitat5.add(new HabitatTiles("wetland", "wetland", "wetland", "river", "river", "river", "salmon", "hawk", "fox"));
         StarterHabitat5.add(new HabitatTiles("forest", "forest", "mountain", "forest", "mountain", "mountain", "bear", "elk", ""));
     }
-
 }

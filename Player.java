@@ -8,6 +8,7 @@ public class Player {
     private int maxMap = 50;
     HabitatTiles habitatTiles = new HabitatTiles("blank","blank","blank","blank","blank","blank","","","");
 
+    // constructor that creates a player class using a name, and initialising a map of blank habitats and a score of 0
     public Player(String userName) {
         this.userName = userName;
         score = 0;
@@ -56,25 +57,25 @@ public class Player {
     }
 
     // distinct from the above method, as it integrates with user input, but does not work with an empty array
-    public void addNewHabitat(HabitatTiles habitatTile, int x, int y) {
-        int row = 0;
-        int column = 0;
+//    public void addNewHabitat(HabitatTiles habitatTile, int x, int y) {
+//        int row = 0;
+//        int column = 0;
+//
+//        while (!rowCheck(this, row+1)) {
+//            row++;
+//        }
+//
+//        while (!columnCheck(this, column+1)) {
+//            column++;
+//        }
+//
+//        x += row-1;
+//        y+= column-1;
+//
+//        this.playerMap[x][y] = habitatTile;
+//    }
 
-        while (!rowCheck(this, row+1)) {
-            row++;
-        }
-
-        while (!columnCheck(this, column+1)) {
-            column++;
-        }
-
-        x += row-1;
-        y+= column-1;
-
-        this.playerMap[x][y] = habitatTile;
-    }
-
-    // prints a players map of habitat tiles (WIP)
+    // prints a players map of habitat tiles
     public void printMap (Player player) {
         boolean first;
 
@@ -280,17 +281,11 @@ public class Player {
         }
     }
 
-    // TODO: 20/02/2023 broken, also needs to account for one extra column on each side 
+    // prints a single row, specified by player input, with a number under each column
     public void printSingleRow (Player player, int row) {
-        int rowFind = 0;
         int column = 1;
 
-        while (!rowCheck(player, rowFind)) {
-            rowFind++;
-        }
-        if (rowFind == maxMap) System.out.println("No valid rows to print");
-        
-        row += rowFind - 2;
+        //row = rowConversion(player, row);
 
         // print row + rowfind row
         for (int i=0; i<=4; i++) {
@@ -336,5 +331,29 @@ public class Player {
             }
             System.out.println("");
         }
+    }
+
+    // Takes the row number provided by a user, and converts it to the correct tile coordinate
+    public int rowConversion(Player player, int row) {
+        int rowFind = 0;
+
+        while (!rowCheck(player, rowFind)) {
+            rowFind++;
+        }
+        if (rowFind == maxMap) System.out.println("No valid rows found by rowConversion for input row:" + row);
+
+        return row + rowFind - 2;
+    }
+
+    // Takes the column number provided by a user, and converts it to the correct tile coordinate
+    public int columnConversion(Player player, int column) {
+        int columnFind = 0;
+
+        while (!columnCheck(player, columnFind)) {
+            columnFind++;
+        }
+        if (columnFind == maxMap) System.out.println("No valid columns found by rowConversion for input column:" + column);
+
+        return column + columnFind - 2;
     }
 }

@@ -1,7 +1,15 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SetupInput {
+    // Takes the three habitat tiles from a starter habitat and assigns them to a player's map
+    public void addStarterHabitats(ArrayList<HabitatTiles> habAL, Player player) {
+        player.addHabitatToMap(habAL.get(0), 25, 25);
+        player.addHabitatToMap(habAL.get(1), 26, 24);
+        player.addHabitatToMap(habAL.get(2), 26, 25);
+    }
 
+    // Takes user input for the number of players, with error handling
     public int numPlayer() {
         int numUsers = 0;
         Scanner in = new Scanner(System.in);

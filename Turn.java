@@ -1,12 +1,14 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Turn {
     private AnimalTiles animalTiles;
+    Tiles tiles = new Tiles();
 
     // this class takes a player class as input, and contains the code and driver for a single player's turn
     public void turnLoop(Player player){
         boolean endTurn = false;
-        Tiles tiles = new Tiles();
+
 
         Scanner in = new Scanner(System.in);
         int input = 0;
@@ -129,10 +131,15 @@ public class Turn {
                     System.out.println("Value entered must be an integer, without spaces or punctuation");
                 }
 
-                if (player.getPlayerMap()[row][column].getNorthWest() != "blank") {
+                row = player.rowConversion(player, row);
+                column = player.columnConversion(player, column);
+
+                if (!player.habitatTiles.isBlankHabitat(player, row, column)) {
                     System.out.println("Can only add habitat tiles to a blank spot in your map");
+                }  else if (player.habitatTiles.isIsolated(player, row, column)) {
+                    System.out.println("Newly placed tiles must be adjacent to current map");
                 } else {
-                    player.addNewHabitat(tiles.centralHabitats.get(centralChoice), row, column);
+                    player.addHabitatToMap(tiles.centralHabitats.get(centralChoice), row, column);
                     player.printMap(player);
                     choice = true;
                 }

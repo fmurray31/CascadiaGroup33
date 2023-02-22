@@ -11,6 +11,7 @@ public class Tiles {
     ArrayList<AnimalTiles> centralAnimals;
 
 
+    // sets up arraylists of both animal and habitat tiles
     public void setupTiles() {
         animalTiles.animalSetup();
         habitatTiles.habitatSetup();

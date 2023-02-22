@@ -174,4 +174,16 @@ public class HabitatTiles {
     public String getCreature3() {
         return creature3;
     }
+
+    // returns true if the passed habitat coordinate is blank
+    public boolean isBlankHabitat(Player player, int row, int column) {
+        return (player.getPlayerMap()[row][column].getNorthWest().equals("blank"));
+    }
+
+    // returns true if all 6 tiles surrounding the given tile coordinates are blank
+    public boolean isIsolated(Player player, int row, int column) {
+        return isBlankHabitat(player, row+1, column) && isBlankHabitat(player, row-1, column) &&
+                isBlankHabitat(player, row, column+1) && isBlankHabitat(player, row+1, column+1) &&
+                isBlankHabitat(player, row-1, column) && isBlankHabitat(player, row-1, column+1);
+    }
 }
