@@ -5,7 +5,7 @@ public class Player {
     private int score;
     private HabitatTiles[][] playerMap;
     // Integer value which stores the maximum map size
-    private int maxMap = 50;
+    private int maxMap = 55;
     HabitatTiles habitatTiles = new HabitatTiles("blank","blank","blank","blank","blank","blank","","","");
 
     // constructor that creates a player class using a name, and initialising a map of blank habitats and a score of 0
@@ -19,6 +19,10 @@ public class Player {
                 playerMap[i][j] = new HabitatTiles("blank","blank","blank","blank","blank","blank","","","");
             }
         }
+    }
+
+    public int getMaxMap() {
+        return maxMap;
     }
 
     public HabitatTiles[][] getPlayerMap() {
@@ -52,28 +56,9 @@ public class Player {
     }
 
     // Overwrites a tile in a player's map with a new habitat
-    public void addHabitatToMap(HabitatTiles habitatTile, int x, int y) {
-        this.playerMap[x][y] = habitatTile;
+    public void addHabitatToMap(HabitatTiles habitatTile, int row, int column) {
+        this.playerMap[row][column] = habitatTile;
     }
-
-    // distinct from the above method, as it integrates with user input, but does not work with an empty array
-//    public void addNewHabitat(HabitatTiles habitatTile, int x, int y) {
-//        int row = 0;
-//        int column = 0;
-//
-//        while (!rowCheck(this, row+1)) {
-//            row++;
-//        }
-//
-//        while (!columnCheck(this, column+1)) {
-//            column++;
-//        }
-//
-//        x += row-1;
-//        y+= column-1;
-//
-//        this.playerMap[x][y] = habitatTile;
-//    }
 
     // prints a players map of habitat tiles
     public void printMap (Player player) {

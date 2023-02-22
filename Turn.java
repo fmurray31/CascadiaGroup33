@@ -163,21 +163,61 @@ public class Turn {
             // loop for placing animal tiles
             choice = false;
             while (!choice) {
+                boolean mistake = false;
                 int aniRow = 0;
                 int aniColumn = 0;
+                String tempAnimal = player.habitatTiles.animalToAscii(tiles.centralAnimals.get(centralChoice-1).toString());
 
-                System.out.println("Choose a habitat to place " + player.habitatTiles.animalToAscii(tiles.centralAnimals.get(centralChoice-1).toString()) + "\n");
+                System.out.println("Choose a habitat to place " + tempAnimal + "\n");
 
+                player.printRows(player);
                 System.out.println("Enter the number of the row where you want to place your animal tile:");
 
                 try {
                     input = Integer.parseInt(in.nextLine());
                     aniRow = player.rowConversion(player, input);
+                    if (aniRow > player.getMaxMap()-5 || aniRow < 0) {
+                        System.out.println("Attempted to input an out of bounds location, please try again");
+                        mistake = true;
+                    }
                 } catch (NumberFormatException e) {
                     System.out.println("Value entered must be an integer, without spaces or punctuation");
                 }
 
-                choice = true;
+                if (!mistake) {
+                    player.printSingleRow(player, aniRow);
+                    System.out.println("Enter the number of the column where you want to place " + tempAnimal);
+                    try {
+                        input = Integer.parseInt(in.nextLine());
+                        aniColumn = player.columnConversion(player, input);
+                        if (aniColumn > player.getMaxMap()-5 || aniColumn < 0) {
+                            System.out.println("Attempted to input an out of bounds location, please try again");
+                            mistake = true;
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Value entered must be an integer, without spaces or punctuation");
+                    }
+
+                    if (!mistake) {
+                        HabitatTiles tempHab = player.getPlayerMap()[aniRow][aniColumn];
+
+                        if (player.habitatTiles.isBlankHabitat(player, aniRow, aniColumn)) {
+                            System.out.println("Can only add animal tiles to an existing habitat");
+                            mistake = true;
+                        } else if (tempHab.isOccupied()) {
+                            System.out.println("This tile is already occupied by another animal");
+                            mistake = true;
+                        } else if (!tiles.suitableForAnimal(tempHab, tiles.centralAnimals.get(centralChoice-1))) {
+                            System.out.println("This tile is not suitable for " + tempAnimal);
+                            mistake = true;
+                        } else {
+                            tiles.placeAnimal(tempHab, tiles.centralAnimals.get(centralChoice-1));
+                        }
+                    }
+                }
+                if (!mistake) {
+                    choice = true;
+                }
             }
             endTurn = true;
         }

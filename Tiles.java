@@ -132,4 +132,17 @@ public class Tiles {
             System.out.println("");
         }
     }
+
+    // returns true if a habitat has a spot for an animal
+    public boolean suitableForAnimal(HabitatTiles habTile, AnimalTiles aniTile) {
+        return habTile.getCreature1().equals(aniTile.toString().toLowerCase()) || habTile.getCreature2().equals(aniTile.toString().toLowerCase()) || habTile.getCreature3().equals(aniTile.toString().toLowerCase());
+    }
+
+    // places an animal on a habitat
+    public void placeAnimal(HabitatTiles habTile, AnimalTiles aniTile) {
+        habTile.setCreature1(aniTile.toString());
+        habTile.setCreature2("");
+        habTile.setCreature3("");
+        habTile.toggleOccupied();
+    }
 }
