@@ -99,6 +99,8 @@ public class HabitatTiles {
     // TODO: 11/02/2023 only generates keystones, with only one animal per tile, needs to be fixed
     private ArrayList<HabitatTiles> generateHabitats() {
         ArrayList<HabitatTiles> output = new ArrayList<>();
+
+        //5 Habitat
         for (int i=0; i<5; i++) {
             for (int j=0; j<5; j++) {
                 output.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", generateHabitatHelper(j), "", ""));
@@ -108,6 +110,41 @@ public class HabitatTiles {
                 output.add(new HabitatTiles("prairie", "prairie", "prairie", "prairie", "prairie", "prairie", generateHabitatHelper(j), "", ""));
             }
         }
+
+        //Combination tiles with 2 animals
+        for (int i = 1; i <= 5; i++) {
+            for(int j = i + 1; j <= 5; j++) {
+                output.add(new HabitatTiles("forest", "forest", "forest", "wetland", "wetland", "wetland", generateHabitatHelper(i), generateHabitatHelper(j), ""));
+                output.add(new HabitatTiles("forest", "forest", "forest", "river", "river", "river", generateHabitatHelper(i), generateHabitatHelper(j), ""));
+                output.add(new HabitatTiles("forest", "forest", "forest", "mountain", "mountain", "mountain", generateHabitatHelper(i), generateHabitatHelper(j), ""));
+                output.add(new HabitatTiles("forest", "forest", "forest", "prairie", "prairie", "prairie", generateHabitatHelper(i), generateHabitatHelper(j), ""));
+                output.add(new HabitatTiles("river", "river", "river", "wetland", "wetland", "wetland", generateHabitatHelper(i), generateHabitatHelper(j), ""));
+                output.add(new HabitatTiles("river", "river", "river", "mountain", "mountain", "mountain", generateHabitatHelper(i), generateHabitatHelper(j), ""));
+                output.add(new HabitatTiles("river", "river", "river", "prairie", "prairie", "prairie", generateHabitatHelper(i), generateHabitatHelper(j), ""));
+                output.add(new HabitatTiles("wetland", "wetland", "wetland", "mountain", "mountain", "mountain", generateHabitatHelper(i), generateHabitatHelper(j), ""));
+                output.add(new HabitatTiles("wetland", "wetland", "wetland", "prairie", "prairie", "prairie", generateHabitatHelper(i), generateHabitatHelper(j), ""));
+                output.add(new HabitatTiles("mountain", "mountain", "mountain", "prairie", "prairie", "prairie", generateHabitatHelper(i), generateHabitatHelper(j), ""));
+            }
+        }
+
+        //Combination tiles with 3 animals
+        for (int i = 1; i <= 5; i++) {
+            for(int j = i + 1; j <= 5; j++) {
+                for(int k = j + 1; k <= 5; k++) {
+                    output.add(new HabitatTiles("forest", "forest", "forest", "wetland", "wetland", "wetland", generateHabitatHelper(i), generateHabitatHelper(j), generateHabitatHelper(k)));
+                    output.add(new HabitatTiles("forest", "forest", "forest", "river", "river", "river", generateHabitatHelper(i), generateHabitatHelper(j), generateHabitatHelper(k)));
+                    output.add(new HabitatTiles("forest", "forest", "forest", "mountain", "mountain", "mountain", generateHabitatHelper(i), generateHabitatHelper(j), generateHabitatHelper(k)));
+                    output.add(new HabitatTiles("forest", "forest", "forest", "prairie", "prairie", "prairie", generateHabitatHelper(i), generateHabitatHelper(j), generateHabitatHelper(k)));
+                    output.add(new HabitatTiles("river", "river", "river", "wetland", "wetland", "wetland", generateHabitatHelper(i), generateHabitatHelper(j), generateHabitatHelper(k)));
+                    output.add(new HabitatTiles("river", "river", "river", "mountain", "mountain", "mountain", generateHabitatHelper(i), generateHabitatHelper(j), generateHabitatHelper(k)));
+                    output.add(new HabitatTiles("river", "river", "river", "prairie", "prairie", "prairie", generateHabitatHelper(i), generateHabitatHelper(j), generateHabitatHelper(k)));
+                    output.add(new HabitatTiles("wetland", "wetland", "wetland", "mountain", "mountain", "mountain", generateHabitatHelper(i), generateHabitatHelper(j), generateHabitatHelper(k)));
+                    output.add(new HabitatTiles("wetland", "wetland", "wetland", "prairie", "prairie", "prairie", generateHabitatHelper(i), generateHabitatHelper(j), generateHabitatHelper(k)));
+                    output.add(new HabitatTiles("mountain", "mountain", "mountain", "prairie", "prairie", "prairie", generateHabitatHelper(i), generateHabitatHelper(j), generateHabitatHelper(k)));
+                }
+            }
+        }
+        
         return output;
     }
 
