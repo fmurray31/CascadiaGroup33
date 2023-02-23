@@ -12,9 +12,9 @@ public class Tiles {
 
 
     // sets up arraylists of both animal and habitat tiles
-    public void setupTiles() {
+    public void setupTiles(int playerCount) {
         animalTiles.animalSetup();
-        habitatTiles.habitatSetup();
+        habitatTiles.habitatSetup(playerCount);
     }
 
     public ArrayList<HabitatTiles> getHabitatTiles() {
@@ -110,7 +110,7 @@ public class Tiles {
                         System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getWest()));
                         System.out.print(habitatTiles.animalToAscii(centralHabitats.get(i).getCreature3()));
                         System.out.print("        ");
-                        System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getWest()) + " ");
+                        System.out.print(habitatTiles.terrainToAscii(centralHabitats.get(i).getEast()) + " ");
                         break;
 
                     case 3:

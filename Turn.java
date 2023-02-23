@@ -6,7 +6,7 @@ public class Turn {
     Tiles tiles = new Tiles();
 
     // this class takes a player class as input, and contains the code and driver for a single player's turn
-    public void turnLoop(Player player){
+    public void turnLoop(Player player, int playerCount){
         boolean endTurn = false;
 
 
@@ -15,6 +15,7 @@ public class Turn {
 
         while (!endTurn) {
             System.out.println("Current player: " + player.getUserName());
+            System.out.println(player.getUserName() + "'s nature token count is: " + player.getNatureTokens());
             System.out.println("\n" + player.getUserName() + "'s map: \n");
 
             player.printMap(player);
@@ -24,7 +25,8 @@ public class Turn {
             boolean cullFinish = false;
             while (!cullFinish) {
                 if (tiles.centralAnimals == null) {
-                    tiles.setupTiles();
+                    ;
+                    tiles.setupTiles(playerCount);
                     tiles.drawCentralTiles();
                 }
 
@@ -62,7 +64,7 @@ public class Turn {
 
             // taking player input for central tile choice and nature token use, with error handling
             boolean choice = false;
-            int centralChoice = 0;
+            int centralChoice = -1;
             while (!choice) {
                 System.out.println("Enter 1, 2, 3 or 4 to choose a habitat tile and animal tile combination from the central pool. Enter 5 to use a nature token.");
 
@@ -72,25 +74,25 @@ public class Turn {
                     switch (input){
                         case 1:
                             System.out.println("choice 1");
-                            centralChoice = 1;
+                            centralChoice = 0;
                             choice = true;
                             break;
 
                         case 2:
                             System.out.println("choice 2");
-                            centralChoice = 2;
+                            centralChoice = 1;
                             choice = true;
                             break;
 
                         case 3:
                             System.out.println("choice 3");
-                            centralChoice = 3;
+                            centralChoice = 2;
                             choice = true;
                             break;
 
                         case 4:
                             System.out.println("choice 4");
-                            centralChoice = 4;
+                            centralChoice = 3;
                             choice = true;
                             break;
 
@@ -115,10 +117,38 @@ public class Turn {
                 boolean mistake = false;
                 int habRow = 0;
                 int habColumn = 0;
+                player.printMap(player);
+
+                // Loop for rotating a tile before placing
+                boolean rotateDone = false;
+                while (!rotateDone){
+                    System.out.println("This is your current tile: \n" + tiles.centralHabitats.get(centralChoice).toString());
+                    System.out.println("Would you like to rotate this tile? Enter 1 for yes, 2 for no");
+                    try {
+                        input = Integer.parseInt(in.nextLine());
+
+                        if (input == 1) {
+                            System.out.println("Enter the number of rotations you want to apply. Each rotation is 60 degrees clockwise, or one side of the hex tile");
+                            input = Integer.parseInt(in.nextLine());
+                            if (input < 1) {
+                                System.out.println("Must rotate at least one time");
+                            } else {
+                                tiles.centralHabitats.get(centralChoice).rotateTile(input);
+                            }
+                        } else if (input == 2) {
+                            rotateDone = true;
+                        } else {
+                            System.out.println("Value entered was neither 1 nor 2");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Value entered must be an integer, without spaces or punctuation");
+                    }
+
+
+                }
+
                 player.printRows(player);
                 System.out.println("Enter the number of the row where you want to place your habitat tile:");
-
-                // TODO: 22/02/2023 print tile and offer rotation
 
                 try {
                     input = Integer.parseInt(in.nextLine());
@@ -152,7 +182,7 @@ public class Turn {
                         }  else if (player.habitatTiles.isIsolated(player, habRow, habColumn)) {
                             System.out.println("Newly placed tiles must be adjacent to current map");
                         } else {
-                            player.addHabitatToMap(tiles.centralHabitats.get(centralChoice-1), habRow, habColumn);
+                            player.addHabitatToMap(tiles.centralHabitats.get(centralChoice), habRow, habColumn);
                             player.printMap(player);
                             choice = true;
                         }
@@ -168,7 +198,7 @@ public class Turn {
                 boolean mistake = false;
                 int aniRow = 0;
                 int aniColumn = 0;
-                String tempAnimal = player.habitatTiles.animalToAscii(tiles.centralAnimals.get(centralChoice-1).toString());
+                String tempAnimal = player.habitatTiles.animalToAscii(tiles.centralAnimals.get(centralChoice).toString());
 
                 System.out.println("Choose a habitat to place " + tempAnimal + "\n");
 
@@ -209,11 +239,15 @@ public class Turn {
                         } else if (tempHab.isOccupied()) {
                             System.out.println("This tile is already occupied by another animal");
                             mistake = true;
-                        } else if (!tiles.suitableForAnimal(tempHab, tiles.centralAnimals.get(centralChoice-1))) {
+                        } else if (!tiles.suitableForAnimal(tempHab, tiles.centralAnimals.get(centralChoice))) {
                             System.out.println("This tile is not suitable for " + tempAnimal);
                             mistake = true;
                         } else {
-                            tiles.placeAnimal(tempHab, tiles.centralAnimals.get(centralChoice-1));
+                            tiles.placeAnimal(tempHab, tiles.centralAnimals.get(centralChoice));
+                            if (tempHab.isKeystone()) {
+                                player.addNatureToken();
+                                System.out.println("Nature token added!");
+                            }
                         }
                     }
                 }

@@ -9,10 +9,20 @@ public class HabitatTiles {
     private String creature1, creature2, creature3;
     ArrayList<HabitatTiles> habitatArray;
 
-    public void habitatSetup() {
+    public void habitatSetup(int playerCount) {
         habitatArray = new ArrayList<>();
         habitatArray = generateHabitats();
         shuffleHabitats(habitatArray);
+        habitatArray = drawHabitats(habitatArray, playerCount);
+    }
+
+    private ArrayList<HabitatTiles> drawHabitats (ArrayList<HabitatTiles> habArr, int playerCount) {
+        ArrayList<HabitatTiles> output = new ArrayList<>();
+        playerCount = playerCount * 20 + 3;
+        for (int i=0; i<playerCount; i++){
+            output.add(habArr.get(i));
+        }
+        return output;
     }
 
     public ArrayList<HabitatTiles> getHabitatArray() {
@@ -88,12 +98,12 @@ public class HabitatTiles {
     public void rotateTile(int rotations) {
         for (int i=0; i<rotations; i++) {
             String temp = this.northWest;
-            this.northWest = this.northEast;
-            this.northEast = this.east;
-            this.east = this.southEast;
-            this.southEast = this.southWest;
-            this.southWest = this.west;
-            this.west = temp;
+            this.northWest = this.west;
+            this.west = this.southWest;
+            this.southWest = this.southEast;
+            this.southEast = this.east;
+            this.east = this.northEast;
+            this.northEast = temp;
         }
     }
 
@@ -174,7 +184,7 @@ public class HabitatTiles {
         return terrainToAscii(northWest) + terrainToAscii(northWest) + terrainToAscii(northEast) + terrainToAscii(northEast) + "\n" +
                 terrainToAscii(west) + animalToAscii(creature1) + animalToAscii(creature2) + terrainToAscii(east) + "\n" +
                 terrainToAscii(west) + animalToAscii(creature3) + "        " + terrainToAscii(east) + "\n" +
-                terrainToAscii(southEast) + terrainToAscii(southEast) + terrainToAscii(southWest) + terrainToAscii(southWest) + "\n";
+                terrainToAscii(southWest) + terrainToAscii(southWest) + terrainToAscii(southEast) + terrainToAscii(southEast) + "\n";
     }
 
     // getters for all elements in a habitat tile
@@ -252,5 +262,10 @@ public class HabitatTiles {
     // returns occupied status of a habitat tile
     public boolean isOccupied () {
         return this.occupied;
+    }
+
+    // return true if a habitat tile is a keystone (all the same terrain)
+    public boolean isKeystone () {
+        return this.getNorthWest().equals(this.getNorthEast()) && this.getEast().equals(this.getWest()) && this.getSouthWest().equals(this.getSouthEast());
     }
 }

@@ -60,12 +60,17 @@ public class Cascadia {
 
         //setupInput.userPrompts(playerArray);
 
-        boolean gameEnd = false;
         int turnCount = 0;
-        while (!gameEnd) {
-            turn.turnLoop(playerArray[turnCount % playerArray.length]);
+        int remainingTurns = numUsers*20+3;
+        while (remainingTurns>0) {
+            System.out.println("Remaining turns: " + remainingTurns);
+            remainingTurns--;
+            turn.turnLoop(playerArray[turnCount % playerArray.length], playerArray.length);
             turnCount++;
         }
+
+        System.out.println("Game Ends!");
+        System.out.println("scoring goes here");
     }
 }
 

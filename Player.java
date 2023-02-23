@@ -2,7 +2,7 @@ import java.util.Objects;
 
 public class Player {
     private String userName;
-    private int score;
+    private int score, natureTokens;
     private HabitatTiles[][] playerMap;
     // Integer value which stores the maximum map size
     private int maxMap = 55;
@@ -19,6 +19,15 @@ public class Player {
                 playerMap[i][j] = new HabitatTiles("blank","blank","blank","blank","blank","blank","","","");
             }
         }
+        natureTokens = 0;
+    }
+
+    public int getNatureTokens() {
+        return natureTokens;
+    }
+
+    public void addNatureToken() {
+        this.natureTokens++;
     }
 
     public int getMaxMap() {
