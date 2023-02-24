@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e4f16033-bdeb-4571-918c-7b30693a5e47" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/HabitatTiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/HabitatTiles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/HabitatTiles.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/HabitatTiles.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/SetupInput.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/SetupInput.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/Turn.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/Turn.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar:///Library/Java/JavaVirtualMachines/jdk-18.0.2.1.jdk/Contents/Home/lib/src.zip!/java.base/java/lang/Object.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2L6SzmJo16gZMn4AMvJUbmF32Kc" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e4f16033-bdeb-4571-918c-7b30693a5e47" name="Changes" comment="" />
+      <created>1675190305233</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1675190305233</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

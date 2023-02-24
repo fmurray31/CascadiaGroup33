@@ -70,8 +70,7 @@ public class Turn {
             boolean choice = false;
 
             while (!choice) {
-                System.out.println("Enter 1, 2, 3 or 4 to choose a habitat tile and animal tile combination from the central pool. Enter 5 to use a nature token.");
-
+                System.out.println("Enter [1], [2], [3] or [4] to choose a habitat tile and animal tile combination from the central pool. Enter [5] to use a nature token.");
                 try {
                     input = Integer.parseInt(in.nextLine());
 
