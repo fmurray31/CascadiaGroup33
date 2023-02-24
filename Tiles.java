@@ -1,13 +1,11 @@
-import javax.swing.*;
-import java.net.PortUnreachableException;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Tiles {
     HabitatTiles habitatTiles = new HabitatTiles("","","","","","","","","");
     AnimalTiles animalTiles = new AnimalTiles("");
 
     ArrayList<HabitatTiles> centralHabitats;
+
     ArrayList<AnimalTiles> centralAnimals;
 
 
@@ -26,7 +24,7 @@ public class Tiles {
     }
 
     // removes up to four habitats and animals from their respective arraylists and adds them to separate arraylists representing the central tiles
-    public void drawCentralTiles() {
+    public void setupCentralTiles() {
         centralHabitats = new ArrayList<>();
         int i = 0;
         while (centralHabitats.size() < 4){
@@ -36,6 +34,23 @@ public class Tiles {
         }
 
         centralAnimals = new ArrayList<>();
+        i=0;
+        while (centralAnimals.size() < 4){
+            centralAnimals.add(animalTiles.getAnimalAL().get(i));
+            animalTiles.getAnimalAL().remove(i);
+            i++;
+        }
+    }
+
+    // draws more habitat and animal tiles until both arraylists are full
+    public void drawCentralTiles() {
+        int i = 0;
+        while (centralHabitats.size() < 4){
+            centralHabitats.add(habitatTiles.getHabitatArray().get(i));
+            habitatTiles.getHabitatArray().remove(i);
+            i++;
+        }
+
         i=0;
         while (centralAnimals.size() < 4){
             centralAnimals.add(animalTiles.getAnimalAL().get(i));

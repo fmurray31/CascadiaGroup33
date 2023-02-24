@@ -71,6 +71,7 @@ public class HabitatTiles {
     // Method that converts each animal type into a coloured representation of the animal tile
     public String animalToAscii (String input) {
         input = input.toLowerCase();
+        // TODO: 23/02/2023 white background if tile occupied 
         switch (input) {
             case "hawk":
                 return "\u001b[34m" + "Hawk    " + "\u001b[0m";
@@ -267,5 +268,13 @@ public class HabitatTiles {
     // return true if a habitat tile is a keystone (all the same terrain)
     public boolean isKeystone () {
         return this.getNorthWest().equals(this.getNorthEast()) && this.getEast().equals(this.getWest()) && this.getSouthWest().equals(this.getSouthEast());
+    }
+
+    public String occupiedBackground () {
+        if (this.isOccupied()) {
+            return "\u001b[47m";
+        } else {
+            return "";
+        }
     }
 }
