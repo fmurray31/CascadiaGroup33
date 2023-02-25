@@ -1,12 +1,11 @@
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
 
 public class Cascadia {
     public static void main(String[] args) {
 
         StarterHabitat starterHabitat = new StarterHabitat();
-        SetupInput setupInput = new SetupInput();
+        Setup setup = new Setup();
         Score score = new Score();
         Tiles tiles = new Tiles();
         Player player;
@@ -27,18 +26,18 @@ public class Cascadia {
 
 
         // taking the number of players
-        int numUsers = setupInput.numPlayer();
+        int numUsers = setup.numPlayer();
         Player[] playerArray;
 
         // Set a username for each player
-        playerArray = setupInput.userNameRequest(numUsers);
+        playerArray = setup.userNameRequest(numUsers);
 
         // Randomising then printing the order of players
-        score.setOrder(playerArray);
-        score.printOrder(playerArray);
+        setup.setOrder(playerArray);
+        setup.printOrder(playerArray);
 
         for (int i=0; i<numUsers; i++) {
-            setupInput.addStarterHabitats(starterHabitatPool.get(i), playerArray[i]);
+            setup.addStarterHabitats(starterHabitatPool.get(i), playerArray[i]);
         }
 
         int turnCount = 0;
