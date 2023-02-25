@@ -29,7 +29,6 @@ public class Turn {
             boolean cullFinish = false;
             while (!cullFinish) {
                 if (tiles.centralAnimals == null) {
-                    ;
                     tiles.setupTiles(playerCount);
                     tiles.setupCentralTiles();
                 }
@@ -38,7 +37,7 @@ public class Turn {
 
                 Object maxTiles[];
 
-                maxTiles = tiles.optionalCull(tiles.getAnimalTiles());
+                maxTiles = tiles.optionalCull(tiles.centralAnimals);
                 if ((Integer)maxTiles[1]  == 4) {
                     System.out.println("All animal tiles the same, initiating automatic cull");
                     tiles.redrawAnimals((AnimalTiles) maxTiles[0]);
@@ -46,24 +45,26 @@ public class Turn {
 
                 if ((Integer)maxTiles[1]  == 3) {
                     input = 0;
-                    while (input != 2)
-                    System.out.println("Would you like to redraw all " + maxTiles[0].toString() + "?");
-                    System.out.println("Enter 1 for yes, 2 for no: ");
-                    try {
-                        input = Integer.parseInt(in.nextLine());
+                    while (input != 2) {
+                        System.out.println("Would you like to redraw all " + maxTiles[0].toString() + "?");
+                        System.out.println("Enter 1 for yes, 2 for no: ");
+                        try {
+                            input = Integer.parseInt(in.nextLine());
 
-                        if (input == 1) {
-                            tiles.redrawAnimals((AnimalTiles) maxTiles[0]);
-                            input = 2;
+                            if (input == 1) {
+                                tiles.redrawAnimals((AnimalTiles) maxTiles[0]);
+                                input = 2;
+                            }
+                            if (input != 1 && input != 2) {
+                                System.out.println("Value entered was neither 1 nor 2");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Value entered must be an integer, without spaces or punctuation");
                         }
-                        if (input != 1 && input != 2) {
-                            System.out.println("Value entered was neither 1 nor 2");
-                        }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Value entered must be an integer, without spaces or punctuation");
                     }
+                } else {
+                    cullFinish = true;
                 }
-                cullFinish = true;
             }
 
             // taking player input for central tile choice and nature token use, with error handling
@@ -212,10 +213,8 @@ public class Turn {
                 int aniColumn = 0;
                 String tempAnimal = player.habitatTiles.animalToAscii(tiles.centralAnimals.get(centralAnimalChoice).toString());
 
-                System.out.println("Choose a habitat to place " + tempAnimal + "\n");
-
                 player.printRows(player);
-                System.out.println("Enter the number of the row where you want to place your animal tile:");
+                System.out.println("Enter the number of the row where you want to place your animal tile: " + tempAnimal);
 
                 try {
                     input = Integer.parseInt(in.nextLine());
@@ -231,7 +230,7 @@ public class Turn {
 
                 if (!mistake) {
                     player.printSingleRow(player, aniRow);
-                    System.out.println("Enter the number of the column where you want to place " + tempAnimal);
+                    System.out.println("Enter the number of the column where you want to place your animal tile: " + tempAnimal);
                     try {
                         input = Integer.parseInt(in.nextLine());
                         aniColumn = player.columnConversion(player, input);

@@ -105,7 +105,7 @@ public class Player {
                             }
 
                             System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getWest()));
-                            System.out.print(player.playerMap[i][k].occupiedBackground() + habitatTiles.animalToAscii(player.playerMap[i][k].getCreature1()));
+                            System.out.print(new StringBuilder().append(player.playerMap[i][k].occupiedBackground()).append(habitatTiles.animalToAscii(player.playerMap[i][k].getCreature1())).toString());
                             System.out.print(player.playerMap[i][k].occupiedBackground() + habitatTiles.animalToAscii(player.playerMap[i][k].getCreature2()));
                             System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getEast()));
                             break;
@@ -226,7 +226,7 @@ public class Player {
                                 first = false;
 
                                 System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getWest()));
-                                System.out.print(player.playerMap[i][k].occupiedBackground() + habitatTiles.animalToAscii(player.playerMap[i][k].getCreature1()));
+                                System.out.print(new StringBuilder().append(player.playerMap[i][k].occupiedBackground()).append(habitatTiles.animalToAscii(player.playerMap[i][k].getCreature1())).toString());
                                 System.out.print(player.playerMap[i][k].occupiedBackground() + habitatTiles.animalToAscii(player.playerMap[i][k].getCreature2()));
                                 System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getEast()));
                                 break;

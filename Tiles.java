@@ -70,7 +70,7 @@ public class Tiles {
            temp = al.get(i);
            tempCount = 0;
 
-           for (int j=0; j<al.size(); j++) {
+           for (int j=i; j<al.size(); j++) {
                if (al.get(j).equals(temp)) {
                    tempCount++;
                }
@@ -94,8 +94,9 @@ public class Tiles {
             if (centralAnimals.get(i).equals(animal)) {
                 animalTiles.animalAL.add(centralAnimals.get(i));
                 animalTiles.shuffleAnimals();
-                centralAnimals.add(i, animalTiles.getAnimalAL().get(getAnimalTiles().size()));
-                animalTiles.getAnimalAL().remove(getAnimalTiles().size());
+                centralAnimals.remove(i);
+                centralAnimals.add(i, animalTiles.animalAL.get(animalTiles.animalAL.size()-1));
+                animalTiles.getAnimalAL().remove(getAnimalTiles().size()-1);
             }
         }
     }
@@ -160,6 +161,6 @@ public class Tiles {
         habTile.setCreature1(aniTile.toString());
         habTile.setCreature2("");
         habTile.setCreature3("");
-        habTile.toggleOccupied();
+        habTile.setOccupied();
     }
 }

@@ -26,11 +26,6 @@ public class Cascadia {
         System.out.println("\t\t -------- Welcome to Cascadia --------\n\n");
 
 
-        // habitat tile for testing UI
-        HabitatTiles testHab = new HabitatTiles("mountain", "mountain", "mountain",
-                "forest", "forest", "forest",
-                "elk", "salmon", "fox");
-
         // taking the number of players
         int numUsers = setupInput.numPlayer();
         Player[] playerArray;
@@ -45,20 +40,6 @@ public class Cascadia {
         for (int i=0; i<numUsers; i++) {
             setupInput.addStarterHabitats(starterHabitatPool.get(i), playerArray[i]);
         }
-
-        //tiles.setupTiles();
-
-
-        // used for testing map printing function
-//        playerArray[0].addHabitatToMap(testHab, 5, 5);
-//        playerArray[0].addHabitatToMap(testHab, 4, 4);
-//        playerArray[0].addHabitatToMap(testHab, 5, 4);
-//        playerArray[0].addHabitatToMap(testHab, 4, 5);
-        //playerArray[0].printRows(playerArray[0]);
-//        System.out.println("testing print single tile");
-//        System.out.println(playerArray[0].printSingleTile(playerArray[0],5, 5));;
-
-        //setupInput.userPrompts(playerArray);
 
         int turnCount = 0;
         int remainingTurns = numUsers*20+3;

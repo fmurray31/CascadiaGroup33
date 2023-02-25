@@ -71,7 +71,6 @@ public class HabitatTiles {
     // Method that converts each animal type into a coloured representation of the animal tile
     public String animalToAscii (String input) {
         input = input.toLowerCase();
-        // TODO: 23/02/2023 white background if tile occupied 
         switch (input) {
             case "hawk":
                 return "\u001b[34m" + "Hawk    " + "\u001b[0m";
@@ -237,8 +236,8 @@ public class HabitatTiles {
         this.creature3 = creature3;
     }
 
-    public void toggleOccupied() {
-        this.occupied = !this.occupied;
+    public void setOccupied() {
+        this.occupied = true;
     }
 
     // returns true if the passed habitat coordinate is blank
