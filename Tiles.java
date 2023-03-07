@@ -163,4 +163,18 @@ public class Tiles {
         habTile.setCreature3("");
         habTile.setOccupied();
     }
+
+    // checks if there are any blank spots on the map for a certain animal
+    public boolean freeAnimalSpace(Player player, AnimalTiles animal) {
+        HabitatTiles tempHab;
+        for (int i=0; i< player.getMaxMap(); i++) {
+            for (int j=0; j< player.getMaxMap(); j++) {
+                tempHab = player.getPlayerMap()[i][j];
+                if (!tempHab.isOccupied() && suitableForAnimal(tempHab, animal)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
