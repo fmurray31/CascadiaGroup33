@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Cascadia {
     public static void main(String[] args) {
@@ -7,9 +8,15 @@ public class Cascadia {
         StarterHabitat starterHabitat = new StarterHabitat();
         Setup setup = new Setup();
         Score score = new Score();
+        ScoreCards scoreCards = new ScoreCards("blank", "blank");
         Tiles tiles = new Tiles();
         Player player;
         Turn turn = new Turn();
+
+        // stores randomised score cards in a list
+        List<ScoreCards> chosenScoreCards;
+        chosenScoreCards = scoreCards.generateScore();
+
 
         // generating new instance of starting habitats, adding them to a central arraylist, then shuffling that arraylist
         ArrayList<ArrayList> starterHabitatPool = new ArrayList<>();
