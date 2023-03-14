@@ -133,7 +133,56 @@ public class Score {
 
         for (int i=0; i< player.getMaxMap(); i++) {
             for (int j=0; j< player.getMaxMap(); j++) {
-                
+                int[][] coordinates = new int[player.getMaxMap()][player.getMaxMap()];
+
+                int numAnimal = 0;
+                int pairs = 0;
+                outputCoordinates = adjacentAnimal("Bear", coordinates, i, j);
+                while (outputCoordinates[0] != -1) {
+                    coordinates[outputCoordinates[0]][outputCoordinates[1]] = 1;
+                    numAnimal++;
+                    outputCoordinates = adjacentAnimal("Bear", coordinates, i, j);
+                }
+                if (numAnimal > 1) {
+                    pairs++;
+                }
+                numAnimal = 0;
+
+                outputCoordinates = adjacentAnimal("Elk", coordinates, i, j);
+                while (outputCoordinates[0] != -1) {
+                    coordinates[outputCoordinates[0]][outputCoordinates[1]] = 1;
+                    numAnimal++;
+                    outputCoordinates = adjacentAnimal("Elk", coordinates, i, j);
+                }
+                if (numAnimal > 1) {
+                    pairs++;
+                }
+                numAnimal = 0;
+
+                outputCoordinates = adjacentAnimal("Hawk", coordinates, i, j);
+                while (outputCoordinates[0] != -1) {
+                    coordinates[outputCoordinates[0]][outputCoordinates[1]] = 1;
+                    numAnimal++;
+                    outputCoordinates = adjacentAnimal("Hawk", coordinates, i, j);
+                }
+                if (numAnimal > 1) {
+                    pairs++;
+                }
+                numAnimal = 0;
+
+                outputCoordinates = adjacentAnimal("Salmon", coordinates, i, j);
+                while (outputCoordinates[0] != -1) {
+                    coordinates[outputCoordinates[0]][outputCoordinates[1]] = 1;
+                    numAnimal++;
+                    outputCoordinates = adjacentAnimal("Salmon", coordinates, i, j);
+                }
+                if (numAnimal > 1) {
+                    pairs++;
+                }
+
+                if (pairs > 0) {
+                    player.addScore(1+2*pairs);
+                }
             }
         }
     }
