@@ -41,9 +41,7 @@ public class Turn {
                 if ((Integer)maxTiles[1]  == 4) {
                     System.out.println("All animal tiles the same, initiating automatic cull");
                     tiles.redrawAnimals((AnimalTiles) maxTiles[0]);
-                }
-
-                if ((Integer)maxTiles[1]  == 3) {
+                } else if ((Integer)maxTiles[1]  == 3) {
                     input = 0;
                     while (input != 2) {
                         System.out.println("Would you like to redraw all " + maxTiles[0].toString() + "?");
@@ -65,6 +63,8 @@ public class Turn {
                             System.out.println("Value entered must be an integer, without spaces or punctuation");
                         }
                     }
+                } else {
+                    cullFinish = true;
                 }
             }
 
@@ -137,7 +137,7 @@ public class Turn {
                 boolean rotateDone = false;
                 while (!rotateDone){
                     System.out.println("This is your current tile: \n" + tiles.centralHabitats.get(centralHabChoice).toString());
-                    System.out.println("Would you like to rotate this tile? Enter 1 for yes, 2 for no. Enter 3 to cancel tile placement");
+                    System.out.println("Would you like to rotate this tile? Enter 1 for yes, 2 for no.");
                     try {
                         input = Integer.parseInt(in.nextLine());
 
@@ -151,11 +151,7 @@ public class Turn {
                             }
                         } else if (input == 2) {
                             rotateDone = true;
-                        }else if (input == 3) {
-                            System.out.println("Cancelled tile placement");
-                            cancelled = true;
-                            break;
-                        }else {
+                        } else {
                             System.out.println("Value entered was not 1, 2 or 3");
                         }
                     } catch (NumberFormatException e) {
@@ -163,7 +159,6 @@ public class Turn {
                     }
                 }
 
-                if (cancelled) break;
                 player.printRows(player);
                 System.out.println("Enter the number of the row where you want to place your habitat tile:");
 
