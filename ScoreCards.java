@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ScoreCards {
-    // Tile description should be in the format "Animal Scorenumber", ie "Bear2"
+    // Tile description should be in the format "Animal Letter", ie "BearC"
     private String cardTitle;
     private String cardDescription;
 
@@ -17,12 +17,12 @@ public class ScoreCards {
         ArrayList<ScoreCards> scoreCardArray = new ArrayList();
 
         for (int i=0; i<10; i++) {
-            ScoreCards bear1 = new ScoreCards("Bear1", "desc");
+            scoreCardArray.add(new ScoreCards("BearA", "desc"));
         }
 
         Collections.shuffle(scoreCardArray);
 
-        return scoreCardArray.subList(0, 4);
+        return scoreCardArray.subList(0, 5);
     }
 
     public String getCardTitle() {

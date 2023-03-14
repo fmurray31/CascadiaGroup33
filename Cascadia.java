@@ -14,8 +14,7 @@ public class Cascadia {
         Turn turn = new Turn();
 
         // stores randomised score cards in a list
-        List<ScoreCards> chosenScoreCards;
-        chosenScoreCards = scoreCards.generateScore();
+        List<ScoreCards> chosenScoreCards = scoreCards.generateScore();
 
 
         // generating new instance of starting habitats, adding them to a central arraylist, then shuffling that arraylist
@@ -49,6 +48,7 @@ public class Cascadia {
 
         int turnCount = 0;
         int remainingTurns = numUsers*20+3;
+
         while (remainingTurns>0) {
             System.out.println("Remaining turns: " + remainingTurns);
             remainingTurns--;
@@ -58,6 +58,12 @@ public class Cascadia {
 
         System.out.println("Game Ends!");
         System.out.println("scoring goes here");
+
+        for (int i=0; i< playerArray.length; i++) {
+            score.scorePlayer(playerArray[i], chosenScoreCards);
+            System.out.println("Player " + playerArray[i].getUserName() + "'s score:");
+            System.out.println(playerArray[i].getScore());
+        }
     }
 }
 

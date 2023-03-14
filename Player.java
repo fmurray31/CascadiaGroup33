@@ -55,8 +55,8 @@ public class Player {
         this.userName = userName;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void addScore(int add) {
+        this.score += add;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class Player {
                             }
 
                             System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getWest()));
-                            System.out.print(new StringBuilder().append(player.playerMap[i][k].occupiedBackground()).append(habitatTiles.animalToAscii(player.playerMap[i][k].getCreature1())).toString());
+                            System.out.print(new StringBuilder().append(player.playerMap[i][k].occupiedBackground()).append(habitatTiles.animalToAscii(player.playerMap[i][k].getCreature1())));
                             System.out.print(player.playerMap[i][k].occupiedBackground() + habitatTiles.animalToAscii(player.playerMap[i][k].getCreature2()));
                             System.out.print(habitatTiles.terrainToAscii(player.playerMap[i][k].getEast()));
                             break;
