@@ -31,6 +31,7 @@ public class AnimalTiles {
     // Generates 20 of each animal and adds it to an arraylist
     private ArrayList<AnimalTiles> generateAnimals(ArrayList<AnimalTiles> al) {
         for (int i=0; i<20; i++) {
+
             getAnimalAL().add(new AnimalTiles("Hawk"));
             getAnimalAL().add(new AnimalTiles("Bear"));
             getAnimalAL().add(new AnimalTiles("Elk"));

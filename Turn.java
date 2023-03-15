@@ -51,6 +51,7 @@ public class Turn {
 
                             if (input == 1) {
                                 tiles.redrawAnimals((AnimalTiles) maxTiles[0]);
+                                tiles.displayCentralTiles();
                                 input = 2;
                             }
                             if (input != 1 && input != 2) {
@@ -119,9 +120,11 @@ public class Turn {
                     System.out.println("Value entered must be an integer, without spaces or punctuation");
                 }
 
-                if (!tiles.freeAnimalSpace(player, tiles.centralAnimals.get(centralAnimalChoice))  && !tiles.suitableForAnimal(tiles.centralHabitats.get(centralHabChoice), tiles.centralAnimals.get(centralAnimalChoice))) {
-                    System.out.println("There are no empty spaces on the board to place this animal, please choose another tile");
-                    choice = false;
+                if (centralAnimalChoice + centralHabChoice > 0) {
+                    if (!tiles.freeAnimalSpace(player, tiles.centralAnimals.get(centralAnimalChoice))  && !tiles.suitableForAnimal(tiles.centralHabitats.get(centralHabChoice), tiles.centralAnimals.get(centralAnimalChoice))) {
+                        System.out.println("There are no empty spaces on the board to place this animal, please choose another tile");
+                        choice = false;
+                    }
                 }
             }
 

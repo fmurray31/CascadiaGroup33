@@ -16,9 +16,8 @@ public class Cascadia {
         // stores randomised score cards in a list
         List<ScoreCards> chosenScoreCards = scoreCards.generateScore();
 
-
         // generating new instance of starting habitats, adding them to a central arraylist, then shuffling that arraylist
-        ArrayList<ArrayList> starterHabitatPool = new ArrayList<>();
+        ArrayList<ArrayList<HabitatTiles>> starterHabitatPool = new ArrayList<>();
         starterHabitatPool.add(starterHabitat.StarterHabitat1);
         starterHabitatPool.add(starterHabitat.StarterHabitat2);
         starterHabitatPool.add(starterHabitat.StarterHabitat3);
@@ -46,8 +45,15 @@ public class Cascadia {
             setup.addStarterHabitats(starterHabitatPool.get(i), playerArray[i]);
         }
 
+
+        // printing the chosen 5 scorecards, with formatting
+        System.out.println("\n\nWildlife Scoring Cards for this game:");
+        scoreCards.displayScoreCards(chosenScoreCards);
+        System.out.println("\n\n-----------------------------------------------------------\n");
+
         int turnCount = 0;
-        int remainingTurns = numUsers*20+3;
+        //int remainingTurns = numUsers*20+3;
+        int remainingTurns = 6;
 
         while (remainingTurns>0) {
             System.out.println("Remaining turns: " + remainingTurns);
@@ -59,10 +65,12 @@ public class Cascadia {
         System.out.println("Game Ends!");
         System.out.println("scoring goes here");
 
-        for (int i=0; i< playerArray.length; i++) {
-            score.scorePlayer(playerArray[i], chosenScoreCards);
-            System.out.println("Player " + playerArray[i].getUserName() + "'s score:");
-            System.out.println(playerArray[i].getScore());
+        for (Player currentPlayer : playerArray) {
+            System.out.println("Player " + currentPlayer.getUserName() + "'s map:");
+            currentPlayer.printMap(currentPlayer);
+            score.scorePlayer(currentPlayer, chosenScoreCards);
+            System.out.print("Player " + currentPlayer.getUserName() + "'s score: ");
+            System.out.println(currentPlayer.getScore());
         }
     }
 }
