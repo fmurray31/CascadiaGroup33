@@ -25,6 +25,14 @@ public class Score {
                 case "ElkB": elkBScore(); break;
                 case "ElkC": elkCScore(); break;
 
+                case "HawkA": hawkAScore(); break;
+                case "HawkB": hawkBScore(); break;
+                case "HawkC": hawkCScore(); break;
+
+                case "SalmonA": salmonGeneric('a'); break;
+                case "SalmonB": salmonGeneric('b'); break;
+                case "SalmonC": salmonGeneric('c'); break;
+
                 default: throw new IllegalArgumentException("Invalid score card passed to scorePlayer: " + scoreCards.get(i).getCardTitle());
             }
         }
@@ -281,27 +289,73 @@ public class Score {
     }
 
     private void elkAScore() {
-//        int[] outputCoordinates;
-//        int[][] coordinates = new int[player.getMaxMap()][player.getMaxMap()];
-//
-//        for (int i=0; i< player.getMaxMap(); i++) {
-//            for (int j = 0; j < player.getMaxMap(); j++) {
-//                if (player.getPlayerMap()[i][j].isOccupied() && player.getPlayerMap()[i][j].getCreature1().equals("Elk")) {
-//                    boolean nwse = false;
-//                    boolean nesw = false;
-//                    boolean we = false;
-//
-//                    outputCoordinates = adjacentAnimal("Elk", coordinates, i, j);
-//                    if (outputCoordinates[0] != -1) {
-//                        // horizontal line of elk
-//                        if (outputCoordinates[0] == i) we = true;
-//
-//                        if (i%2 == 0 && )
-//
-//                    }
-//                }
-//            }
-//        }
+        int[] output;
+        int[][] coordinates = new int[player.getMaxMap()][player.getMaxMap()];
+
+        for (int i=0; i< player.getMaxMap(); i++) {
+            for (int j = 0; j < player.getMaxMap(); j++) {
+                if (player.getPlayerMap()[i][j].isOccupied() && player.getPlayerMap()[i][j].getCreature1().equals("Elk") && coordinates[i][j] == 0) {
+                    coordinates[i][j] = 1;
+                    output = adjacentAnimal("Elk", coordinates, i, j);
+                    String direction;
+                    int temp = 0;
+                    int maxCount = 0;
+                    String maxDirection = "";
+
+                    while (output[0] != -1) {
+                        direction = adjacentToDirection(i, j, output);
+                        coordinates[output[0]][output[1]] = 1;
+
+                        if (direction.equals("w") || direction.equals("e")) {
+                            temp = searchLineCount("Elk", "w", coordinates, output[0], output[1]) + 1;
+                            temp += searchLineCount("Elk", "e", coordinates, output[0], output[1]);
+                        }
+
+                        if (direction.equals("nw") || direction.equals("se")) {
+                            temp = searchLineCount("Elk", "nw", coordinates, output[0], output[1]) + 1;
+                            temp += searchLineCount("Elk", "se", coordinates, output[0], output[1]);
+                        }
+
+                        if (direction.equals("sw") || direction.equals("ne")) {
+                            temp = searchLineCount("Elk", "sw", coordinates, output[0], output[1]) + 1;
+                            temp += searchLineCount("Elk", "ne", coordinates, output[0], output[1]);
+                        }
+
+                        if (temp > maxCount) {
+                            maxCount = temp;
+                            maxDirection = direction;
+                        }
+
+                        output = adjacentAnimal("Elk", coordinates, i, j);
+                    }
+
+                    if (maxDirection.equals("w") || maxDirection.equals("e")) {
+                        elkAHelper("w", coordinates, i, j);
+                        elkAHelper("e", coordinates, i, j);
+                    }
+
+                    if (maxDirection.equals("nw") || maxDirection.equals("se")) {
+                        elkAHelper("nw", coordinates, i, j);
+                        elkAHelper("se", coordinates, i, j);
+                    }
+
+                    if (maxDirection.equals("sw") || maxDirection.equals("ne")) {
+                        elkAHelper("sw", coordinates, i, j);
+                        elkAHelper("ne", coordinates, i, j);
+                    }
+
+                    switch (maxCount) {
+                        case 0: break;
+                        case 1: player.addScore(2); break;
+                        case 2: player.addScore(5); break;
+                        case 3: player.addScore(9); break;
+                        default: player.addScore(13); break;
+                    }
+                }
+            }
+        }
+        //temp
+        System.out.println("after elkA: " + player.getUserName() + " has score:" + player.getScore());
     }
 
     private void elkBScore() {
@@ -335,6 +389,259 @@ public class Score {
 
     }
 
+    private void hawkAScore() {
+        int[] outputCoordinates;
+        int[][] placeholder = new int[player.getMaxMap()][player.getMaxMap()];
+        int soloHawks = 0;
+
+        for (int i=0; i< player.getMaxMap(); i++) {
+            for (int j=0; j< player.getMaxMap(); j++) {
+                if (player.getPlayerMap()[i][j].isOccupied() && player.getPlayerMap()[i][j].getCreature1().equals("Hawk")) {
+                    outputCoordinates = adjacentAnimal("Hawk", placeholder, i, j);
+
+                    if (outputCoordinates[0] == -1) {
+                        soloHawks++;
+                    }
+                }
+            }
+        }
+
+        switch (soloHawks) {
+            case 0: break;
+            case 1: player.addScore(2); break;
+            case 2: player.addScore(5); break;
+            case 3: player.addScore(8); break;
+            case 4: player.addScore(11); break;
+            case 5: player.addScore(14); break;
+            case 6: player.addScore(18); break;
+            case 7: player.addScore(22); break;
+
+            default: player.addScore(26); break;
+        }
+        //temp
+        System.out.println("after hawkA: " + player.getUserName() + " has score:" + player.getScore());
+    }
+
+    private void hawkBScore() {
+        int[] outputCoordinates;
+        int[][] coordinates = new int[player.getMaxMap()][player.getMaxMap()];
+        int numPairs = 0;
+
+        for (int i=0; i< player.getMaxMap(); i++) {
+            for (int j=0; j< player.getMaxMap(); j++) {
+                if (player.getPlayerMap()[i][j].isOccupied() && player.getPlayerMap()[i][j].getCreature1().equals("Hawk")) {
+                    coordinates[i][j] = 1;
+                    boolean pairFound = false;
+                    int[] pairLocation = {0,0};
+
+                    outputCoordinates = searchLine("Hawk", "w", true, i, j);
+                    if (outputCoordinates[0] != -1 && coordinates[outputCoordinates[0]][outputCoordinates[1]] == 0) {
+                        pairFound = true;
+                        pairLocation = outputCoordinates;
+                    }
+
+                    outputCoordinates = searchLine("Hawk", "nw", true, i, j);
+                    if (outputCoordinates[0] != -1 && coordinates[outputCoordinates[0]][outputCoordinates[1]] == 0 && !pairFound) {
+                        pairFound = true;
+                        pairLocation = outputCoordinates;
+                    }
+
+                    outputCoordinates = searchLine("Hawk", "ne", true, i, j);
+                    if (outputCoordinates[0] != -1 && coordinates[outputCoordinates[0]][outputCoordinates[1]] == 0 && !pairFound) {
+                        pairFound = true;
+                        pairLocation = outputCoordinates;
+                    }
+
+                    outputCoordinates = searchLine("Hawk", "e", true, i, j);
+                    if (outputCoordinates[0] != -1 && coordinates[outputCoordinates[0]][outputCoordinates[1]] == 0 && !pairFound) {
+                        pairFound = true;
+                        pairLocation = outputCoordinates;
+                    }
+
+                    outputCoordinates = searchLine("Hawk", "se", true, i, j);
+                    if (outputCoordinates[0] != -1 && coordinates[outputCoordinates[0]][outputCoordinates[1]] == 0 && !pairFound) {
+                        pairFound = true;
+                        pairLocation = outputCoordinates;
+                    }
+
+                    outputCoordinates = searchLine("Hawk", "sw", true, i, j);
+                    if (outputCoordinates[0] != -1 && coordinates[outputCoordinates[0]][outputCoordinates[1]] == 0 && !pairFound) {
+                        pairFound = true;
+                        pairLocation = outputCoordinates;
+                    }
+
+                    if (pairFound) {
+                        coordinates[pairLocation[0]][pairLocation[1]] = 1;
+                        numPairs++;
+                    }
+                }
+            }
+        }
+
+        switch (numPairs) {
+            case 0: break;
+            case 1: player.addScore(2); break;
+            case 2: player.addScore(5); break;
+            case 3: player.addScore(9); break;
+            case 4: player.addScore(12); break;
+            case 5: player.addScore(16); break;
+            case 6: player.addScore(20); break;
+            case 7: player.addScore(24); break;
+
+            default: player.addScore(28); break;
+        }
+
+        //temp
+        System.out.println("after hawkB: " + player.getUserName() + " has score:" + player.getScore());
+    }
+
+    private void hawkCScore() {
+        int[] outputCoordinates;
+        int numPairs = 0;
+
+        for (int i=0; i< player.getMaxMap(); i++) {
+            for (int j=0; j< player.getMaxMap(); j++) {
+                if (player.getPlayerMap()[i][j].isOccupied() && player.getPlayerMap()[i][j].getCreature1().equals("Hawk")) {
+                    boolean pairFound = false;
+
+                    outputCoordinates = searchLine("Hawk", "w", true, i, j);
+                    if (outputCoordinates[0] != -1) {
+                        pairFound = true;
+                    }
+
+                    outputCoordinates = searchLine("Hawk", "nw", true, i, j);
+                    if (outputCoordinates[0] != -1 && !pairFound) {
+                        pairFound = true;
+                    }
+
+                    outputCoordinates = searchLine("Hawk", "ne", true, i, j);
+                    if (outputCoordinates[0] != -1 && !pairFound) {
+                        pairFound = true;
+                    }
+
+                    outputCoordinates = searchLine("Hawk", "e", true, i, j);
+                    if (outputCoordinates[0] != -1 && !pairFound) {
+                        pairFound = true;
+                    }
+
+                    outputCoordinates = searchLine("Hawk", "se", true, i, j);
+                    if (outputCoordinates[0] != -1 && !pairFound) {
+                        pairFound = true;
+                    }
+
+                    outputCoordinates = searchLine("Hawk", "sw", true, i, j);
+                    if (outputCoordinates[0] != -1 && !pairFound) {
+                        pairFound = true;
+                    }
+
+                    if (pairFound) {
+                        numPairs++;
+                    }
+                }
+            }
+        }
+
+        numPairs = numPairs/2;
+        player.addScore(numPairs*3);
+
+        //temp
+        System.out.println("after hawkC: " + player.getUserName() + " has score:" + player.getScore());
+    }
+
+    // this method performs the operations common to all of the salmon scoring cards, then passes the result to methods which perform the card specific scoring
+    private void salmonGeneric (char c) {
+        int[] outputCoordinates;
+        int[][] coordinates = new int[player.getMaxMap()][player.getMaxMap()];
+
+        for (int i=0; i< player.getMaxMap(); i++) {
+            for (int j=0; j<player.getMaxMap(); j++) {
+                if (player.getPlayerMap()[i][j].isOccupied() && player.getPlayerMap()[i][j].getCreature1().equals("Salmon")) {
+                    if (coordinates[i][j] == 0) {
+                        coordinates[i][j] = 1;
+                        int numSalmon = 0;
+
+                        if (adjacentCounter("Salmon", i, j) == 1) {
+                            numSalmon = recursiveSearch("Salmon", coordinates, i, j);
+                        }
+
+                        if (adjacentCounter("Salmon", i, j) == 2) {
+                            outputCoordinates = adjacentAnimal("Salmon", coordinates, i, j);
+                            numSalmon = recursiveSearch("Salmon", coordinates, outputCoordinates[0], outputCoordinates[1]);
+
+                            outputCoordinates = adjacentAnimal("Salmon", coordinates, i, j);
+                            numSalmon += recursiveSearch("Salmon", coordinates, outputCoordinates[0], outputCoordinates[1]);
+                        }
+
+                        switch (c){
+                            case 'a': salmonAScore(numSalmon); break;
+                            case 'b': salmonBScore(numSalmon); break;
+                            case 'c': salmonCScore(numSalmon); break;
+                        }
+                    }
+
+                }
+            }
+        }
+        //temp
+        System.out.println("after salmonA: " + player.getUserName() + " has score:" + player.getScore());
+    }
+    private void salmonAScore(int num) {
+        switch (num) {
+            case 0: break;
+            case 1: player.addScore(2); break;
+            case 2: player.addScore(4); break;
+            case 3: player.addScore(7); break;
+            case 4: player.addScore(11); break;
+            case 5: player.addScore(15); break;
+            case 6: player.addScore(20); break;
+
+            default: player.addScore(26); break;
+        }
+        //temp
+        System.out.println("after salmonA: " + player.getUserName() + " has score:" + player.getScore());
+    }
+
+    private void salmonBScore(int num) {
+        switch (num) {
+            case 0: break;
+            case 1: player.addScore(2); break;
+            case 2: player.addScore(4); break;
+            case 3: player.addScore(8); break;
+
+            default: player.addScore(12); break;
+        }
+        //temp
+        System.out.println("after salmonB: " + player.getUserName() + " has score:" + player.getScore());
+    }
+
+    private void salmonCScore(int num) {
+        switch (num) {
+            case 0: break;
+            case 1: player.addScore(2); break;
+            case 2: player.addScore(4); break;
+            case 3: player.addScore(9); break;
+            case 4: player.addScore(11); break;
+
+            default: player.addScore(17); break;
+        }
+        //temp
+        System.out.println("after salmonC: " + player.getUserName() + " has score:" + player.getScore());
+    }
+
+    // counts the number of a set animal adjacent to a given position
+    private int adjacentCounter(String animal, int i, int j) {
+        int[][] coordinates = new int[player.getMaxMap()][player.getMaxMap()];
+        int[] outputCoordinates = adjacentAnimal(animal, coordinates, i, j);
+        int adjacent = 0;
+
+        while (outputCoordinates[0] != -1) {
+            adjacent++;
+            outputCoordinates = adjacentAnimal(animal, coordinates, i, j);
+        }
+        return adjacent;
+    }
+
+    // recursively counts each specified animal adjacent to a given animal
     private int recursiveSearch(String animal, int[][] coordinates, int i, int j) {
         int[] outputCoordinates = adjacentAnimal(animal, coordinates, i, j);
         int output = 0;
@@ -436,5 +743,115 @@ public class Score {
         output[1] = -1;
 
         return output;
+    }
+
+    // this method takes the coordinates of two adjacent locations, and returns the compass direction of the second location respective to the starting location
+    private String adjacentToDirection (int i, int j, int[] adjacent) {
+        if (i==adjacent[0] && j-1==adjacent[1]) {
+            return "w";
+        } else if (i==adjacent[0] && j+1==adjacent[1]) {
+            return "e";
+        }
+
+        if (i%2 == 0){
+            if (i-1 == adjacent[0]) {
+                if (j == adjacent[1]) return "nw";
+                if (j+1 == adjacent[1]) return "ne";
+            } else if (i+1 == adjacent[0]) {
+                if (j == adjacent[1]) return "sw";
+                if (j+1 == adjacent[1]) return "se";
+            }
+        } else {
+            if (i-1 == adjacent[0]) {
+                if (j-1 == adjacent[1]) return "nw";
+                if (j == adjacent[1]) return "ne";
+            } else if (i+1 == adjacent[0]) {
+                if (j-1 == adjacent[1]) return "sw";
+                if (j == adjacent[1]) return "se";
+            }
+        }
+
+        throw new IllegalArgumentException("Error with arguments passed to adjacentToDirection. i: " + i + " j: " + j + " adjacent: " + adjacent);
+
+    }
+
+    // this method recursively searches for a copy of a given animal in a given direction, and returns the coordinates of the found animal, or -1, -1 if not found
+    private int[] searchLine (String animal, String direction, boolean first, int i, int j) {
+        if (player.getPlayerMap()[i][j].isOccupied() && player.getPlayerMap()[i][j].getCreature1().equals(animal) && !first) {
+            return new int[]{i, j};
+        }
+
+        if (i==0 || j==0 || i == player.getMaxMap() || j == player.getMaxMap()) return new int[]{-1, -1};
+
+        switch (direction) {
+            case "w": return searchLine(animal, direction, false, i, j-1);
+            case "e": return searchLine(animal, direction, false, i, j+1);
+
+            case "nw": if (i%2 == 0) {
+                return searchLine(animal, direction, false, i-1, j);
+            } else {
+                return searchLine(animal, direction, false, i-1, j-1);
+            }
+            case "ne":if (i%2 == 0) {
+                return searchLine(animal, direction, false, i-1, j+1);
+            } else {
+                return searchLine(animal, direction, false, i-1, j);
+            }
+
+            case "sw": if (i%2 == 0) {
+                return searchLine(animal, direction, false, i+1, j-1);
+            } else {
+                return searchLine(animal, direction, false, i+1, j);
+            }
+
+            default: throw new IllegalArgumentException("Invalid argument passed to direction in searchLine: " + direction);
+        }
+    }
+
+    private int searchLineCount (String animal, String direction, int[][]coordinates, int i, int j) {
+        int[] current = directionToLocation(direction, i, j);
+
+        if (player.getPlayerMap()[current[0]][current[1]].isOccupied() && player.getPlayerMap()[current[0]][current[1]].getCreature1().equals(animal)
+                && coordinates[current[0]][current[1]] != 0) {
+            return 1 + searchLineCount(animal, direction, coordinates, current[0], current[1]);
+        }
+
+        return 0;
+    }
+
+    // method which takes in a string representing a compass direction and two ints representing a location on the player map, and returns two ints representing
+    // the next location in that direction
+    private int[] directionToLocation (String direction, int i, int j) {
+        if (i==0 || j==0 || i == player.getMaxMap() || j == player.getMaxMap()) return new int[]{-1, -1};
+        switch (direction) {
+            case "w": return new int[]{i, j-1};
+            case "e": return new int[]{i, j+1};
+
+            case "nw": if (i%2 == 0) {
+                return  new int[]{i-1,j};
+            } else return new int[]{i-1, j-1};
+            case "ne": if (i%2 == 0) {
+                return new int[]{i-1, j+1};
+            } else return new int[]{i-1, j};
+
+            case "sw": if (i%2 == 0) {
+                return new int[]{i+1, j};
+            } else return new int[]{i+1, j+1};
+            case "se": if (i%2 == 0) {
+                return new int[]{i+1, j+1};
+            } else return new int[]{i+1, j};
+
+            default: throw new IllegalArgumentException("Invalid direction passed to directionToLocation: " + direction);
+        }
+    }
+
+    // method which marks chosen tiles from elkAScore as already counted
+    private void elkAHelper (String direction, int[][] coordinates, int i, int j) {
+        int[] next = directionToLocation(direction, i, j);
+
+        while (player.getPlayerMap()[next[0]][next[1]].isOccupied() && player.getPlayerMap()[next[0]][next[1]].getCreature1().equals("Elk")) {
+            coordinates[next[0]][next[1]] = 1;
+            next = directionToLocation(direction, next[0], next[1]);
+        }
     }
 }
