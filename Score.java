@@ -52,7 +52,7 @@ public class Score {
                         coordinates[i][j] = 1;
 
                         outputCoordinates = adjacentAnimal("Bear", coordinates, i, j);
-                        if (outputCoordinates[0] != -1) {
+                        if (outputCoordinates[0] != -1 && recursiveSearch("Bear", coordinates, i, j)+1 < 3) {
                             pairCount++;
                             coordinates[outputCoordinates[0]][outputCoordinates[1]] = 1;
                         }
@@ -69,8 +69,6 @@ public class Score {
 
             default: player.addScore(27); break;
         }
-        //temp
-        System.out.println("after bearA: " + player.getUserName() + " has score:" + player.getScore());
     }
     private void bearBScore () {
         int[][] coordinates = new int[player.getMaxMap()][player.getMaxMap()];

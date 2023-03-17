@@ -69,6 +69,11 @@ public class Player {
         this.playerMap[row][column] = habitatTile;
     }
 
+    // sets a player's score to 0, used for testing only
+    public void resetScore() {
+        this.score = 0;
+    }
+
     // prints a players map of habitat tiles
     public void printMap (Player player) {
         boolean first;
