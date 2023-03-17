@@ -386,7 +386,39 @@ public class Score {
     }
 
     private void elkCScore() {
+        int[][] coordinates = new int[player.getMaxMap()][player.getMaxMap()];
 
+        for (int i = 0; i < player.getMaxMap(); i++) {
+            for (int j = 0; j < player.getMaxMap(); j++) {
+                if (player.getPlayerMap()[i][j].isOccupied() && player.getPlayerMap()[i][j].getCreature1().equals("Elk")) {
+                    int adjacentCount = adjacentCounter("Elk", i, j);
+
+                    if (adjacentCount == -1) {
+                        player.addScore(2);
+                    }
+                    if (adjacentCount == 1) {
+                        player.addScore(5);
+                    }
+                    // TODO: 17/03/2023 double check this is correct
+                    if (adjacentCount == 2) {
+                        coordinates[i][j] = 1;
+                        if (recursiveSearch("Elk", coordinates, i, j) == 2) {
+                            player.addScore(9);
+                        }
+                    }
+                    // TODO: 17/03/2023 also needs checking
+                    if (adjacentCount == 3) {
+                        int [][] temp = new int[player.getMaxMap()][player.getMaxMap()];
+                        temp[i][j] = 1;
+                        if (recursiveSearch("Elk", temp, i, j) == 4) {
+                            player.addScore(13);
+                        }
+                    }
+                }
+            }
+        }
+        //temp
+        System.out.println("after elkC: " + player.getUserName() + " has score:" + player.getScore());
     }
 
     private void hawkAScore() {
