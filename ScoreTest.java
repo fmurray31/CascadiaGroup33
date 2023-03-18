@@ -16,7 +16,6 @@ class ScoreTest {
         Player player = new Player("testPlayer");
         List<ScoreCards> scoreCards = new ArrayList<>();
 
-        ArrayList<HabitatTiles> habArray = new ArrayList<>();
         Stack<HabitatTiles> habStack = new Stack<>();
         for (int i=0; i<100; i++) {
             habStack.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "bear", "fox", "elk"));
@@ -59,7 +58,6 @@ class ScoreTest {
         Player player = new Player("testPlayer");
         List<ScoreCards> scoreCards = new ArrayList<>();
 
-        ArrayList<HabitatTiles> habArray = new ArrayList<>();
         Stack<HabitatTiles> habStack = new Stack<>();
         for (int i=0; i<100; i++) {
             habStack.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "bear", "fox", "elk"));
@@ -97,7 +95,47 @@ class ScoreTest {
 
     @Test
     public void testBearC() {
+        Player player = new Player("testPlayer");
+        List<ScoreCards> scoreCards = new ArrayList<>();
 
+        Stack<HabitatTiles> habStack = new Stack<>();
+        for (int i=0; i<100; i++) {
+            habStack.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "bear", "fox", "elk"));
+        }
+
+        AnimalTiles testBear = new AnimalTiles("Bear");
+        scoreCards.add(new ScoreCards("BearC", "desc"));
+
+        for (int i=0; i<10; i++) {
+            for (int j=0; j<10; j++) {
+                player.addHabitatToMap(habStack.pop(), i+10, j+10);
+            }
+        }
+
+        score.scorePlayer(player, scoreCards);
+        assertEquals(0, player.getScore());
+
+        tiles.placeAnimal(player.getPlayerMap()[15][15], testBear);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(2, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[18][15], testBear);
+        tiles.placeAnimal(player.getPlayerMap()[18][16], testBear);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(7, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[11][10], testBear);
+        tiles.placeAnimal(player.getPlayerMap()[11][11], testBear);
+        tiles.placeAnimal(player.getPlayerMap()[11][12], testBear);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(18, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[11][13], testBear);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(7, player.getScore());
     }
 
     @Test
@@ -105,7 +143,6 @@ class ScoreTest {
         Player player = new Player("testPlayer");
         List<ScoreCards> scoreCards = new ArrayList<>();
 
-        ArrayList<HabitatTiles> habArray = new ArrayList<>();
         Stack<HabitatTiles> habStack = new Stack<>();
         for (int i=0; i<100; i++) {
             habStack.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "bear", "fox", "elk"));

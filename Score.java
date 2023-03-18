@@ -106,14 +106,14 @@ public class Score {
 
         for (int i=0; i< player.getMaxMap(); i++) {
             for (int j = 0; j < player.getMaxMap(); j++) {
-                if (player.getPlayerMap()[i][j].isOccupied() && player.getPlayerMap()[i][j].getCreature1().equals("Bear")) {
+                if (player.getPlayerMap()[i][j].isOccupied() && player.getPlayerMap()[i][j].getCreature1().equals("Bear") && coordinates[i][j] == 0) {
                     coordinates[i][j] = 1;
                     int bearGroup = 1 + recursiveSearch("Bear", coordinates, i, j);
 
                     switch (bearGroup) {
                         case 1: player.addScore(2); single=true; break;
                         case 2: player.addScore(5); pair = true; break;
-                        case 3: player.addScore(7); triple = true; break;
+                        case 3: player.addScore(8); triple = true; break;
 
                         default: break;
                     }
@@ -121,8 +121,6 @@ public class Score {
             }
         }
         if (single && pair && triple) player.addScore(3);
-        //temp
-        System.out.println("after bearC: " + player.getUserName() + " has score:" + player.getScore());
     }
 
     private void foxAScore() {
@@ -694,7 +692,8 @@ public class Score {
                 output[1] = j-1;
                 return output;
             }
-        } else if (player.getPlayerMap()[i][j + 1].isOccupied() && player.getPlayerMap()[i][j + 1].getCreature1().equals(animal)) {
+        }
+        if (player.getPlayerMap()[i][j + 1].isOccupied() && player.getPlayerMap()[i][j + 1].getCreature1().equals(animal)) {
             if (coordinates[i][j+1] == 0) {
                 output[0] = i;
                 output[1] = j+1;
