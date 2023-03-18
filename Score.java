@@ -224,8 +224,6 @@ public class Score {
                 }
             }
         }
-        //temp
-        System.out.println("after foxB: " + player.getUserName() + " has score:" + player.getScore());
     }
 
     private void foxCScore() {
@@ -277,8 +275,6 @@ public class Score {
                 }
             }
         }
-        //temp
-        System.out.println("after foxC: " + player.getUserName() + " has score:" + player.getScore());
     }
 
     private void elkAScore() {
