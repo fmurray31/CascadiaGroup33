@@ -89,7 +89,7 @@ public class Score {
                             numAdjacent++;
                             outputCoordinates = adjacentAnimal("Bear", coordinates, outputCoordinates[0], outputCoordinates[1]);
                         }
-                        if (numAdjacent >= 3) {
+                        if (numAdjacent == 3) {
                             lineCount++;
                         }
                     }
@@ -97,8 +97,6 @@ public class Score {
             }
         }
         player.addScore(lineCount*10);
-        //temp
-        System.out.println("after bearB: " + player.getUserName() + " has score:" + player.getScore());
     }
     private void bearCScore() {
         int[][] coordinates = new int[player.getMaxMap()][player.getMaxMap()];
@@ -138,6 +136,7 @@ public class Score {
 
                     outputCoordinates = adjacentAnimal("Bear", placeHolder, i, j);
                     if (outputCoordinates[0] != -1) {
+
                         uniqueCount++;
                     }
 
@@ -165,8 +164,6 @@ public class Score {
                 }
             }
         }
-        //temp
-        System.out.println("after foxA: " + player.getUserName() + " has score:" + player.getScore());
     }
 
     private void foxBScore() {
@@ -851,7 +848,8 @@ public class Score {
 
     // method which takes in a string representing a compass direction and two ints representing a location on the player map, and returns two ints representing
     // the next location in that direction
-    private int[] directionToLocation (String direction, int i, int j) {
+    // TODO: 18/03/2023 change back to private
+    public int[] directionToLocation (String direction, int i, int j) {
         if (i==0 || j==0 || i == player.getMaxMap() || j == player.getMaxMap()) return new int[]{-1, -1};
         switch (direction) {
             case "w": return new int[]{i, j-1};
@@ -866,7 +864,7 @@ public class Score {
 
             case "sw": if (i%2 == 0) {
                 return new int[]{i+1, j};
-            } else return new int[]{i+1, j+1};
+            } else return new int[]{i+1, j-1};
             case "se": if (i%2 == 0) {
                 return new int[]{i+1, j+1};
             } else return new int[]{i+1, j};
