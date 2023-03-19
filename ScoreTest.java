@@ -539,7 +539,7 @@ class ScoreTest {
 
     @Test
     public void testHawkB() {
-        // TODO: 18/03/2023 double check 
+        // TODO: 18/03/2023 double check
         Player player = new Player("testPlayer");
         List<ScoreCards> scoreCards = new ArrayList<>();
 
