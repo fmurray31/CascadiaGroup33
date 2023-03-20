@@ -560,7 +560,6 @@ class ScoreTest {
 
     @Test
     public void testHawkB() {
-        // TODO: 18/03/2023 double check
         Player player = new Player("testPlayer");
         List<ScoreCards> scoreCards = new ArrayList<>();
 
@@ -613,7 +612,6 @@ class ScoreTest {
 
     @Test
     public void testHawkC() {
-        // TODO: 18/03/2023 not working correctly
         Player player = new Player("testPlayer");
         List<ScoreCards> scoreCards = new ArrayList<>();
 
@@ -653,7 +651,6 @@ class ScoreTest {
 
     @Test
     public void testSalmonA() {
-        // TODO: 18/03/2023 not working
         Player player = new Player("testPlayer");
         List<ScoreCards> scoreCards = new ArrayList<>();
 
@@ -681,26 +678,116 @@ class ScoreTest {
         score.scorePlayer(player, scoreCards);
         assertEquals(4, player.getScore());
 
-//        player.resetScore();
-//        tiles.placeAnimal(player.getPlayerMap()[12][14], testSalmon);
-//        player.printMap(player);
-//        score.scorePlayer(player, scoreCards);
-//        assertEquals(11, player.getScore());
-//
-//        printNeighbouringCoordinates(12, 14);
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[12][14], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(7, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][15], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(11, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][16], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(15, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][17], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(20, player.getScore());
     }
 
     @Test
     public void testSalmonB(){
+        Player player = new Player("testPlayer");
+        List<ScoreCards> scoreCards = new ArrayList<>();
 
+        Stack<HabitatTiles> habStack = new Stack<>();
+        for (int i=0; i<100; i++) {
+            habStack.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "salmon", "fox", "hawk"));
+        }
+
+        AnimalTiles testSalmon = new AnimalTiles("Salmon");
+        scoreCards.add(new ScoreCards("SalmonB", "desc"));
+
+        // places tiles in the player map
+        for (int i=0; i<10; i++) {
+            for (int j=0; j<10; j++) {
+                player.addHabitatToMap(habStack.pop(), i+10, j+10);
+            }
+        }
+
+        tiles.placeAnimal(player.getPlayerMap()[12][12], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(2, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[12][13], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(4, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[12][14], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(8, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][15], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(12, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][16], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(12, player.getScore());
     }
 
     @Test
     public void testSalmonC(){
+        Player player = new Player("testPlayer");
+        List<ScoreCards> scoreCards = new ArrayList<>();
 
+        Stack<HabitatTiles> habStack = new Stack<>();
+        for (int i=0; i<100; i++) {
+            habStack.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "salmon", "fox", "hawk"));
+        }
+
+        AnimalTiles testSalmon = new AnimalTiles("Salmon");
+        scoreCards.add(new ScoreCards("SalmonC", "desc"));
+
+        // places tiles in the player map
+        for (int i=0; i<10; i++) {
+            for (int j=0; j<10; j++) {
+                player.addHabitatToMap(habStack.pop(), i+10, j+10);
+            }
+        }
+
+        tiles.placeAnimal(player.getPlayerMap()[12][12], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(2, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[12][13], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(4, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[12][14], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(9, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][15], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(11, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][16], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(17, player.getScore());
     }
-
-
 
 
 
