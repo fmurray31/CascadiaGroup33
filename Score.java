@@ -287,28 +287,31 @@ public class Score {
                     coordinates[i][j] = 1;
                     output = adjacentAnimal("Elk", coordinates, i, j);
                     String direction;
-                    int temp = 0;
-                    int maxCount = 0;
+                    int temp;
+                    int maxCount = 1;
                     String maxDirection = "";
 
                     while (output[0] != -1) {
                         direction = adjacentToDirection(i, j, output);
                         coordinates[output[0]][output[1]] = 1;
 
+                        temp = 1;
+
                         if (direction.equals("w") || direction.equals("e")) {
-                            temp = searchLineCount("Elk", "w", coordinates, output[0], output[1]) + 1;
+                            temp += searchLineCount("Elk", "w", coordinates, output[0], output[1]) + 1;
                             temp += searchLineCount("Elk", "e", coordinates, output[0], output[1]);
                         }
 
                         if (direction.equals("nw") || direction.equals("se")) {
-                            temp = searchLineCount("Elk", "nw", coordinates, output[0], output[1]) + 1;
+                            temp += searchLineCount("Elk", "nw", coordinates, output[0], output[1]) + 1;
                             temp += searchLineCount("Elk", "se", coordinates, output[0], output[1]);
                         }
 
                         if (direction.equals("sw") || direction.equals("ne")) {
-                            temp = searchLineCount("Elk", "sw", coordinates, output[0], output[1]) + 1;
+                            temp += searchLineCount("Elk", "sw", coordinates, output[0], output[1]) + 1;
                             temp += searchLineCount("Elk", "ne", coordinates, output[0], output[1]);
                         }
+
 
                         if (temp > maxCount) {
                             maxCount = temp;
@@ -333,7 +336,7 @@ public class Score {
                         elkAHelper("ne", coordinates, i, j);
                     }
 
-                    maxCount++;
+                    //maxCount++;
                     switch (maxCount) {
                         case 0: break;
                         case 1: player.addScore(2); break;
@@ -378,6 +381,7 @@ public class Score {
             for (int j = 0; j < player.getMaxMap(); j++) {
                 if (player.getPlayerMap()[i][j].isOccupied() && player.getPlayerMap()[i][j].getCreature1().equals("Elk") && coordinates[i][j] == 0) {
                     int[] tempCoords;
+                    int[] tempCoords2;
                     coordinates[i][j] = 1;
                     int adjacentCount = adjacentCounter("Elk", i, j);
 
@@ -386,19 +390,21 @@ public class Score {
                     }
                     if (adjacentCount == 1) {
                         tempCoords = adjacentAnimal("Elk", coordinates, i, j);
-                        if (coordinates[tempCoords[0]][tempCoords[1]] == 0) {
-                            player.addScore(5);
-                            coordinates[tempCoords[0]][tempCoords[1]] = 1;
-                        }
+                        coordinates[tempCoords[0]][tempCoords[1]] = 1;
+                        player.addScore(5);
                     }
-                    // TODO: 17/03/2023 double check this is correct
                     if (adjacentCount == 2) {
+                        tempCoords = adjacentAnimal("Elk", coordinates, i, j);
+                        tempCoords2 = adjacentAnimal("Elk", coordinates, tempCoords[0], tempCoords[1]);
                         coordinates[i][j] = 1;
                         if (recursiveSearch("Elk", coordinates, i, j) == 2) {
                             player.addScore(9);
+                        } else if (adjacentCounter("Elk", tempCoords[0], tempCoords[1]) == 3 && adjacentCounter("Elk", tempCoords2[0], tempCoords2[1]) == 3) {
+                            player.addScore(13);
+                            coordinates[tempCoords[0]][tempCoords[1]] = 1;
+                            coordinates[tempCoords2[0]][tempCoords2[1]] = 1;
                         }
                     }
-                    // TODO: 17/03/2023 also needs checking
                     if (adjacentCount == 3) {
                         int [][] temp = new int[player.getMaxMap()][player.getMaxMap()];
                         temp[i][j] = 1;
@@ -830,8 +836,7 @@ public class Score {
     private int searchLineCount (String animal, String direction, int[][]coordinates, int i, int j) {
         int[] current = directionToLocation(direction, i, j);
 
-        if (player.getPlayerMap()[current[0]][current[1]].isOccupied() && player.getPlayerMap()[current[0]][current[1]].getCreature1().equals(animal)
-                && coordinates[current[0]][current[1]] != 0) {
+        if (player.getPlayerMap()[current[0]][current[1]].isOccupied() && player.getPlayerMap()[current[0]][current[1]].getCreature1().equals(animal) && coordinates[current[0]][current[1]] == 0) {
             return 1 + searchLineCount(animal, direction, coordinates, current[0], current[1]);
         }
 

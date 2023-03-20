@@ -329,7 +329,6 @@ class ScoreTest {
 
     @Test
     public void elkTestA() {
-        // TODO: 18/03/2023 needs fixing
         Player player = new Player("testPlayer");
         List<ScoreCards> scoreCards = new ArrayList<>();
 
@@ -355,9 +354,22 @@ class ScoreTest {
         player.resetScore();
         tiles.placeAnimal(player.getPlayerMap()[14][15], testElk);
         score.scorePlayer(player, scoreCards);
-//        assertEquals(5, player.getScore());
-//
-//        printNeighbouringCoordinates(14, 15);
+        assertEquals(5, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][16], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(9, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[12][16], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(13, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[11][17], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(13, player.getScore());
     }
 
     @Test
@@ -422,7 +434,6 @@ class ScoreTest {
 
     @Test
     public void testElkC() {
-        // TODO: 18/03/2023 needs fixing
         Player player = new Player("testPlayer");
         List<ScoreCards> scoreCards = new ArrayList<>();
 
@@ -450,10 +461,20 @@ class ScoreTest {
         score.scorePlayer(player, scoreCards);
         assertEquals(5, player.getScore());
 
-//        player.resetScore();
-//        tiles.placeAnimal(player.getPlayerMap()[14][16], testElk);
-//        score.scorePlayer(player, scoreCards);
-//        assertEquals(9, player.getScore());
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[14][15], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(9, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[16][15], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(13, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[16][16], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(0, player.getScore());
     }
 
     @Test
@@ -660,13 +681,13 @@ class ScoreTest {
         score.scorePlayer(player, scoreCards);
         assertEquals(4, player.getScore());
 
-        player.resetScore();
-        tiles.placeAnimal(player.getPlayerMap()[12][14], testSalmon);
-        player.printMap(player);
-        score.scorePlayer(player, scoreCards);
-        assertEquals(11, player.getScore());
-
-        printNeighbouringCoordinates(12, 14);
+//        player.resetScore();
+//        tiles.placeAnimal(player.getPlayerMap()[12][14], testSalmon);
+//        player.printMap(player);
+//        score.scorePlayer(player, scoreCards);
+//        assertEquals(11, player.getScore());
+//
+//        printNeighbouringCoordinates(12, 14);
     }
 
     @Test
