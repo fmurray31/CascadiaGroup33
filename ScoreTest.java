@@ -329,20 +329,475 @@ class ScoreTest {
 
     @Test
     public void elkTestA() {
+        Player player = new Player("testPlayer");
+        List<ScoreCards> scoreCards = new ArrayList<>();
 
+        Stack<HabitatTiles> habStack = new Stack<>();
+        for (int i=0; i<100; i++) {
+            habStack.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "bear", "fox", "elk"));
+        }
+
+        AnimalTiles testElk = new AnimalTiles("Elk");
+        scoreCards.add(new ScoreCards("ElkA", "desc"));
+
+        // places tiles in the player map
+        for (int i=0; i<10; i++) {
+            for (int j=0; j<10; j++) {
+                player.addHabitatToMap(habStack.pop(), i+10, j+10);
+            }
+        }
+
+        tiles.placeAnimal(player.getPlayerMap()[15][15], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(2, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[14][15], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(5, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][16], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(9, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[12][16], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(13, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[11][17], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(13, player.getScore());
     }
 
+    @Test
+    public void testElkB() {
+        Player player = new Player("testPlayer");
+        List<ScoreCards> scoreCards = new ArrayList<>();
 
+        Stack<HabitatTiles> habStack = new Stack<>();
+        for (int i=0; i<100; i++) {
+            habStack.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "bear", "fox", "elk"));
+        }
+
+        AnimalTiles testElk = new AnimalTiles("Elk");
+        scoreCards.add(new ScoreCards("ElkB", "desc"));
+
+        // places tiles in the player map
+        for (int i=0; i<10; i++) {
+            for (int j=0; j<10; j++) {
+                player.addHabitatToMap(habStack.pop(), i+10, j+10);
+            }
+        }
+
+        tiles.placeAnimal(player.getPlayerMap()[15][15], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(2, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[15][16], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(4, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[15][17], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(7, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[14][16], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(10, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[14][17], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(14, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[14][18], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(18, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][16], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(23, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][15], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(28, player.getScore());
+    }
+
+    @Test
+    public void testElkC() {
+        Player player = new Player("testPlayer");
+        List<ScoreCards> scoreCards = new ArrayList<>();
+
+        Stack<HabitatTiles> habStack = new Stack<>();
+        for (int i=0; i<100; i++) {
+            habStack.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "bear", "fox", "elk"));
+        }
+
+        AnimalTiles testElk = new AnimalTiles("Elk");
+        scoreCards.add(new ScoreCards("ElkC", "desc"));
+
+        // places tiles in the player map
+        for (int i=0; i<10; i++) {
+            for (int j=0; j<10; j++) {
+                player.addHabitatToMap(habStack.pop(), i+10, j+10);
+            }
+        }
+
+        tiles.placeAnimal(player.getPlayerMap()[15][15], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(2, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[15][16], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(5, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[14][15], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(9, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[16][15], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(13, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[16][16], testElk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(0, player.getScore());
+    }
+
+    @Test
+    public void testHawkA() {
+        Player player = new Player("testPlayer");
+        List<ScoreCards> scoreCards = new ArrayList<>();
+
+        Stack<HabitatTiles> habStack = new Stack<>();
+        for (int i=0; i<100; i++) {
+            habStack.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "bear", "fox", "hawk"));
+        }
+
+        AnimalTiles testHawk = new AnimalTiles("Hawk");
+        AnimalTiles testBear = new AnimalTiles("Bear");
+        scoreCards.add(new ScoreCards("HawkA", "desc"));
+
+        // places tiles in the player map
+        for (int i=0; i<10; i++) {
+            for (int j=0; j<10; j++) {
+                player.addHabitatToMap(habStack.pop(), i+10, j+10);
+            }
+        }
+
+        tiles.placeAnimal(player.getPlayerMap()[15][15], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(2, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[15][16], testBear);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(2, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[15][14], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(0, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[10][10], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(2, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[10][12], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(5, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[10][14], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(8, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[10][16], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(11, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[10][18], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(14, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[10][20], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(18, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[18][10], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(22, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[18][12], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(26, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[18][14], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(26, player.getScore());
+    }
+
+    @Test
+    public void testHawkB() {
+        Player player = new Player("testPlayer");
+        List<ScoreCards> scoreCards = new ArrayList<>();
+
+        Stack<HabitatTiles> habStack = new Stack<>();
+        for (int i=0; i<100; i++) {
+            habStack.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "bear", "fox", "hawk"));
+        }
+
+        AnimalTiles testHawk = new AnimalTiles("Hawk");
+        AnimalTiles testBear = new AnimalTiles("Bear");
+        scoreCards.add(new ScoreCards("HawkB", "desc"));
+
+        // places tiles in the player map
+        for (int i=0; i<10; i++) {
+            for (int j=0; j<10; j++) {
+                player.addHabitatToMap(habStack.pop(), i+10, j+10);
+            }
+        }
+
+        tiles.placeAnimal(player.getPlayerMap()[12][12], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(0, player.getScore());
+
+        tiles.placeAnimal(player.getPlayerMap()[12][11], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(0, player.getScore());
+
+        tiles.placeAnimal(player.getPlayerMap()[12][14], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(2, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[14][15], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(5, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[14][13], testBear);
+        tiles.placeAnimal(player.getPlayerMap()[14][13], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(9, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[14][11], testHawk);
+        tiles.placeAnimal(player.getPlayerMap()[16][11], testHawk);
+        tiles.placeAnimal(player.getPlayerMap()[16][13], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(12, player.getScore());
+    }
+
+    @Test
+    public void testHawkC() {
+        Player player = new Player("testPlayer");
+        List<ScoreCards> scoreCards = new ArrayList<>();
+
+        Stack<HabitatTiles> habStack = new Stack<>();
+        for (int i=0; i<100; i++) {
+            habStack.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "bear", "fox", "hawk"));
+        }
+
+        AnimalTiles testHawk = new AnimalTiles("Hawk");
+        AnimalTiles testBear = new AnimalTiles("Bear");
+        scoreCards.add(new ScoreCards("HawkC", "desc"));
+
+        // places tiles in the player map
+        for (int i=0; i<10; i++) {
+            for (int j=0; j<10; j++) {
+                player.addHabitatToMap(habStack.pop(), i+10, j+10);
+            }
+        }
+
+        tiles.placeAnimal(player.getPlayerMap()[12][12], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(0, player.getScore());
+
+        tiles.placeAnimal(player.getPlayerMap()[12][11], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(0, player.getScore());
+
+        tiles.placeAnimal(player.getPlayerMap()[12][14], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(3, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[12][16], testHawk);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(6, player.getScore());
+    }
+
+    @Test
+    public void testSalmonA() {
+        Player player = new Player("testPlayer");
+        List<ScoreCards> scoreCards = new ArrayList<>();
+
+        Stack<HabitatTiles> habStack = new Stack<>();
+        for (int i=0; i<100; i++) {
+            habStack.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "salmon", "fox", "hawk"));
+        }
+
+        AnimalTiles testSalmon = new AnimalTiles("Salmon");
+        scoreCards.add(new ScoreCards("SalmonA", "desc"));
+
+        // places tiles in the player map
+        for (int i=0; i<10; i++) {
+            for (int j=0; j<10; j++) {
+                player.addHabitatToMap(habStack.pop(), i+10, j+10);
+            }
+        }
+
+        tiles.placeAnimal(player.getPlayerMap()[12][12], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(2, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[12][13], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(4, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[12][14], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(7, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][15], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(11, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][16], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(15, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][17], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(20, player.getScore());
+    }
+
+    @Test
+    public void testSalmonB(){
+        Player player = new Player("testPlayer");
+        List<ScoreCards> scoreCards = new ArrayList<>();
+
+        Stack<HabitatTiles> habStack = new Stack<>();
+        for (int i=0; i<100; i++) {
+            habStack.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "salmon", "fox", "hawk"));
+        }
+
+        AnimalTiles testSalmon = new AnimalTiles("Salmon");
+        scoreCards.add(new ScoreCards("SalmonB", "desc"));
+
+        // places tiles in the player map
+        for (int i=0; i<10; i++) {
+            for (int j=0; j<10; j++) {
+                player.addHabitatToMap(habStack.pop(), i+10, j+10);
+            }
+        }
+
+        tiles.placeAnimal(player.getPlayerMap()[12][12], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(2, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[12][13], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(4, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[12][14], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(8, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][15], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(12, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][16], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(12, player.getScore());
+    }
+
+    @Test
+    public void testSalmonC(){
+        Player player = new Player("testPlayer");
+        List<ScoreCards> scoreCards = new ArrayList<>();
+
+        Stack<HabitatTiles> habStack = new Stack<>();
+        for (int i=0; i<100; i++) {
+            habStack.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "salmon", "fox", "hawk"));
+        }
+
+        AnimalTiles testSalmon = new AnimalTiles("Salmon");
+        scoreCards.add(new ScoreCards("SalmonC", "desc"));
+
+        // places tiles in the player map
+        for (int i=0; i<10; i++) {
+            for (int j=0; j<10; j++) {
+                player.addHabitatToMap(habStack.pop(), i+10, j+10);
+            }
+        }
+
+        tiles.placeAnimal(player.getPlayerMap()[12][12], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(2, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[12][13], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(4, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[12][14], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(9, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][15], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(11, player.getScore());
+
+        player.resetScore();
+        tiles.placeAnimal(player.getPlayerMap()[13][16], testSalmon);
+        score.scorePlayer(player, scoreCards);
+        assertEquals(17, player.getScore());
+    }
 
 
 
     // helper method to print all the neighbours of a given coordinate pair, helpful for constructing test cases
     private void printNeighbouringCoordinates (int a, int b) {
-        System.out.println(Arrays.toString(score.directionToLocation("w", a, b)));
-        System.out.println(Arrays.toString(score.directionToLocation("nw", a, b)));
-        System.out.println(Arrays.toString(score.directionToLocation("ne", a, b)));
-        System.out.println(Arrays.toString(score.directionToLocation("e", a, b)));
-        System.out.println(Arrays.toString(score.directionToLocation("se", a, b)));
-        System.out.println(Arrays.toString(score.directionToLocation("sw", a, b)));
+        System.out.println("w:  " + Arrays.toString(score.directionToLocation("w", a, b)));
+        System.out.println("nw: " + Arrays.toString(score.directionToLocation("nw", a, b)));
+        System.out.println("ne: " + Arrays.toString(score.directionToLocation("ne", a, b)));
+        System.out.println("e:  " + Arrays.toString(score.directionToLocation("e", a, b)));
+        System.out.println("se: " + Arrays.toString(score.directionToLocation("se", a, b)));
+        System.out.println("sw: " + Arrays.toString(score.directionToLocation("sw", a, b)));
     }
 }

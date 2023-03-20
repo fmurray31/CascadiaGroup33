@@ -16,39 +16,55 @@ public class ScoreCards {
     public List<ScoreCards> generateScore() {
         ArrayList<ScoreCards> scoreCardArray = new ArrayList();
 
-        scoreCardArray.add(new ScoreCards("BearA", "desc"));
-        scoreCardArray.add(new ScoreCards("BearB", "desc"));
-        scoreCardArray.add(new ScoreCards("BearC", "desc"));
+        ArrayList<ScoreCards> bearCardArray = new ArrayList();
+        bearCardArray.add(new ScoreCards("BearA", "Score points for total number of pairs of bears.\nA pair of bears is exactly two adjacent bears, with no others adjacent."));
+        bearCardArray.add(new ScoreCards("BearB", "desc"));
+        bearCardArray.add(new ScoreCards("BearC", "desc"));
+        Collections.shuffle(bearCardArray);
 
-        scoreCardArray.add(new ScoreCards("FoxA", "desc"));
-        scoreCardArray.add(new ScoreCards("FoxB", "desc"));
-        scoreCardArray.add(new ScoreCards("FoxC", "desc"));
+        ArrayList<ScoreCards> foxCardArray = new ArrayList();
+        foxCardArray.add(new ScoreCards("FoxA", "desc"));
+        foxCardArray.add(new ScoreCards("FoxB", "desc"));
+        foxCardArray.add(new ScoreCards("FoxC", "desc"));
+        Collections.shuffle(foxCardArray);
 
-        scoreCardArray.add(new ScoreCards("ElkA", "desc"));
-        scoreCardArray.add(new ScoreCards("ElkB", "desc"));
-        scoreCardArray.add(new ScoreCards("ElkC", "desc"));
+        ArrayList<ScoreCards> elkCardArray = new ArrayList();
+        elkCardArray.add(new ScoreCards("ElkA", "desc"));
+        elkCardArray.add(new ScoreCards("ElkB", "desc"));
+        elkCardArray.add(new ScoreCards("ElkC", "desc"));
+        Collections.shuffle(elkCardArray);
 
-        scoreCardArray.add(new ScoreCards("HawkA", "desc"));
-        scoreCardArray.add(new ScoreCards("HawkB", "desc"));
-        scoreCardArray.add(new ScoreCards("HawkC", "desc"));
 
-        scoreCardArray.add(new ScoreCards("SalmonA", "desc"));
-        scoreCardArray.add(new ScoreCards("SalmonB", "desc"));
-        scoreCardArray.add(new ScoreCards("SalmonC", "desc"));
+        ArrayList<ScoreCards> hawkCardArray = new ArrayList();
+        hawkCardArray.add(new ScoreCards("HawkA", "desc"));
+        hawkCardArray.add(new ScoreCards("HawkB", "desc"));
+        hawkCardArray.add(new ScoreCards("HawkC", "desc"));
+        Collections.shuffle(hawkCardArray);
 
-        Collections.shuffle(scoreCardArray);
+        ArrayList<ScoreCards> salmonCardArray = new ArrayList();
+        salmonCardArray.add(new ScoreCards("SalmonA", "desc"));
+        salmonCardArray.add(new ScoreCards("SalmonB", "desc"));
+        salmonCardArray.add(new ScoreCards("SalmonC", "desc"));
+        Collections.shuffle(salmonCardArray);
 
-        return scoreCardArray.subList(0, 5);
+        scoreCardArray.add(bearCardArray.get(0));
+        scoreCardArray.add(foxCardArray.get(0));
+        scoreCardArray.add(elkCardArray.get(0));
+        scoreCardArray.add(hawkCardArray.get(0));
+        scoreCardArray.add(salmonCardArray.get(0));
+
+        return scoreCardArray;
     }
 
     public String getCardTitle() {
         return cardTitle;
     }
 
-    // TODO: 15/03/2023 add card description to print, with formatting
     public void displayScoreCards (List<ScoreCards> sc) {
         for (ScoreCards card : sc) {
-            System.out.println(card.getCardTitle());
+            System.out.println(card.getCardTitle() + "\n");
+            System.out.println(card.cardDescription + "\n");
+            System.out.println("*+*+*+*+*+*+*+*+*+*+*");
         }
     }
 }
