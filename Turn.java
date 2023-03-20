@@ -4,7 +4,7 @@ public class Turn {
     private AnimalTiles animalTiles;
     Tiles tiles = new Tiles();
 
-    // this class takes a player class as input, and contains the code and driver for a single player's turn
+    // this method takes a player class as input, and contains the code and driver for a single player's turn
     public void turnLoop(Player player, int playerCount){
         boolean endTurn = false;
         boolean cancelled = false;
@@ -25,49 +25,13 @@ public class Turn {
             player.printMap(player);
             System.out.println("\n\n-----------------------------------------------------------\n");
 
-            // handles the "cull" part of the turn
-            boolean cullFinish = false;
-            while (!cullFinish) {
-                if (tiles.centralAnimals == null) {
-                    tiles.setupTiles(playerCount);
-                    tiles.setupCentralTiles();
-                }
-
-                tiles.displayCentralTiles();
-
-                Object maxTiles[];
-
-                maxTiles = tiles.optionalCull(tiles.centralAnimals);
-                if ((Integer)maxTiles[1]  == 4) {
-                    System.out.println("All animal tiles the same, initiating automatic cull");
-                    tiles.redrawAnimals((AnimalTiles) maxTiles[0]);
-                } else if ((Integer)maxTiles[1]  == 3) {
-                    input = 0;
-                    while (input != 2) {
-                        System.out.println("Would you like to redraw all " + maxTiles[0].toString() + "?");
-                        System.out.println("Enter 1 for yes, 2 for no: ");
-                        try {
-                            input = Integer.parseInt(in.nextLine());
-
-                            if (input == 1) {
-                                tiles.redrawAnimals((AnimalTiles) maxTiles[0]);
-                                tiles.displayCentralTiles();
-                                input = 2;
-                            }
-                            if (input != 1 && input != 2) {
-                                System.out.println("Value entered was neither 1 nor 2");
-                            }
-                            if (input == 2) {
-                                cullFinish = true;
-                            }
-                        } catch (NumberFormatException e) {
-                            System.out.println("Value entered must be an integer, without spaces or punctuation");
-                        }
-                    }
-                } else {
-                    cullFinish = true;
-                }
+            // sets up tiles on the first loop
+            if (tiles.centralAnimals == null) {
+                tiles.setupTiles(playerCount);
+                tiles.setupCentralTiles();
             }
+
+            cull();
 
             // taking player input for central tile choice and nature token use, with error handling
             boolean choice = false;
@@ -279,5 +243,56 @@ public class Turn {
         tiles.centralHabitats.remove(centralHabChoice);
         tiles.centralAnimals.remove(centralAnimalChoice);
         tiles.drawCentralTiles();
+    }
+
+    // method which handles the "cull" mechanics
+    public void cull() {
+        boolean cullFinish = false;
+
+        while (!cullFinish) {
+            Scanner in = new Scanner(System.in);
+            int input = 0;
+
+            tiles.displayCentralTiles();
+
+            Object[] maxTiles = tiles.optionalCull(tiles.centralAnimals);
+
+            while ((Integer)maxTiles[1] == 4) {
+                cullHelper(maxTiles);
+            }
+
+            if ((Integer)maxTiles[1] == 3) {
+                while (input != 2) {
+                    input = 0;
+                    System.out.println("Would you like to redraw all " + maxTiles[0].toString() + "?");
+                    System.out.println("Enter 1 for yes, 2 for no: ");
+
+                    try {
+                        input = Integer.parseInt(in.nextLine());
+
+                        if (input == 1) {
+                            tiles.redrawAnimals((AnimalTiles) maxTiles[0]);
+                            tiles.displayCentralTiles();
+                            input = 2;
+                        }
+                        if (input != 2) {
+                            System.out.println("Value entered was neither 1 nor 2");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Value entered must be an integer, without spaces or punctuation");
+                    }
+                }
+            }
+
+            if ((Integer)maxTiles[1] != 4) {
+                cullFinish = true;
+            }
+        }
+    }
+
+    // helper method to enable testing without infinite loop
+    public void cullHelper(Object[] maxTiles) {
+        System.out.println("All animal tiles the same, initiating automatic cull");
+        tiles.redrawAnimals((AnimalTiles) maxTiles[0]);
     }
 }
