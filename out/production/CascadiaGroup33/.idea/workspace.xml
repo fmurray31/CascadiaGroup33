@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e4f16033-bdeb-4571-918c-7b30693a5e47" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/HabitatTiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/HabitatTiles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/HabitatTiles.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/HabitatTiles.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/SetupInput.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/SetupInput.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/Turn.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/Turn.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Turn.java" beforeDir="false" afterPath="$PROJECT_DIR$/Turn.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
