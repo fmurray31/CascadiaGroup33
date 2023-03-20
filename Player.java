@@ -30,6 +30,10 @@ public class Player {
         this.natureTokens++;
     }
 
+    public void removeNatureToken() {
+        this.natureTokens--;
+    }
+
     public int getMaxMap() {
         return maxMap;
     }

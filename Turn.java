@@ -106,6 +106,7 @@ public class Turn {
                                 System.out.println("You don't have any nature tokens!");
                                 choice = false;
                             } else {
+                                player.removeNatureToken();
                                 System.out.println("\nYou may use the nature token in the following ways:");
                                 System.out.println("\n[1] Take any combination of one tile and one token of your choice from the selection." +
                                         "\n[2] Wipe any number of wildlife tokens of your choice.");
