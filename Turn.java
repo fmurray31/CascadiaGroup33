@@ -123,6 +123,9 @@ public class Turn {
                                         System.out.println("\nPlease select from animals [1], [2], [3], [4]");
                                         centralAnimalChoice = numChoose() - 1;
 
+                                        choice = true;
+                                        break;
+
                                     case 2:
                                         System.out.println("\nPlease select how many wildlife tokens you would like to get rid of:");
                                         removeAni();
