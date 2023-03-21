@@ -76,5 +76,5 @@ class TurnTest {
         assertEquals(output[1], 3);
     }
 
-    
+
 }
