@@ -75,9 +75,12 @@ public class Cascadia {
 
         System.out.println("\n\n-----------------------------------------------------------\n\n");
 
+        //Set the winner as the first person in the player array
         int winScore = playerArray[0].getScore();
         String winPlayer = playerArray[0].getUserName();
+        //loops through list of players
         for (int i = 0; i < playerArray.length; i++) {
+            //compares the score of a player to another and updates winner if a larger score is found
             if(playerArray[i].getScore() > winScore) {
                 winScore = playerArray[i].getScore();
                 winPlayer = playerArray[i].getUserName();
