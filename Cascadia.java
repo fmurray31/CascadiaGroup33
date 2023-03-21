@@ -72,6 +72,19 @@ public class Cascadia {
             System.out.print("Player " + currentPlayer.getUserName() + "'s score: ");
             System.out.println(currentPlayer.getScore());
         }
+
+        System.out.println("\n\n-----------------------------------------------------------\n\n");
+
+        int winScore = playerArray[0].getScore();
+        String winPlayer = playerArray[0].getUserName();
+        for (int i = 0; i < playerArray.length; i++) {
+            if(playerArray[i].getScore() > winScore) {
+                winScore = playerArray[i].getScore();
+                winPlayer = playerArray[i].getUserName();
+            }
+        }
+
+        System.out.println("The winner is " + winPlayer + " with a score of " + winScore + "!");
     }
 }
 
