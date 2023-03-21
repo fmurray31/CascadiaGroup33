@@ -23,12 +23,15 @@ public class Turn {
         Scanner in = new Scanner(System.in);
         int input = 0;
         int input2 = numChoose();
+        System.out.println("Please select the animal [1], [2], [3] or [4] you would like to get rid of:");
 
         for (int i = 0;i < input2; i++) {
             input = numChoose();
             tiles.centralAnimals.remove(input);
+            System.out.println("You got rid of " + "[" + input + "]");
         }
         tiles.drawCentralTiles();
+        tiles.displayCentralTiles();
     }
 
     // this class takes a player class as input, and contains the code and driver for a single player's turn
