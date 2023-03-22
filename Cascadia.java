@@ -120,6 +120,8 @@ public class Cascadia {
             if(playerArray[i].getScore() > winScore) {
                 winScore = playerArray[i].getScore();
                 winPlayer = playerArray[i].getUserName();
+            } else if (playerArray[i].getScore() == winScore) {
+                winPlayer += " + " + playerArray[i].getUserName();
             }
         }
 
