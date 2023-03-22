@@ -113,6 +113,7 @@ public class Cascadia {
 
         //Set the winner as the first person in the player array
         int winScore = 0;
+        int winToken = 0;
         String winPlayer = "";
         //loops through list of players
         for (int i = 0; i < playerArray.length; i++) {
@@ -120,8 +121,14 @@ public class Cascadia {
             if(playerArray[i].getScore() > winScore) {
                 winScore = playerArray[i].getScore();
                 winPlayer = playerArray[i].getUserName();
+                winToken = playerArray[i].getNatureTokens();
             } else if (playerArray[i].getScore() == winScore) {
-                winPlayer += " + " + playerArray[i].getUserName();
+                if (playerArray[i].getNatureTokens() > winToken) {
+                    winPlayer = playerArray[i].getUserName();
+                    winToken = playerArray[i].getNatureTokens();
+                } else if (playerArray[i].getNatureTokens() == winToken) {
+                    winPlayer += " + " + playerArray[i].getUserName();
+                }
             }
         }
 
