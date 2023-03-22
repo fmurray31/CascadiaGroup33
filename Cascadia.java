@@ -55,6 +55,7 @@ public class Cascadia {
         int turnCount = 0;
         int remainingTurns = numUsers*20+3;
 
+        // main game loop
         while (remainingTurns>0) {
             System.out.println("Remaining turns: " + remainingTurns);
             remainingTurns--;
