@@ -9,6 +9,7 @@ public class Cascadia {
         Setup setup = new Setup();
         Score score = new Score();
         ScoreCards scoreCards = new ScoreCards("blank", "blank");
+        HabitatMajorities habitatMajorities = new HabitatMajorities();
         Tiles tiles = new Tiles();
         Player player;
         Turn turn = new Turn();
@@ -52,8 +53,7 @@ public class Cascadia {
         System.out.println("\n\n-----------------------------------------------------------\n");
 
         int turnCount = 0;
-        //int remainingTurns = numUsers*20+3;
-        int remainingTurns = 6;
+        int remainingTurns = numUsers*20+3;
 
         while (remainingTurns>0) {
             System.out.println("Remaining turns: " + remainingTurns);
@@ -63,7 +63,43 @@ public class Cascadia {
         }
 
         System.out.println("Game Ends!");
-        System.out.println("scoring goes here");
+
+        // calculating and scoring the largest habitat corridor(s)
+        int maxHabs = 0;
+        int secondMaxHabs = 0;
+        Player maxHabPlayer = playerArray[0];
+        Player secondMaxHabPlayer = playerArray[0];
+
+        for (Player currentPlayer : playerArray) {
+            int habCount = habitatMajorities.findHabitatMajority(currentPlayer);
+            currentPlayer.addScore(habCount);
+            if (habCount >= maxHabs) {
+                secondMaxHabPlayer = maxHabPlayer;
+                secondMaxHabs = maxHabs;
+
+                maxHabs = habCount;
+                maxHabPlayer = currentPlayer;
+            }
+        }
+
+        switch (playerArray.length) {
+            case 4:
+            case 3:
+                if (maxHabs == secondMaxHabs) {
+                maxHabPlayer.addScore(2);
+                secondMaxHabPlayer.addScore(2);
+            }  else {
+                maxHabPlayer.addScore(3);
+                secondMaxHabPlayer.addScore(1);
+            }   break;
+
+            case 2: if (maxHabs == secondMaxHabs) {
+                maxHabPlayer.addScore(1);
+                secondMaxHabPlayer.addScore(1);
+            }  else {
+                maxHabPlayer.addScore(2);
+            }   break;
+        }
 
         for (Player currentPlayer : playerArray) {
             System.out.println("Player " + currentPlayer.getUserName() + "'s map:");

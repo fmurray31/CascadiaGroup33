@@ -787,6 +787,9 @@ class ScoreTest {
         tiles.placeAnimal(player.getPlayerMap()[13][16], testSalmon);
         score.scorePlayer(player, scoreCards);
         assertEquals(17, player.getScore());
+
+        //temp
+        printNeighbouringCoordinates(14, 14);
     }
 
 
