@@ -10,6 +10,7 @@ public class HabitatMajorities {
 
         List<ScoreCards> tempSc = new ArrayList<>();
         score.scorePlayer(player, tempSc);
+        player.resetScore();
         //int[][] coordinates = new int[player.getMaxMap()][player.getMaxMap()];
         int maxTiles = 0;
         
@@ -113,17 +114,6 @@ public class HabitatMajorities {
         String matchedSide = matchingSides(i, j, counted);
         int[] nextCoord;
         int output = 0;
-
-//        if (!matchedSide.equals("none") && terrain.equals("blank")) {
-//            switch (matchedSide) {
-//                case "w": terrain = player.getPlayerMap()[i][j].getWest(); break;
-//                case "nw": terrain = player.getPlayerMap()[i][j].getNorthWest(); break;
-//                case "ne": terrain = player.getPlayerMap()[i][j].getNorthEast(); break;
-//                case "e": terrain = player.getPlayerMap()[i][j].getEast(); break;
-//                case "se": terrain = player.getPlayerMap()[i][j].getSouthEast(); break;
-//                case "sw": terrain = player.getPlayerMap()[i][j].getSouthWest(); break;
-//            }
-//        }
 
         while (!matchedSide.equals("none")) {
             if (adjacentSide(i, j, matchedSide).equals(terrain)) {

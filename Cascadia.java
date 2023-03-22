@@ -112,6 +112,10 @@ public class Cascadia {
 
         System.out.println("\n\n-----------------------------------------------------------\n\n");
 
+        winnerDisplay(playerArray);
+    }
+
+    private static void winnerDisplay (Player[] playerArray) {
         //Set the winner as the first person in the player array
         int winScore = 0;
         int winToken = 0;
