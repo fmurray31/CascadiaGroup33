@@ -5,7 +5,6 @@ public class Tiles {
     AnimalTiles animalTiles = new AnimalTiles("");
 
     ArrayList<HabitatTiles> centralHabitats;
-
     ArrayList<AnimalTiles> centralAnimals;
 
 
@@ -13,10 +12,6 @@ public class Tiles {
     public void setupTiles(int playerCount) {
         animalTiles.animalSetup();
         habitatTiles.habitatSetup(playerCount);
-    }
-
-    public ArrayList<HabitatTiles> getHabitatTiles() {
-        return habitatTiles.getHabitatArray();
     }
 
     public ArrayList<AnimalTiles> getAnimalTiles() {

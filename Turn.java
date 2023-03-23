@@ -1,38 +1,7 @@
 import java.util.Scanner;
 
 public class Turn {
-    private AnimalTiles animalTiles;
     Tiles tiles = new Tiles();
-
-    public int numChoose () {
-        int input = 0;
-        Scanner in = new Scanner(System.in);
-
-        while (input <= 0 || input > 4) {
-            try {
-                input = Integer.parseInt(in.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input, please select an integer [1], [2], [3] or [4].");
-            }
-        }
-
-        return input;
-    }
-
-    public void removeAni () {
-        Scanner in = new Scanner(System.in);
-        int input = 0;
-        int input2 = numChoose();
-        System.out.println("Please select the animal [1], [2], [3] or [4] you would like to get rid of:");
-
-        for (int i = 0;i < input2; i++) {
-            input = numChoose();
-            tiles.centralAnimals.remove(input);
-            System.out.println("You got rid of " + "[" + input + "]");
-        }
-        tiles.drawCentralTiles();
-        tiles.displayCentralTiles();
-    }
 
     // this class takes a player class as input, and contains the code and driver for a single player's turn
     // this method takes a player class as input, and contains the code and driver for a single player's turn
@@ -66,7 +35,6 @@ public class Turn {
 
             // taking player input for central tile choice and nature token use, with error handling
             boolean choice = false;
-
             while (!choice) {
                 System.out.println("Enter [1], [2], [3] or [4] to choose a habitat tile and animal tile combination from the central pool. Enter [5] to use a nature token.");
                 try {
@@ -102,9 +70,10 @@ public class Turn {
                             break;
 
                         case 5:
+                            // nature token usage
                             System.out.println("You have " + player.getNatureTokens() + " nature tokens.");
                             int input2 = 0;
-                            Boolean choice2 = true;
+                            boolean choice2 = true;
 
                             if (player.getNatureTokens() <= 0) {
                                 System.out.println("You don't have any nature tokens!");
@@ -152,6 +121,7 @@ public class Turn {
                     System.out.println("Value entered must be an integer, without spaces or punctuation");
                 }
 
+                // checking that a chosen animal can be placed on a player's map
                 if (centralAnimalChoice + centralHabChoice > 0) {
                     if (!tiles.freeAnimalSpace(player, tiles.centralAnimals.get(centralAnimalChoice))  && !tiles.suitableForAnimal(tiles.centralHabitats.get(centralHabChoice), tiles.centralAnimals.get(centralAnimalChoice))) {
                         System.out.println("There are no empty spaces on the board to place this animal, please choose another tile");
@@ -362,5 +332,35 @@ public class Turn {
     public void cullHelper(Object[] maxTiles) {
         System.out.println("All animal tiles the same, initiating automatic cull");
         tiles.redrawAnimals((AnimalTiles) maxTiles[0]);
+    }
+
+    public int numChoose () {
+        int input = 0;
+        Scanner in = new Scanner(System.in);
+
+        while (input <= 0 || input > 4) {
+            try {
+                input = Integer.parseInt(in.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input, please select an integer [1], [2], [3] or [4].");
+            }
+        }
+
+        return input;
+    }
+
+    public void removeAni () {
+        Scanner in = new Scanner(System.in);
+        int input = 0;
+        int input2 = numChoose();
+        System.out.println("Please select the animal [1], [2], [3] or [4] you would like to get rid of:");
+
+        for (int i = 0;i < input2; i++) {
+            input = numChoose();
+            tiles.centralAnimals.remove(input);
+            System.out.println("You got rid of " + "[" + input + "]");
+        }
+        tiles.drawCentralTiles();
+        tiles.displayCentralTiles();
     }
 }

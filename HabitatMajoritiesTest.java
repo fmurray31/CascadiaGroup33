@@ -1,12 +1,7 @@
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class HabitatMajoritiesTest {
-    Tiles tiles = new Tiles();
-    Score score = new Score();
     HabitatMajorities habitatMajorities = new HabitatMajorities();
 
     @Test

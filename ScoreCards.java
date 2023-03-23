@@ -13,6 +13,7 @@ public class ScoreCards {
     }
 
     // method to add every score card to an arraylist, then shuffle and return a list of the first 5 cards
+    // The score cards for each animal are added to a separate arraylist, which is then shuffled and the first card in each arraylist is added to the final arraylist
     public List<ScoreCards> generateScore() {
         ArrayList<ScoreCards> scoreCardArray = new ArrayList();
 
@@ -60,6 +61,7 @@ public class ScoreCards {
         return cardTitle;
     }
 
+    // method to print a list of score cards, with formatting
     public void displayScoreCards (List<ScoreCards> sc) {
         for (ScoreCards card : sc) {
             System.out.println(card.getCardTitle() + "\n");
