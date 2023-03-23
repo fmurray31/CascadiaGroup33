@@ -16,6 +16,7 @@ public class HabitatTiles {
         habitatArray = drawHabitats(habitatArray, playerCount);
     }
 
+    // takes an arraylist of habitat tiles and returns a smaller habitat tile arraylist, based on the player count
     private ArrayList<HabitatTiles> drawHabitats (ArrayList<HabitatTiles> habArr, int playerCount) {
         ArrayList<HabitatTiles> output = new ArrayList<>();
         playerCount = playerCount * 20 + 3;
@@ -29,7 +30,8 @@ public class HabitatTiles {
         return habitatArray;
     }
 
-    // Class that stores the six "sides" of each habitat and up to three creatures
+    // object that stores the six "sides" of each habitat and up to three creatures, as well as a boolean which tracks whether a tile is "occupied",
+    // which is initialised to false
     public HabitatTiles(String northWest, String northEast, String west, String east, String southWest, String southEast, String creature1, String creature2, String creature3) {
         this.northWest = northWest;
         this.northEast = northEast;
@@ -108,7 +110,6 @@ public class HabitatTiles {
     }
 
     // creates an arraylist of habitats
-    // TODO: 11/02/2023 only generates keystones, with only one animal per tile, needs to be fixed
     private ArrayList<HabitatTiles> generateHabitats() {
         ArrayList<HabitatTiles> output = new ArrayList<>();
 
@@ -160,7 +161,7 @@ public class HabitatTiles {
         return output;
     }
 
-    // helper function to turn an int into an animal string, populates habitats with animals, needs adding to
+    // helper function to turn an int into an animal string, populates habitats with animals
     private String generateHabitatHelper(int num) {
         switch (num) {
             case 1: return "hawk";
@@ -191,51 +192,43 @@ public class HabitatTiles {
     public String getNorthWest() {
         return northWest;
     }
-
     public String getNorthEast() {
         return northEast;
     }
-
     public String getWest() {
         return west;
     }
-
     public String getEast() {
         return east;
     }
-
     public String getSouthWest() {
         return southWest;
     }
-
     public String getSouthEast() {
         return southEast;
     }
-
     public String getCreature1() {
         return creature1;
     }
-
     public String getCreature2() {
         return creature2;
     }
-
     public String getCreature3() {
         return creature3;
     }
 
+
     public void setCreature1(String creature1) {
         this.creature1 = creature1;
     }
-
     public void setCreature2(String creature2) {
         this.creature2 = creature2;
     }
-
     public void setCreature3(String creature3) {
         this.creature3 = creature3;
     }
 
+    // used to switch a tile to occupied
     public void setOccupied() {
         this.occupied = true;
     }
@@ -269,6 +262,7 @@ public class HabitatTiles {
         return this.getNorthWest().equals(this.getNorthEast()) && this.getEast().equals(this.getWest()) && this.getSouthWest().equals(this.getSouthEast());
     }
 
+    // method which adds a white background to a string, used to display occupied habitat tiles
     public String occupiedBackground () {
         if (this.isOccupied()) {
             return "\u001b[47m";

@@ -20,10 +20,6 @@ public class AnimalTiles {
         this.animal = animal;
     }
 
-    public String getAnimal() {
-        return animal;
-    }
-
     public void setAnimal(String animal) {
         this.animal = animal;
     }
@@ -41,6 +37,12 @@ public class AnimalTiles {
         return al;
     }
 
+    // shuffles the arraylist using collections
+    public void shuffleAnimals() {
+        Collections.shuffle(animalAL, new Random());
+    }
+
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof AnimalTiles) {
@@ -49,13 +51,6 @@ public class AnimalTiles {
             return this.equals(obj);
         }
     }
-
-    // shuffles the arraylist using collections
-    public void shuffleAnimals() {
-        Collections.shuffle(animalAL, new Random());
-    }
-
-
     @Override
     public String toString() {
         return animal;

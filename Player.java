@@ -1,11 +1,10 @@
-import java.util.Objects;
-
 public class Player {
     private String userName;
     private int score, natureTokens;
     private HabitatTiles[][] playerMap;
     // Integer value which stores the maximum map size
-    private int maxMap = 55;
+    private final int maxMap = 55;
+    // "blank" habitat tile used to fill a player's initial map
     HabitatTiles habitatTiles = new HabitatTiles("blank","blank","blank","blank","blank","blank","","","");
 
     // constructor that creates a player class using a name, and initialising a map of blank habitats and a score of 0
@@ -22,14 +21,13 @@ public class Player {
         natureTokens = 0;
     }
 
+    // methods used to get and manipulate nature token counts
     public int getNatureTokens() {
         return natureTokens;
     }
-
     public void addNatureToken() {
         this.natureTokens++;
     }
-
     public void removeNatureToken() {
         this.natureTokens--;
     }
@@ -37,7 +35,6 @@ public class Player {
     public int getMaxMap() {
         return maxMap;
     }
-
     public HabitatTiles[][] getPlayerMap() {
         return playerMap;
     }
@@ -50,15 +47,11 @@ public class Player {
     public String getUserName() {
         return userName;
     }
-
     public int getScore() {
         return score;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
+    // method to add score, ensures score can never be deprecated when accessed
     public void addScore(int add) {
         this.score += add;
     }
@@ -78,7 +71,7 @@ public class Player {
         this.score = 0;
     }
 
-    // prints a players map of habitat tiles
+    // prints a players map of habitat tiles, with indents on even rows to represent six sided tiles.
     public void printMap (Player player) {
         boolean first;
 
@@ -184,7 +177,7 @@ public class Player {
         return false;
     }
 
-    // prints a player's map with a number beside each row for player input
+    // prints a player's map with a number beside each row, used to take player input on row selection
     public void printRows (Player player) {
         boolean first;
 
@@ -288,9 +281,6 @@ public class Player {
     public void printSingleRow (Player player, int row) {
         int column = 1;
 
-        //row = rowConversion(player, row);
-
-        // print row + rowfind row
         for (int i=0; i<=4; i++) {
             for (int j=1; j<maxMap-1; j++) {
                 if (columnCheck(player, j) || columnCheck(player, j-1) || columnCheck(player, j+1))
@@ -324,6 +314,7 @@ public class Player {
                         break;
 
                     case 4:
+                        // prints the number beneath each column, with support for double digit numbers being differently sized
                         if (column < 10) {
                             System.out.print("        " + column + "       " + "        " + "        ");
                         } else {

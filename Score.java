@@ -1,17 +1,16 @@
-import java.nio.file.StandardWatchEventKinds;
-import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Score {
     private Player player;
     private List<ScoreCards> scoreCards;
+    // takes a player and a list of scorecards, and increases the player's score depending on which conditions they meet and the scorecards chosen
     public void scorePlayer (Player p, List<ScoreCards> sc) {
         player = p;
-        p.addScore(p.getNatureTokens());
         scoreCards = sc;
+        // adds points for nature token count
+        p.addScore(p.getNatureTokens());
 
+        // goes through the list of scorecards, calling the relevant method for each card
         for (int i=0; i<sc.size(); i++) {
             switch (scoreCards.get(i).getCardTitle()) {
                 case "BearA": bearAScore(); break;
@@ -40,7 +39,7 @@ public class Score {
     }
 
 
-
+    // bear scoring
     private void bearAScore () {
         int[][] coordinates = new int[player.getMaxMap()][player.getMaxMap()];
         int[] outputCoordinates;
@@ -71,6 +70,7 @@ public class Score {
             default: player.addScore(27); break;
         }
     }
+
     private void bearBScore () {
         int[][] coordinates = new int[player.getMaxMap()][player.getMaxMap()];
         int[] outputCoordinates;
@@ -99,6 +99,7 @@ public class Score {
         }
         player.addScore(lineCount*10);
     }
+
     private void bearCScore() {
         int[][] coordinates = new int[player.getMaxMap()][player.getMaxMap()];
         boolean single = false;
@@ -124,6 +125,7 @@ public class Score {
         if (single && pair && triple) player.addScore(3);
     }
 
+    // Fox scoring
     private void foxAScore() {
         int[] outputCoordinates;
         int[][] placeHolder = new int[player.getMaxMap()][player.getMaxMap()];
@@ -278,6 +280,7 @@ public class Score {
         }
     }
 
+    // Elk scoring
     private void elkAScore() {
         int[] output;
         int[][] coordinates = new int[player.getMaxMap()][player.getMaxMap()];
@@ -418,6 +421,7 @@ public class Score {
         }
     }
 
+    // Hawk scoring
     private void hawkAScore() {
         int[] outputCoordinates;
         int[][] placeholder = new int[player.getMaxMap()][player.getMaxMap()];
@@ -604,6 +608,7 @@ public class Score {
             }
         }
     }
+    // salmon scoring, taking the output from salmonGeneric
     private void salmonAScore(int num) {
         switch (num) {
             case 0: break;
@@ -835,6 +840,7 @@ public class Score {
         }
     }
 
+    // recursively counts the number of a given animal in a straight line
     private int searchLineCount (String animal, String direction, int[][]coordinates, int i, int j) {
         int[] current = directionToLocation(direction, i, j);
 
