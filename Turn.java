@@ -104,37 +104,41 @@ public class Turn {
                         case 5:
                             System.out.println("You have " + player.getNatureTokens() + " nature tokens.");
                             int input2 = 0;
+                            Boolean choice2 = true;
 
                             if (player.getNatureTokens() <= 0) {
                                 System.out.println("You don't have any nature tokens!");
-                                choice = false;
                             } else {
                                 player.removeNatureToken();
                                 System.out.println("\nYou may use the nature token in the following ways:");
                                 System.out.println("\n[1] Take any combination of one tile and one token of your choice from the selection." +
                                         "\n[2] Wipe any number of wildlife tokens of your choice.");
-                                input2 = Integer.parseInt(in.nextLine());
 
-                                switch(input2) {
-                                    case 1:
-                                        System.out.println("\nPlease select from tiles [1], [2], [3], [4]");
-                                        centralHabChoice = numChoose() - 1;
+                                while (choice2) {
+                                    input2 = Integer.parseInt(in.nextLine());
 
-                                        System.out.println("\nPlease select from animals [1], [2], [3], [4]");
-                                        centralAnimalChoice = numChoose() - 1;
+                                    switch (input2) {
+                                        case 1:
+                                            System.out.println("\nPlease select from tiles [1], [2], [3], [4]");
+                                            centralHabChoice = numChoose() - 1;
 
-                                        choice = true;
-                                        break;
+                                            System.out.println("\nPlease select from animals [1], [2], [3], [4]");
+                                            centralAnimalChoice = numChoose() - 1;
 
-                                    case 2:
-                                        System.out.println("\nPlease select how many wildlife tokens you would like to get rid of:");
-                                        removeAni();
-                                        choice = false;
-                                        break;
+                                            choice = true;
+                                            choice2 = false;
+                                            break;
 
-                                    default:
-                                        choice = true;
-                                        break;
+                                        case 2:
+                                            System.out.println("\nPlease select how many wildlife tokens you would like to get rid of:");
+                                            removeAni();
+                                            choice2 = false;
+                                            break;
+
+                                        default:
+                                            System.out.println("Please enter only enter integer [1] or [2]");
+                                            break;
+                                    }
                                 }
                             }
                             break;

@@ -9,6 +9,7 @@ public class Cascadia {
         Setup setup = new Setup();
         Score score = new Score();
         ScoreCards scoreCards = new ScoreCards("blank", "blank");
+        HabitatMajorities habitatMajorities = new HabitatMajorities();
         Tiles tiles = new Tiles();
         Player player;
         Turn turn = new Turn();
@@ -52,9 +53,9 @@ public class Cascadia {
         System.out.println("\n\n-----------------------------------------------------------\n");
 
         int turnCount = 0;
-        //int remainingTurns = numUsers*20+3;
-        int remainingTurns = 6;
+        int remainingTurns = numUsers*20+3;
 
+        // main game loop
         while (remainingTurns>0) {
             System.out.println("Remaining turns: " + remainingTurns);
             remainingTurns--;
@@ -63,7 +64,43 @@ public class Cascadia {
         }
 
         System.out.println("Game Ends!");
-        System.out.println("scoring goes here");
+
+        // calculating and scoring the largest habitat corridor(s)
+        int maxHabs = 0;
+        int secondMaxHabs = 0;
+        Player maxHabPlayer = playerArray[0];
+        Player secondMaxHabPlayer = playerArray[0];
+
+        for (Player currentPlayer : playerArray) {
+            int habCount = habitatMajorities.findHabitatMajority(currentPlayer);
+            currentPlayer.addScore(habCount);
+            if (habCount >= maxHabs) {
+                secondMaxHabPlayer = maxHabPlayer;
+                secondMaxHabs = maxHabs;
+
+                maxHabs = habCount;
+                maxHabPlayer = currentPlayer;
+            }
+        }
+
+        switch (playerArray.length) {
+            case 4:
+            case 3:
+                if (maxHabs == secondMaxHabs) {
+                maxHabPlayer.addScore(2);
+                secondMaxHabPlayer.addScore(2);
+            }  else {
+                maxHabPlayer.addScore(3);
+                secondMaxHabPlayer.addScore(1);
+            }   break;
+
+            case 2: if (maxHabs == secondMaxHabs) {
+                maxHabPlayer.addScore(1);
+                secondMaxHabPlayer.addScore(1);
+            }  else {
+                maxHabPlayer.addScore(2);
+            }   break;
+        }
 
         for (Player currentPlayer : playerArray) {
             System.out.println("Player " + currentPlayer.getUserName() + "'s map:");
@@ -72,6 +109,35 @@ public class Cascadia {
             System.out.print("Player " + currentPlayer.getUserName() + "'s score: ");
             System.out.println(currentPlayer.getScore());
         }
+
+        System.out.println("\n\n-----------------------------------------------------------\n\n");
+
+        winnerDisplay(playerArray);
+    }
+
+    private static void winnerDisplay (Player[] playerArray) {
+        //Set the winner as the first person in the player array
+        int winScore = 0;
+        int winToken = 0;
+        String winPlayer = "";
+        //loops through list of players
+        for (int i = 0; i < playerArray.length; i++) {
+            //compares the score of a player to another and updates winner if a larger score is found
+            if(playerArray[i].getScore() > winScore) {
+                winScore = playerArray[i].getScore();
+                winPlayer = playerArray[i].getUserName();
+                winToken = playerArray[i].getNatureTokens();
+            } else if (playerArray[i].getScore() == winScore) {
+                if (playerArray[i].getNatureTokens() > winToken) {
+                    winPlayer = playerArray[i].getUserName();
+                    winToken = playerArray[i].getNatureTokens();
+                } else if (playerArray[i].getNatureTokens() == winToken) {
+                    winPlayer += " + " + playerArray[i].getUserName();
+                }
+            }
+        }
+
+        System.out.println("The winner is " + winPlayer + " with a score of " + winScore + "!");
     }
 }
 

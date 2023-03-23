@@ -9,6 +9,7 @@ public class Score {
     private List<ScoreCards> scoreCards;
     public void scorePlayer (Player p, List<ScoreCards> sc) {
         player = p;
+        p.addScore(p.getNatureTokens());
         scoreCards = sc;
 
         for (int i=0; i<sc.size(); i++) {
@@ -681,6 +682,7 @@ public class Score {
         if (player.getPlayerMap()[i][j - 1].isOccupied() && player.getPlayerMap()[i][j - 1].getCreature1().equals(animal)) {
             if (coordinates[i][j-1] == 0) {
                 output[0] = i;
+                output[0] = i;
                 output[1] = j-1;
                 return output;
             }
@@ -764,7 +766,7 @@ public class Score {
     }
 
     // this method takes the coordinates of two adjacent locations, and returns the compass direction of the second location respective to the starting location
-    private String adjacentToDirection (int i, int j, int[] adjacent) {
+    public String adjacentToDirection (int i, int j, int[] adjacent) {
         if (i==adjacent[0] && j-1==adjacent[1]) {
             return "w";
         } else if (i==adjacent[0] && j+1==adjacent[1]) {
