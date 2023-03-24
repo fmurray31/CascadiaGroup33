@@ -123,6 +123,7 @@ public class Cascadia {
                 winPlayer = playerArray[i].getUserName();
                 winToken = playerArray[i].getNatureTokens();
             } else if (playerArray[i].getScore() == winScore) {
+                //in the case of a draw it compares the nature tokens
                 if (playerArray[i].getNatureTokens() > winToken) {
                     winPlayer = playerArray[i].getUserName();
                     winToken = playerArray[i].getNatureTokens();
@@ -131,8 +132,6 @@ public class Cascadia {
                 }
             }
         }
-
         System.out.println("The winner is " + winPlayer + " with a score of " + winScore + "!");
     }
 }
-
