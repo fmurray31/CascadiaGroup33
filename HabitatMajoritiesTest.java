@@ -1,12 +1,7 @@
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class HabitatMajoritiesTest {
-    Tiles tiles = new Tiles();
-    Score score = new Score();
     HabitatMajorities habitatMajorities = new HabitatMajorities();
 
     @Test
@@ -37,5 +32,20 @@ class HabitatMajoritiesTest {
         player.addHabitatToMap(new HabitatTiles("mountain", "mountain", "mountain", "forest", "forest", "forest", "", "", ""), 15, 17);
 
         assertEquals(3, habitatMajorities.findHabitatMajority(player));
+
+        player.addHabitatToMap(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "", "", ""), 16, 14);
+        player.addHabitatToMap(new HabitatTiles("forest", "forest", "forest", "mountain", "mountain", "mountain", "", "", ""), 17, 15);
+
+        assertEquals(4, habitatMajorities.findHabitatMajority(player));
+
+        player.addHabitatToMap(new HabitatTiles("river", "river", "river", "river", "river", "river", "", "", ""), 19, 15);
+        player.addHabitatToMap(new HabitatTiles("river", "river", "river", "river", "river", "river", "", "", ""), 19, 16);
+        player.addHabitatToMap(new HabitatTiles("river", "river", "river", "river", "river", "river", "", "", ""), 19, 17);
+        player.addHabitatToMap(new HabitatTiles("river", "river", "river", "river", "river", "river", "", "", ""), 19, 18);
+        player.addHabitatToMap(new HabitatTiles("river", "river", "river", "river", "river", "river", "", "", ""), 19, 14);
+        player.addHabitatToMap(new HabitatTiles("river", "river", "river", "river", "river", "river", "", "", ""), 19, 13);
+        player.addHabitatToMap(new HabitatTiles("river", "river", "river", "river", "river", "river", "", "", ""), 18, 15);
+
+        assertEquals(7, habitatMajorities.findHabitatMajority(player));
     }
 }

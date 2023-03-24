@@ -1,16 +1,15 @@
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScoreTest {
     Score score = new Score();
     Tiles tiles = new Tiles();
 
+    // each score card is tested in a separate method, with a new player etc generated for each test
     @Test
     public void testBearA() {
         Player player = new Player("testPlayer");
@@ -787,12 +786,7 @@ class ScoreTest {
         tiles.placeAnimal(player.getPlayerMap()[13][16], testSalmon);
         score.scorePlayer(player, scoreCards);
         assertEquals(17, player.getScore());
-
-        //temp
-        printNeighbouringCoordinates(14, 14);
     }
-
-
 
     // helper method to print all the neighbours of a given coordinate pair, helpful for constructing test cases
     private void printNeighbouringCoordinates (int a, int b) {

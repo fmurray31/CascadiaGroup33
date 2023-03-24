@@ -10,7 +10,7 @@ public class HabitatMajorities {
 
         List<ScoreCards> tempSc = new ArrayList<>();
         score.scorePlayer(player, tempSc);
-        //int[][] coordinates = new int[player.getMaxMap()][player.getMaxMap()];
+        player.resetScore();
         int maxTiles = 0;
         
         for (int i=0; i<player.getMaxMap(); i++) {
@@ -109,21 +109,12 @@ public class HabitatMajorities {
         return "none";
     }
 
+    // takes two ints representing the current tile, a 2d int array used to track already counted tiles, and a string representing a terrain type.
+    // Recursively searches through connected habitats, and returns the number of contiguous terrains found.
     private int recursiveHabCount (int i, int j, int[][]counted, String terrain) {
         String matchedSide = matchingSides(i, j, counted);
         int[] nextCoord;
         int output = 0;
-
-//        if (!matchedSide.equals("none") && terrain.equals("blank")) {
-//            switch (matchedSide) {
-//                case "w": terrain = player.getPlayerMap()[i][j].getWest(); break;
-//                case "nw": terrain = player.getPlayerMap()[i][j].getNorthWest(); break;
-//                case "ne": terrain = player.getPlayerMap()[i][j].getNorthEast(); break;
-//                case "e": terrain = player.getPlayerMap()[i][j].getEast(); break;
-//                case "se": terrain = player.getPlayerMap()[i][j].getSouthEast(); break;
-//                case "sw": terrain = player.getPlayerMap()[i][j].getSouthWest(); break;
-//            }
-//        }
 
         while (!matchedSide.equals("none")) {
             if (adjacentSide(i, j, matchedSide).equals(terrain)) {

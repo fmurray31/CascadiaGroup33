@@ -4,14 +4,11 @@ import java.util.List;
 
 public class Cascadia {
     public static void main(String[] args) {
-
         StarterHabitat starterHabitat = new StarterHabitat();
         Setup setup = new Setup();
         Score score = new Score();
         ScoreCards scoreCards = new ScoreCards("blank", "blank");
         HabitatMajorities habitatMajorities = new HabitatMajorities();
-        Tiles tiles = new Tiles();
-        Player player;
         Turn turn = new Turn();
 
         // stores randomised score cards in a list
@@ -52,9 +49,11 @@ public class Cascadia {
         scoreCards.displayScoreCards(chosenScoreCards);
         System.out.println("\n\n-----------------------------------------------------------\n");
 
+        // turn count functionality
         int turnCount = 0;
         int remainingTurns = numUsers*20+3;
 
+        // main game loop
         while (remainingTurns>0) {
             System.out.println("Remaining turns: " + remainingTurns);
             remainingTurns--;
@@ -111,6 +110,10 @@ public class Cascadia {
 
         System.out.println("\n\n-----------------------------------------------------------\n\n");
 
+        winnerDisplay(playerArray);
+    }
+
+    private static void winnerDisplay (Player[] playerArray) {
         //Set the winner as the first person in the player array
         int winScore = 0;
         int winToken = 0;

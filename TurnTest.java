@@ -8,9 +8,8 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 
 class TurnTest {
-    private final PrintStream standardOut = System.out;
+    // used to catch output for testing
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-
     @BeforeEach
     public void setUp() {
         System.setOut(new PrintStream(outputStreamCaptor));
@@ -20,10 +19,6 @@ class TurnTest {
 
     @Test
     public void testAutomaticCull() {
-        Tiles tiles = new Tiles();
-
-        Player player = new Player("testPlayer");
-
         ArrayList<AnimalTiles> tempAnimals = new ArrayList<>();
         for (int i=0; i<4; i++) {
             tempAnimals.add(new AnimalTiles("Hawk"));
@@ -50,10 +45,6 @@ class TurnTest {
 
     @Test
     public void optionalCull() {
-        Tiles tiles = new Tiles();
-
-        Player player = new Player("testPlayer");
-
         ArrayList<AnimalTiles> tempAnimals = new ArrayList<>();
         for (int i=0; i<3; i++) {
             tempAnimals.add(new AnimalTiles("Hawk"));
@@ -75,6 +66,4 @@ class TurnTest {
         assertEquals(output[0], checkHawk);
         assertEquals(output[1], 3);
     }
-
-
 }
