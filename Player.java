@@ -1,3 +1,9 @@
+/*
+Group 33
+Fionn Murray – fmurray31
+Jed Rena – jrena7
+Mark Dwyer – MarkDwyer41
+ */
 public class Player {
     private String userName;
     private int score, natureTokens;

@@ -1,3 +1,10 @@
+/*
+Group 33
+Fionn Murray – fmurray31
+Jed Rena – jrena7
+Mark Dwyer – MarkDwyer41
+ */
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +23,7 @@ public class HabitatMajorities {
         for (int i=0; i<player.getMaxMap(); i++) {
             for (int j=0; j<player.getMaxMap(); j++) {
                 if (!player.getPlayerMap()[i][j].getNorthWest().equals("blank")) {
-                    int tempCount = 0;
+                    int tempCount;
                     int[][] tempCoords = new int[player.getMaxMap()][player.getMaxMap()];
 
                     String direction;
