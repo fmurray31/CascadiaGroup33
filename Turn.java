@@ -1,3 +1,10 @@
+/*
+Group 33
+Fionn Murray – fmurray31
+Jed Rena – jrena7
+Mark Dwyer – MarkDwyer41
+ */
+
 import java.util.Scanner;
 
 public class Turn {
