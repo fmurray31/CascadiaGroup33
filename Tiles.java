@@ -48,6 +48,8 @@ public class Tiles {
     public void drawCentralTiles() {
         int i = 0;
         while (centralHabitats.size() < 4){
+            if (habitatTiles.getHabitatArray().size() > 0) break;
+
             centralHabitats.add(habitatTiles.getHabitatArray().get(i));
             habitatTiles.getHabitatArray().remove(i);
             i++;
@@ -55,6 +57,8 @@ public class Tiles {
 
         i=0;
         while (centralAnimals.size() < 4){
+            if (animalTiles.animalAL.size()>0) break;
+
             centralAnimals.add(animalTiles.getAnimalAL().get(i));
             animalTiles.getAnimalAL().remove(i);
             i++;
@@ -93,6 +97,7 @@ public class Tiles {
     // removes an animal tile from the central tiles, adds it to the total pool and shuffles the pool before drawing a new one
     public void redrawAnimals (AnimalTiles animal) {
         for (int i=0; i<4; i++) {
+            if (animalTiles.animalAL.size()>0) break;
             if (centralAnimals.get(i).equals(animal)) {
                 animalTiles.animalAL.add(centralAnimals.get(i));
                 animalTiles.shuffleAnimals();
