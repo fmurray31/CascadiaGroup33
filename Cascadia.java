@@ -15,13 +15,15 @@ public class Cascadia {
     public static void main(String[] args) {
         StarterHabitat starterHabitat = new StarterHabitat();
         Setup setup = new Setup();
+        Tiles tiles = new Tiles();
         Score score = new Score();
         ScoreCards scoreCards = new ScoreCards("blank", "blank");
         HabitatMajorities habitatMajorities = new HabitatMajorities();
         Turn turn = new Turn();
+        Bot bot = new Bot();
+        Stopwatch stopwatch = new Stopwatch();
 
-        // stores randomised score cards in a list
-        List<ScoreCards> chosenScoreCards = scoreCards.generateScore();
+        boolean botGame = false;
 
         // generating new instance of starting habitats, adding them to a central arraylist, then shuffling that arraylist
         ArrayList<ArrayList<HabitatTiles>> starterHabitatPool = new ArrayList<>();
@@ -36,22 +38,32 @@ public class Cascadia {
 
         System.out.println("\t\t -------- Welcome to Cascadia --------\n\n");
 
-
         // taking the number of players
         int numUsers = setup.numPlayer();
-        Player[] playerArray;
 
         // Set a username for each player
-        playerArray = setup.userNameRequest(numUsers);
+        ArrayList<Player> playerAL = setup.userNameRequest(numUsers);
 
-        // Randomising then printing the order of players
-        setup.setOrder(playerArray);
-        setup.printOrder(playerArray);
-
-        for (int i=0; i<numUsers; i++) {
-            setup.addStarterHabitats(starterHabitatPool.get(i), playerArray[i]);
+        if (playerAL.size() == 2 && numUsers == 1) {
+            numUsers = 2;
+            botGame = true;
         }
 
+        // Randomising then printing the order of players
+        setup.setOrder(playerAL);
+        setup.printOrder(playerAL);
+
+        for (int i=0; i<numUsers; i++) {
+            setup.addStarterHabitats(starterHabitatPool.get(i), playerAL.get(i));
+        }
+
+        // List to store score cards, cards randomised if not a bot game
+        List<ScoreCards> chosenScoreCards;
+        if (botGame) {
+            chosenScoreCards = scoreCards.generateBotScore();
+        } else {
+            chosenScoreCards = scoreCards.generateScore();
+        }
 
         // printing the chosen 5 scorecards, with formatting
         System.out.println("\n\nWildlife Scoring Cards for this game:");
@@ -66,7 +78,13 @@ public class Cascadia {
         while (remainingTurns>0) {
             System.out.println("Remaining turns: " + remainingTurns);
             remainingTurns--;
-            turn.turnLoop(playerArray[turnCount % playerArray.length], playerArray.length);
+            int currentPlayerIndex = turnCount % playerAL.size();
+            if (playerAL.get(currentPlayerIndex).getUserName().equals("Bot")) {
+                bot.botTurn(playerAL.get(currentPlayerIndex), playerAL.size(), tiles);
+            } else {
+                turn.turnLoop(playerAL.get(currentPlayerIndex), playerAL.size(), tiles);
+            }
+
             turnCount++;
         }
 
@@ -75,10 +93,10 @@ public class Cascadia {
         // calculating and scoring the largest habitat corridor(s)
         int maxHabs = 0;
         int secondMaxHabs = 0;
-        Player maxHabPlayer = playerArray[0];
-        Player secondMaxHabPlayer = playerArray[0];
+        Player maxHabPlayer = playerAL.get(0);
+        Player secondMaxHabPlayer = playerAL.get(0);
 
-        for (Player currentPlayer : playerArray) {
+        for (Player currentPlayer : playerAL) {
             int habCount = habitatMajorities.findHabitatMajority(currentPlayer);
             currentPlayer.addScore(habCount);
             if (habCount >= maxHabs) {
@@ -90,7 +108,7 @@ public class Cascadia {
             }
         }
 
-        switch (playerArray.length) {
+        switch (playerAL.size()) {
             case 4:
             case 3:
                 if (maxHabs == secondMaxHabs) {
@@ -109,7 +127,7 @@ public class Cascadia {
             }   break;
         }
 
-        for (Player currentPlayer : playerArray) {
+        for (Player currentPlayer : playerAL) {
             System.out.println("Player " + currentPlayer.getUserName() + "'s map:");
             currentPlayer.printMap(currentPlayer);
             score.scorePlayer(currentPlayer, chosenScoreCards);
@@ -119,7 +137,8 @@ public class Cascadia {
 
         System.out.println("\n\n-----------------------------------------------------------\n\n");
 
-        winnerDisplay(playerArray);
+        // TODO: 04/04/2023 broken because playerArray swapped to arraylist
+        //winnerDisplay(playerArray);
     }
 
     private static void winnerDisplay (Player[] playerArray) {

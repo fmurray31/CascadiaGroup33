@@ -48,8 +48,6 @@ public class Tiles {
     public void drawCentralTiles() {
         int i = 0;
         while (centralHabitats.size() < 4){
-            if (habitatTiles.getHabitatArray().size() > 0) break;
-
             centralHabitats.add(habitatTiles.getHabitatArray().get(i));
             habitatTiles.getHabitatArray().remove(i);
             i++;
@@ -57,8 +55,6 @@ public class Tiles {
 
         i=0;
         while (centralAnimals.size() < 4){
-            if (animalTiles.animalAL.size()>0) break;
-
             centralAnimals.add(animalTiles.getAnimalAL().get(i));
             animalTiles.getAnimalAL().remove(i);
             i++;

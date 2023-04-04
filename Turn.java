@@ -8,11 +8,12 @@ Mark Dwyer – MarkDwyer41
 import java.util.Scanner;
 
 public class Turn {
-    Tiles tiles = new Tiles();
+    Tiles tiles;
 
     // this class takes a player class as input, and contains the code and driver for a single player's turn
     // this method takes a player class as input, and contains the code and driver for a single player's turn
-    public void turnLoop(Player player, int playerCount){
+    public void turnLoop(Player player, int playerCount, Tiles tiles){
+        this.tiles = tiles;
         boolean endTurn = false;
         boolean cancelled = false;
         // int to track which tile is chosen

@@ -64,6 +64,19 @@ public class ScoreCards {
         return scoreCardArray;
     }
 
+    // returns an arraylist of only type A score cards for use in bot games
+    public List<ScoreCards> generateBotScore() {
+        ArrayList<ScoreCards> scoreCardsArrayList = new ArrayList<>();
+
+        scoreCardsArrayList.add(new ScoreCards("BearA", "Score points shown for total number of pairs of Bears.\nA pair of Bears is exactly two Bears adjacent to each other with no other adjacent Bears.\n1 pair = 4 points, 2 pairs = 11 points, 3 pairs = 19 points, 4 pairs = 27 points (Max)."));
+        scoreCardsArrayList.add(new ScoreCards("FoxA", "Score points shown for each Fox, depending on the number of unique wildlife type adjacent to it.\nOther adjacent Foxes may be scored as unique when scoring each Fox.\n1 unique wildlife type = 1 point, 2 unique wildlife types = 2 points, 3 unique wildlife types = 3 points, 4 unique wildlife types = 4 points, 5 unique wildlife types = 5 points (Max)."));
+        scoreCardsArrayList.add(new ScoreCards("ElkA", "Score points shown for each straight line of adjacent Elk,\n depending on the length of the line. A straight line is defined as orthogonally adjacent.\nTwo lines of Elk may be adjacent to one another, however, each Elk may only count for a single line.\nLines do not need to be horizontal. 1 Elk = 2 points, 2 Elk = 5 points, 3 Elk = 9 points, 4 Elk = 13 points (Max)"));
+        scoreCardsArrayList.add(new ScoreCards("HawkA", "Score points shown for total number of Hawks that are not adjacent to any other Hawks.\n1 Hawk = 2 points, 2 Hawks = 5 points, 3 Hawks = 8 points, 4 Hawks = 11 points, 5 Hawks = 14 points, 6 Hawks = 18 Points, 7 Hawks = 22 points , 8+ Hawks = 26 points (Max)"));
+        scoreCardsArrayList.add(new ScoreCards("SalmonA", "Score points shown for each run of Salmon, depending on length of run.\nA run is defined as a group od adjacent Salmon where each Salmon is adjacent to no more than two other Salmon.\nA group of three Salmon in a 'triangle' shape may count as a run, but no other Salmon may be attached to this run.\nEach run of Salmon may not have any other Salmon adjacent to it.\n1 Salmon = 2 points, 2 Salmon = 4 points, 3 Salmon = 7 points, 4 Salmon = 11 points, 5 Salmon = 15 points, 6 Salmon = 20 points, 7+  Salmon = 26 points (Max)."));
+
+        return scoreCardsArrayList;
+    }
+
     public String getCardTitle() {
         return cardTitle;
     }
