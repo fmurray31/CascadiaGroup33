@@ -37,9 +37,9 @@ public class AnimalTiles {
 
             getAnimalAL().add(new AnimalTiles("Hawk"));
             getAnimalAL().add(new AnimalTiles("Bear"));
-            getAnimalAL().add(new AnimalTiles("Elk"));
-            getAnimalAL().add(new AnimalTiles("Salmon"));
-            getAnimalAL().add(new AnimalTiles("Fox"));
+//            getAnimalAL().add(new AnimalTiles("Elk"));
+//            getAnimalAL().add(new AnimalTiles("Salmon"));
+//            getAnimalAL().add(new AnimalTiles("Fox"));
         }
         return al;
     }

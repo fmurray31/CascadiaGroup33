@@ -10,9 +10,19 @@ public class Bot {
     // Arraylists with class scope
     private ArrayList<int[]> possibleTileLocations;
 
+    // Arraylists containing every "placeable" animal and the matching coordinates of their locations respectively
+    // Designed so that possibleAnimals.get(x) matches the location possibleAnimalLocations.get(x)
+    private ArrayList<String> possibleAnimals;
+    private ArrayList<int[]> possibleAnimalLocations;
+
+    private AnimalTiles selectedAnimal;
+    private HabitatTiles selectedHabitat;
+
     public void botTurn (Player bot, int playerCount, Tiles tiles) {
         this.tiles = tiles;
         this.bot = bot;
+        this.score.setPlayer(bot);
+
         System.out.println("Bots' turn!");
 
         // sets up tiles on the first loop
@@ -23,21 +33,22 @@ public class Bot {
 
         botCull();
 
-        // Arraylists containing every "placeable" animal and the matching coordinates of their locations respectively
-        // Designed so that possibleAnimals.get(x) matches the location possibleAnimalLocations.get(x)
-        ArrayList<String> possibleAnimals = new ArrayList<>();
-        ArrayList<int[]> possibleAnimalLocations = new ArrayList<>();
+        // Initialising class scope arraylists
+        possibleAnimals = new ArrayList<>();
+        possibleAnimalLocations = new ArrayList<>();
+
+        possibleTileLocations = new ArrayList<>();
 
         ArrayList<String> centralAnimalAL = new ArrayList<>();
         ArrayList<String> centralHabitatAnimals = new ArrayList<>();
         ArrayList<Integer> centralHabitatAnimalsCoordinates = new ArrayList<>();
 
-        possibleTileLocations = new ArrayList<>();
-
+        // methods to fill arraylists
         botCentralAnimalsFetcher(centralAnimalAL);
         botCentralHabitatAnimalFetcher(centralHabitatAnimals, centralHabitatAnimalsCoordinates);
         botLocationFetcher(possibleAnimals, possibleAnimalLocations, possibleTileLocations);
 
+        // bot logic
         botAnimalPlacement(botTileChoice());
 
         System.out.println("Bots' new score is: " + "score goes here");
@@ -54,33 +65,39 @@ public class Bot {
         int tileChoice = 0;
         int animalChoice = 0;
 
-        botHabitatPlacement(tiles.centralHabitats.get(tileChoice));
-        tiles.centralHabitats.remove(0);
+        // TODO: 05/04/2023 tile choice logic goes here
+
+        selectedHabitat = tiles.centralHabitats.get(tileChoice);
+        selectedAnimal = tiles.centralAnimals.get(animalChoice);
+
+        botHabitatPlacement();
+
+        // habitat tile removed from central tiles here
+        tiles.centralHabitats.remove(tileChoice);
 
         return animalChoice;
     }
 
     // handles bot habitat placement logic and priority
     // TODO: 04/04/2023 places a tile in a random location for testing purposes, to be refined later
-    private void botHabitatPlacement (HabitatTiles habitatTile) {
+    private void botHabitatPlacement () {
         int index = rand.nextInt(possibleTileLocations.size());
         int[] tempCoords = possibleTileLocations.get(index);
 
-        bot.addHabitatToMap(habitatTile, tempCoords[0], tempCoords[1]);
+        bot.addHabitatToMap(selectedHabitat, tempCoords[0], tempCoords[1]);
         possibleTileLocations.remove(index);
     }
 
+    // helper method which calls one of the animal specific placement methods
     private void botAnimalPlacement (int index) {
-        AnimalTiles animal = tiles.centralAnimals.get(index);
-
-        switch (animal.toString()) {
+        switch (selectedAnimal.toString()) {
             case "Bear": botBear(); break;
             case "Fox": botFox(); break;
             case "Elk": botElk(); break;
             case "Hawk": botHawk(); break;
             case "Salmon": botSalmon(); break;
 
-            default: throw new IllegalArgumentException("Invalid animal passed in botAnimalPlacement: " + animal.toString());
+            default: throw new IllegalArgumentException("Invalid animal passed in botAnimalPlacement: " + selectedAnimal);
         }
 
         tiles.centralAnimals.remove(index);
@@ -99,13 +116,27 @@ public class Bot {
     }
 
     private void botHawk () {
-        System.out.println("bot hawk placed");
+        int[][] tempArray = new int[bot.getMaxMap()][bot.getMaxMap()];
+        int hawkIndex = possibleAnimals.indexOf("hawk");
+        int[] hawkCoords;
+
+        do {
+            hawkCoords = possibleAnimalLocations.get(hawkIndex);
+
+            if (score.adjacentAnimal("hawk", tempArray, hawkCoords[0], hawkCoords[1])[0] == -1) {
+                tiles.placeAnimal(bot.getPlayerMap()[hawkCoords[0]][hawkCoords[1]], selectedAnimal);
+                break;
+            }
+
+            hawkIndex = getNext(possibleAnimals, hawkIndex);
+        } while (hawkIndex != -1);
     }
 
     private void botSalmon () {
         System.out.println("bot salmon placed");
     }
 
+    // takes an arraylist and an index, returns the index of the next instance of the given item, or -1 if none found
     private int getNext (ArrayList arrayList, int index) {
         for (int i=index; i<arrayList.size(); i++) {
             if (arrayList.get(i).equals(arrayList.get(index))) {
@@ -113,10 +144,6 @@ public class Bot {
             }
         }
         return -1;
-    }
-
-    private void botHawkPlacement () {
-
     }
 
     // returns an arraylist containing all possible animals on an empty habitat, else returns an arraylist containing an empty string
@@ -144,6 +171,7 @@ public class Bot {
 
         while ((Integer)maxTiles[1] == 4) {
             botCullHelper(maxTiles);
+            maxTiles = tiles.optionalCull(tiles.centralAnimals);
         }
 
         if ((Integer)maxTiles[1] == 3) {

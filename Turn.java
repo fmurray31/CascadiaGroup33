@@ -305,6 +305,7 @@ public class Turn {
 
             while ((Integer)maxTiles[1] == 4) {
                 cullHelper(maxTiles);
+                maxTiles = tiles.optionalCull(tiles.centralAnimals);
             }
 
             if ((Integer)maxTiles[1] == 3) {

@@ -10,6 +10,11 @@ import java.util.List;
 public class Score {
     private Player player;
     private List<ScoreCards> scoreCards;
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     // takes a player and a list of scorecards, and increases the player's score depending on which conditions they meet and the scorecards chosen
     public void scorePlayer (Player p, List<ScoreCards> sc) {
         player = p;
