@@ -7,6 +7,8 @@ public class Bot {
     Player bot;
     Random rand = new Random();
 
+    // Arraylists with class scope
+    private ArrayList<int[]> possibleTileLocations;
 
     public void botTurn (Player bot, int playerCount, Tiles tiles) {
         this.tiles = tiles;
@@ -30,14 +32,13 @@ public class Bot {
         ArrayList<String> centralHabitatAnimals = new ArrayList<>();
         ArrayList<Integer> centralHabitatAnimalsCoordinates = new ArrayList<>();
 
-        ArrayList<int[]> possibleTileLocations = new ArrayList<>();
+        possibleTileLocations = new ArrayList<>();
 
         botCentralAnimalsFetcher(centralAnimalAL);
         botCentralHabitatAnimalFetcher(centralHabitatAnimals, centralHabitatAnimalsCoordinates);
         botLocationFetcher(possibleAnimals, possibleAnimalLocations, possibleTileLocations);
 
-        botHabitatPlacement(tiles.centralHabitats.get(0), possibleTileLocations);
-        tiles.centralHabitats.remove(0);
+        botAnimalPlacement(botTileChoice());
 
         System.out.println("Bots' new score is: " + "score goes here");
         System.out.println("Bots' map:");
@@ -47,17 +48,62 @@ public class Bot {
         tiles.drawCentralTiles();
     }
 
+    // method to handle choice between different habitat and animal tiles from the central pool, returns an integer representing the choice of animal, and calls
+    // the tile placement method. Currently just chooses the first tile pair
+    private int botTileChoice () {
+        int tileChoice = 0;
+        int animalChoice = 0;
+
+        botHabitatPlacement(tiles.centralHabitats.get(tileChoice));
+        tiles.centralHabitats.remove(0);
+
+        return animalChoice;
+    }
+
     // handles bot habitat placement logic and priority
     // TODO: 04/04/2023 places a tile in a random location for testing purposes, to be refined later
-    private void botHabitatPlacement (HabitatTiles habitatTile, ArrayList<int[]> possibleTileLocations) {
-        ArrayList<String> habAnimals = habitatContains(habitatTile);
-        int priority = -1;
-
+    private void botHabitatPlacement (HabitatTiles habitatTile) {
         int index = rand.nextInt(possibleTileLocations.size());
         int[] tempCoords = possibleTileLocations.get(index);
 
         bot.addHabitatToMap(habitatTile, tempCoords[0], tempCoords[1]);
         possibleTileLocations.remove(index);
+    }
+
+    private void botAnimalPlacement (int index) {
+        AnimalTiles animal = tiles.centralAnimals.get(index);
+
+        switch (animal.toString()) {
+            case "Bear": botBear(); break;
+            case "Fox": botFox(); break;
+            case "Elk": botElk(); break;
+            case "Hawk": botHawk(); break;
+            case "Salmon": botSalmon(); break;
+
+            default: throw new IllegalArgumentException("Invalid animal passed in botAnimalPlacement: " + animal.toString());
+        }
+
+        tiles.centralAnimals.remove(index);
+    }
+
+    private void botBear () {
+        System.out.println("bot bear placed");
+    }
+
+    private void botFox () {
+        System.out.println("bot fox placed");
+    }
+
+    private void botElk () {
+        System.out.println("bot elk placed");
+    }
+
+    private void botHawk () {
+        System.out.println("bot hawk placed");
+    }
+
+    private void botSalmon () {
+        System.out.println("bot salmon placed");
     }
 
     private int getNext (ArrayList arrayList, int index) {
