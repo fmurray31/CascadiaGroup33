@@ -116,32 +116,23 @@ public class Bot {
     // those animals to the arraylist possibleAnimals, and adds the coordinates of that animal to the same "array" location in the
     // arraylist possibleAnimalLocations
     private void botLocationFetcher (ArrayList<String> possibleAnimals, ArrayList<int[]> possibleAnimalLocations, ArrayList<int[]> possibleHabitatLocations) {
-        int[] coordinates = new int[2];
         for (int i=1; i<bot.getMaxMap()-1; i++) {
             for (int j=1; j<bot.getMaxMap()-1; j++) {
                     if (!bot.getPlayerMap()[i][j].isBlankHabitat(bot, i, j)) {
                         possibleAnimals.add(bot.getPlayerMap()[i][j].getCreature1());
-                        coordinates[0] = i;
-                        coordinates[1] = j;
-                        possibleAnimalLocations.add(coordinates);
+                        possibleAnimalLocations.add(new int[]{i, j});
 
                         if (!bot.getPlayerMap()[i][j].getCreature2().equals("")) {
                             possibleAnimals.add(bot.getPlayerMap()[i][j].getCreature2());
-                            coordinates[0] = i;
-                            coordinates[1] = j;
-                            possibleAnimalLocations.add(coordinates);
+                            possibleAnimalLocations.add(new int[]{i, j});
 
                             if (!bot.getPlayerMap()[i][j].getCreature3().equals("")) {
                                 possibleAnimals.add(bot.getPlayerMap()[i][j].getCreature3());
-                                coordinates[0] = i;
-                                coordinates[1] = j;
-                                possibleAnimalLocations.add(coordinates);
+                                possibleAnimalLocations.add(new int[]{i, j});
                             }
                         }
                     } else if (!bot.getPlayerMap()[i][j].isIsolated(bot, i, j)) {
-                        coordinates[0] = i;
-                        coordinates[1] = j;
-                        possibleHabitatLocations.add(coordinates);
+                        possibleHabitatLocations.add(new int[]{i, j});
                     }
             }
         }

@@ -78,9 +78,6 @@ public class Setup {
 
     // Randomises the order of players
     public void setOrder(ArrayList<Player> players) {
-        Random rand = new Random();
-        int tempInt;
-
         System.out.println("Randomising order of players:");
 
         Collections.shuffle(players);
