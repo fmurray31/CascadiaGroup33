@@ -19,8 +19,7 @@ public class Score {
     public void scorePlayer (Player p, List<ScoreCards> sc) {
         player = p;
         scoreCards = sc;
-        // adds points for nature token count
-        p.addScore(p.getNatureTokens());
+        p.resetScore();
 
         // goes through the list of scorecards, calling the relevant method for each card
         for (int i=0; i<sc.size(); i++) {

@@ -48,10 +48,11 @@ public class Bot {
         botCentralHabitatAnimalFetcher(centralHabitatAnimals, centralHabitatAnimalsCoordinates);
         botLocationFetcher(possibleAnimals, possibleAnimalLocations, possibleTileLocations);
 
+
         // bot logic
         botAnimalPlacement(botTileChoice());
 
-        System.out.println("Bots' new score is: " + "score goes here");
+
         System.out.println("Bots' map:");
         bot.printMap(bot);
         System.out.println("");
@@ -99,8 +100,6 @@ public class Bot {
 
             default: throw new IllegalArgumentException("Invalid animal passed in botAnimalPlacement: " + selectedAnimal);
         }
-
-        tiles.centralAnimals.remove(index);
     }
 
     private void botBear () {
@@ -123,7 +122,7 @@ public class Bot {
         do {
             hawkCoords = possibleAnimalLocations.get(hawkIndex);
 
-            if (score.adjacentAnimal("hawk", tempArray, hawkCoords[0], hawkCoords[1])[0] == -1) {
+            if (score.adjacentAnimal("Hawk", tempArray, hawkCoords[0], hawkCoords[1])[0] == -1) {
                 tiles.placeAnimal(bot.getPlayerMap()[hawkCoords[0]][hawkCoords[1]], selectedAnimal);
                 break;
             }
@@ -138,7 +137,7 @@ public class Bot {
 
     // takes an arraylist and an index, returns the index of the next instance of the given item, or -1 if none found
     private int getNext (ArrayList arrayList, int index) {
-        for (int i=index; i<arrayList.size(); i++) {
+        for (int i=index+1; i<arrayList.size(); i++) {
             if (arrayList.get(i).equals(arrayList.get(index))) {
                 return i;
             }
@@ -192,7 +191,7 @@ public class Bot {
     private void botLocationFetcher (ArrayList<String> possibleAnimals, ArrayList<int[]> possibleAnimalLocations, ArrayList<int[]> possibleHabitatLocations) {
         for (int i=1; i<bot.getMaxMap()-1; i++) {
             for (int j=1; j<bot.getMaxMap()-1; j++) {
-                    if (!bot.getPlayerMap()[i][j].isBlankHabitat(bot, i, j)) {
+                    if (!bot.getPlayerMap()[i][j].isBlankHabitat(bot, i, j) && !bot.getPlayerMap()[i][j].isOccupied()) {
                         possibleAnimals.add(bot.getPlayerMap()[i][j].getCreature1());
                         possibleAnimalLocations.add(new int[]{i, j});
 
@@ -205,7 +204,7 @@ public class Bot {
                                 possibleAnimalLocations.add(new int[]{i, j});
                             }
                         }
-                    } else if (!bot.getPlayerMap()[i][j].isIsolated(bot, i, j)) {
+                    } else if (!bot.getPlayerMap()[i][j].isIsolated(bot, i, j) && !bot.getPlayerMap()[i][j].isOccupied()) {
                         possibleHabitatLocations.add(new int[]{i, j});
                     }
             }

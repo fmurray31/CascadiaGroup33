@@ -72,7 +72,7 @@ public class Player {
         this.playerMap[row][column] = habitatTile;
     }
 
-    // sets a player's score to 0, used for testing only
+    // sets a player's score to 0
     public void resetScore() {
         this.score = 0;
     }

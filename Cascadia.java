@@ -85,6 +85,10 @@ public class Cascadia {
                 turn.turnLoop(playerAL.get(currentPlayerIndex), playerAL.size(), tiles);
             }
 
+            score.scorePlayer(playerAL.get(currentPlayerIndex), chosenScoreCards);
+            System.out.println(playerAL.get(currentPlayerIndex).getUserName() + "'s current score is: " + playerAL.get(currentPlayerIndex).getScore());
+            System.out.println("\n\n");
+
             turnCount++;
         }
 
@@ -97,6 +101,9 @@ public class Cascadia {
         Player secondMaxHabPlayer = playerAL.get(0);
 
         for (Player currentPlayer : playerAL) {
+            // adds points for nature token count
+            currentPlayer.addScore(currentPlayer.getNatureTokens());
+
             int habCount = habitatMajorities.findHabitatMajority(currentPlayer);
             currentPlayer.addScore(habCount);
             if (habCount >= maxHabs) {
