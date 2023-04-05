@@ -8,11 +8,12 @@ Mark Dwyer – MarkDwyer41
 import java.util.Scanner;
 
 public class Turn {
-    Tiles tiles = new Tiles();
+    Tiles tiles;
 
     // this class takes a player class as input, and contains the code and driver for a single player's turn
     // this method takes a player class as input, and contains the code and driver for a single player's turn
-    public void turnLoop(Player player, int playerCount){
+    public void turnLoop(Player player, int playerCount, Tiles tiles){
+        this.tiles = tiles;
         boolean endTurn = false;
         boolean cancelled = false;
         // int to track which tile is chosen
@@ -304,6 +305,7 @@ public class Turn {
 
             while ((Integer)maxTiles[1] == 4) {
                 cullHelper(maxTiles);
+                maxTiles = tiles.optionalCull(tiles.centralAnimals);
             }
 
             if ((Integer)maxTiles[1] == 3) {
@@ -347,6 +349,7 @@ public class Turn {
 
         while (input <= 0 || input > 4) {
             try {
+                System.out.println("Invalid input, please enter 1, 2, 3 or 4.");
                 input = Integer.parseInt(in.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input, please select an integer [1], [2], [3] or [4].");
@@ -357,13 +360,12 @@ public class Turn {
     }
 
     public void removeAni () {
-        Scanner in = new Scanner(System.in);
-        int input = 0;
-        int input2 = numChoose();
+        int input = numChoose();
         System.out.println("Please select the animal [1], [2], [3] or [4] you would like to get rid of:");
 
-        for (int i = 0;i < input2; i++) {
+        for (int i = 0; i < input; i++) {
             input = numChoose();
+            tiles.animalTiles.animalAL.add(tiles.centralAnimals.get(input));
             tiles.centralAnimals.remove(input);
             System.out.println("You got rid of " + "[" + input + "]");
         }

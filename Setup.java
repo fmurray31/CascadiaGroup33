@@ -6,6 +6,7 @@ Mark Dwyer – MarkDwyer41
  */
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -23,17 +24,20 @@ public class Setup {
         Scanner in = new Scanner(System.in);
 
         // Takes user input for number of players with error checking, only allows integer inputs
-        System.out.println("Enter the number of players, between 2 and 4:");
+        System.out.println("Enter the number of players, between 2 and 4.\nEnter 5 to play versus a bot:");
         while (numUsers == 0) {
             try {
                 int num = Integer.parseInt(in.nextLine());
 
-                if (num > 4) {
+                if (num > 5) {
                     System.out.println("Number of players cannot be greater than 4");
                 } else if (num < 2) {
                     System.out.println("Number of players cannot be less than 2");
+                } else if (num == 5) {
+                    numUsers = 1;
+                    System.out.println("Bot game chosen");
                 } else {
-                    numUsers = num;
+                        numUsers = num;
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Value entered must be in integer form, i.e. 2, 3, 4");
@@ -44,10 +48,14 @@ public class Setup {
     }
 
     // Takes usernames from users, only invalid entries are blank names
-    public Player[] userNameRequest(int numUsers) {
+    public ArrayList<Player> userNameRequest(int numUsers) {
         String input = "";
+        ArrayList<Player> players = new ArrayList<>();
 
-        Player[] players = new Player[numUsers];
+        if (numUsers == 1) {
+            players.add(new Player("Bot"));
+        }
+
         Scanner in = new Scanner(System.in);
         for (int i=0; i<numUsers; i++) {
             System.out.println("Enter a username for player " + (i+1));
@@ -55,34 +63,30 @@ public class Setup {
             if (input.equals("")){
                 System.out.println("Username may not be blank");
                 i--;
+            } else if (input.equalsIgnoreCase("bot")) {
+                System.out.println("Protected name used, please try a different name");
+                i--;
             } else {
-                players[i] = new Player(input); //passMap);
+                players.add(new Player(input));
                 System.out.println("Player " + (i+1) + " is named " + input);
             }
         }
         System.out.println("\n\n");
+
         return players;
     }
 
     // Randomises the order of players
-    public void setOrder(Player[] playerArray) {
-        Random rand = new Random();
-        int tempInt;
-
+    public void setOrder(ArrayList<Player> players) {
         System.out.println("Randomising order of players:");
 
-        for (int i=0; i<playerArray.length; i++) {
-            tempInt = rand.nextInt(playerArray.length);
-            Player temp = playerArray[i];
-            playerArray[i] = playerArray[tempInt];
-            playerArray[tempInt] = temp;
-        }
+        Collections.shuffle(players);
     }
 
     // Prints the player array and displays their order
-    public void printOrder(Player[] playerArray) {
-        for (int i=0; i< playerArray.length; i++) {
-            System.out.println("Player " + (i+1) + " is " + playerArray[i].getUserName());
+    public void printOrder(ArrayList<Player> players) {
+        for (int i=0; i< players.size(); i++) {
+            System.out.println("Player " + (i+1) + " is " + players.get(i).getUserName());
         }
     }
 }

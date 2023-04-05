@@ -10,12 +10,16 @@ import java.util.List;
 public class Score {
     private Player player;
     private List<ScoreCards> scoreCards;
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     // takes a player and a list of scorecards, and increases the player's score depending on which conditions they meet and the scorecards chosen
     public void scorePlayer (Player p, List<ScoreCards> sc) {
         player = p;
         scoreCards = sc;
-        // adds points for nature token count
-        p.addScore(p.getNatureTokens());
+        p.resetScore();
 
         // goes through the list of scorecards, calling the relevant method for each card
         for (int i=0; i<sc.size(); i++) {
@@ -687,13 +691,12 @@ public class Score {
     // this method takes the name of an animal, a 2d array of coordinates and two integers representing a current location as an argument. It checks each adjacent tile to see
     // if it contains the provided animal type and has not already been marked as counted, and if it is successful it returns the coordinates of that copy. Otherwise,
     // it returns [-1, -1]
-    private int[] adjacentAnimal(String animal, int[][] coordinates, int i, int j) {
+    public int[] adjacentAnimal(String animal, int[][] coordinates, int i, int j) {
         int[] output = new int[2];
 
         // tiles to the left and right are always at the same coordinates, whether x is even or not
         if (player.getPlayerMap()[i][j - 1].isOccupied() && player.getPlayerMap()[i][j - 1].getCreature1().equals(animal)) {
             if (coordinates[i][j-1] == 0) {
-                output[0] = i;
                 output[0] = i;
                 output[1] = j-1;
                 return output;
