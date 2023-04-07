@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 public class Bot {
     Score score = new Score();
@@ -67,6 +66,53 @@ public class Bot {
         int animalChoice = 0;
 
         // TODO: 05/04/2023 tile choice logic goes here
+
+//        List<String> animals = new ArrayList<>(Arrays.asList("cat", "dog", "lion", "tiger", "monkey"));
+//        Collections.shuffle(animals); // shuffle the list to make it random
+//        String[] prioritizedAnimals = {"cat", "dog", "lion", "tiger", "monkey"}; // define the prioritized animals in order
+//
+//        for (String animal : prioritizedAnimals) {
+//            if (animals.contains(animal)) {
+//                int index = animals.indexOf(animal);
+//                System.out.printf("%s found at index %d\n", animal, index);
+//                break; // exit the loop as soon as the animal is found
+//            }
+//        }
+        //    ArrayList<AnimalTiles> centralAnimals;
+
+        int i = 0;
+        int j = 0;
+        String[] aniOrder = {"Hawk", "Bear", "Elk", "Salmon", "Fox"};
+        while (!tiles.centralAnimals.get(i).toString().equals(aniOrder[j])) {
+            for (j = 0; j < aniOrder.length; j++) {
+                if (tiles.centralAnimals.get(i).toString().equals(aniOrder[j])) {
+                    tileChoice = i;
+                    animalChoice = i;
+                    break;
+                }
+            }
+            i++;
+        }
+
+        }
+
+        for (int i = 0; i < tiles.centralAnimals.size(); i++) {
+            for (int j = 0; j < tiles.centralAnimals.size(); j++) {
+
+            }
+        }
+
+        for (int i = 0; i < tiles.centralAnimals.size(); i++) {
+            if (tiles.centralAnimals.get(i).toString().equals("Hawk")) {
+                tileChoice = i;
+                animalChoice = i;
+                break;
+            } else if (tiles.centralAnimals.get(i).toString().equals("")) {
+                tileChoice = i;
+                animalChoice = i;
+            }
+        }
+
 
         selectedHabitat = tiles.centralHabitats.get(tileChoice);
         selectedAnimal = tiles.centralAnimals.get(animalChoice);
