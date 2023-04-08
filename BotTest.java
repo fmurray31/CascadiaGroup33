@@ -37,73 +37,73 @@ class BotTest {
         PrintStream tempOut = new PrintStream(OutputStream.nullOutputStream());
         System.setOut(tempOut);
 
-        tiles.setupTiles(2);
+        tiles.setupTiles();
         tiles.setupCentralTiles();
         tiles.centralAnimals.set(0, testBear);
-        botClass.botTurn(bot, 1, tiles);
+        botClass.botTurn(bot, tiles);
         score.scorePlayer(bot, scoreCards);
         assertEquals(0, bot.getScore());
 
         tiles.centralAnimals.set(0, testHawk);
         tiles.centralAnimals.set(1, testBear);
         tiles.centralAnimals.set(2, testBear);
-        botClass.botTurn(bot, 1, tiles);
+        botClass.botTurn(bot, tiles);
         score.scorePlayer(bot, scoreCards);
         assertEquals(2, bot.getScore());
 
         tiles.centralAnimals.set(0, testHawk);
         tiles.centralAnimals.set(1, testBear);
         tiles.centralAnimals.set(2, testBear);
-        botClass.botTurn(bot, 1, tiles);
+        botClass.botTurn(bot, tiles);
         score.scorePlayer(bot, scoreCards);
         assertEquals(5, bot.getScore());
 
         tiles.centralAnimals.set(0, testHawk);
         tiles.centralAnimals.set(1, testBear);
         tiles.centralAnimals.set(2, testBear);
-        botClass.botTurn(bot, 1, tiles);
+        botClass.botTurn(bot, tiles);
         score.scorePlayer(bot, scoreCards);
         assertEquals(8, bot.getScore());
 
         tiles.centralAnimals.set(0, testHawk);
         tiles.centralAnimals.set(1, testBear);
         tiles.centralAnimals.set(2, testBear);
-        botClass.botTurn(bot, 1, tiles);
+        botClass.botTurn(bot, tiles);
         score.scorePlayer(bot, scoreCards);
         assertEquals(11, bot.getScore());
 
         tiles.centralAnimals.set(0, testHawk);
         tiles.centralAnimals.set(1, testBear);
         tiles.centralAnimals.set(2, testBear);
-        botClass.botTurn(bot, 1, tiles);
+        botClass.botTurn(bot, tiles);
         score.scorePlayer(bot, scoreCards);
         assertEquals(14, bot.getScore());
 
         tiles.centralAnimals.set(0, testHawk);
         tiles.centralAnimals.set(1, testBear);
         tiles.centralAnimals.set(2, testBear);
-        botClass.botTurn(bot, 1, tiles);
+        botClass.botTurn(bot, tiles);
         score.scorePlayer(bot, scoreCards);
         assertEquals(18, bot.getScore());
 
         tiles.centralAnimals.set(0, testHawk);
         tiles.centralAnimals.set(1, testBear);
         tiles.centralAnimals.set(2, testBear);
-        botClass.botTurn(bot, 1, tiles);
+        botClass.botTurn(bot, tiles);
         score.scorePlayer(bot, scoreCards);
         assertEquals(22, bot.getScore());
 
         tiles.centralAnimals.set(0, testHawk);
         tiles.centralAnimals.set(1, testBear);
         tiles.centralAnimals.set(2, testBear);
-        botClass.botTurn(bot, 1, tiles);
+        botClass.botTurn(bot, tiles);
         score.scorePlayer(bot, scoreCards);
         assertEquals(26, bot.getScore());
 
         tiles.centralAnimals.set(0, testHawk);
         tiles.centralAnimals.set(1, testBear);
         tiles.centralAnimals.set(2, testBear);
-        botClass.botTurn(bot, 1, tiles);
+        botClass.botTurn(bot, tiles);
         score.scorePlayer(bot, scoreCards);
         assertEquals(26, bot.getScore());
     }

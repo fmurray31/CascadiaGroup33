@@ -80,9 +80,9 @@ public class Cascadia {
             remainingTurns--;
             int currentPlayerIndex = turnCount % playerAL.size();
             if (playerAL.get(currentPlayerIndex).getUserName().equals("Bot")) {
-                bot.botTurn(playerAL.get(currentPlayerIndex), playerAL.size(), tiles);
+                bot.botTurn(playerAL.get(currentPlayerIndex), tiles);
             } else {
-                turn.turnLoop(playerAL.get(currentPlayerIndex), playerAL.size(), tiles);
+                turn.turnLoop(playerAL.get(currentPlayerIndex), tiles);
             }
 
             score.scorePlayer(playerAL.get(currentPlayerIndex), chosenScoreCards);

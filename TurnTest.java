@@ -34,7 +34,7 @@ class TurnTest {
             tempHabs.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "hawk", "", ""));
         }
 
-        turn.tiles.setupTiles(2);
+        turn.tiles.setupTiles();
         turn.tiles.centralAnimals = tempAnimals;
         turn.tiles.centralHabitats = tempHabs;
 
@@ -61,7 +61,7 @@ class TurnTest {
             tempHabs.add(new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", "hawk", "", ""));
         }
 
-        turn.tiles.setupTiles(2);
+        turn.tiles.setupTiles();
         turn.tiles.centralAnimals = tempAnimals;
         turn.tiles.centralHabitats = tempHabs;
 

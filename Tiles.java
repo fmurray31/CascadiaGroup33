@@ -16,9 +16,9 @@ public class Tiles {
 
 
     // sets up arraylists of both animal and habitat tiles
-    public void setupTiles(int playerCount) {
+    public void setupTiles() {
         animalTiles.animalSetup();
-        habitatTiles.habitatSetup(playerCount);
+        habitatTiles.habitatSetup();
     }
 
     public ArrayList<AnimalTiles> getAnimalTiles() {

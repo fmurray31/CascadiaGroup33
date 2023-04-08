@@ -18,7 +18,7 @@ public class Bot {
     private AnimalTiles selectedAnimal;
     private HabitatTiles selectedHabitat;
 
-    public void botTurn (Player bot, int playerCount, Tiles tiles) {
+    public void botTurn (Player bot, Tiles tiles) {
         this.tiles = tiles;
         this.bot = bot;
         this.score.setPlayer(bot);
@@ -27,7 +27,7 @@ public class Bot {
 
         // sets up tiles on the first loop
         if (tiles.centralAnimals == null) {
-            tiles.setupTiles(playerCount);
+            tiles.setupTiles();
             tiles.setupCentralTiles();
         }
 

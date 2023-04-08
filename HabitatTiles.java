@@ -16,7 +16,7 @@ public class HabitatTiles {
     private String creature1, creature2, creature3;
     ArrayList<HabitatTiles> habitatArray;
 
-    public void habitatSetup(int playerCount) {
+    public void habitatSetup() {
         habitatArray = new ArrayList<>();
         habitatArray = generateHabitats();
         shuffleHabitats(habitatArray);

@@ -12,7 +12,7 @@ public class Turn {
 
     // this class takes a player class as input, and contains the code and driver for a single player's turn
     // this method takes a player class as input, and contains the code and driver for a single player's turn
-    public void turnLoop(Player player, int playerCount, Tiles tiles){
+    public void turnLoop(Player player, Tiles tiles){
         this.tiles = tiles;
         boolean endTurn = false;
         boolean cancelled = false;
@@ -35,7 +35,7 @@ public class Turn {
 
             // sets up tiles on the first loop
             if (tiles.centralAnimals == null) {
-                tiles.setupTiles(playerCount);
+                tiles.setupTiles();
                 tiles.setupCentralTiles();
             }
 
