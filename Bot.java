@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 public class Bot {
     Score score = new Score();
@@ -67,6 +66,18 @@ public class Bot {
         int animalChoice = 0;
 
         // TODO: 05/04/2023 tile choice logic goes here
+
+        String[] aniOrder = {"Hawk", "Bear", "Elk", "Salmon", "Fox"};
+        for (int i = 0; i < aniOrder.length; i++) {
+            for (int j = 0; j < tiles.centralAnimals.size(); j++) {
+                if (tiles.centralAnimals.get(j).toString().equals(aniOrder[i])) {
+                    tileChoice = j;
+                    animalChoice = j;
+                    i += 5;
+                    break;
+                }
+            }
+        }
 
         selectedHabitat = tiles.centralHabitats.get(tileChoice);
         selectedAnimal = tiles.centralAnimals.get(animalChoice);

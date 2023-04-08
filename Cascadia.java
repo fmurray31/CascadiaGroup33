@@ -143,30 +143,29 @@ public class Cascadia {
         }
 
         System.out.println("\n\n-----------------------------------------------------------\n\n");
-
-        // TODO: 04/04/2023 broken because playerArray swapped to arraylist
-        //winnerDisplay(playerArray);
+        
+        winnerDisplay(playerAL);
     }
 
-    private static void winnerDisplay (Player[] playerArray) {
+    private static void winnerDisplay (ArrayList<Player> playerAL) {
         //Set the winner as the first person in the player array
         int winScore = 0;
         int winToken = 0;
         String winPlayer = "";
         //loops through list of players
-        for (int i = 0; i < playerArray.length; i++) {
+        for (int i = 0; i < playerAL.size(); i++) {
             //compares the score of a player to another and updates winner if a larger score is found
-            if(playerArray[i].getScore() > winScore) {
-                winScore = playerArray[i].getScore();
-                winPlayer = playerArray[i].getUserName();
-                winToken = playerArray[i].getNatureTokens();
-            } else if (playerArray[i].getScore() == winScore) {
+            if(playerAL.get(i).getScore() > winScore) {
+                winScore = playerAL.get(i).getScore();
+                winPlayer = playerAL.get(i).getUserName();
+                winToken = playerAL.get(i).getNatureTokens();
+            } else if (playerAL.get(i).getScore() == winScore) {
                 //in the case of a draw it compares the nature tokens
-                if (playerArray[i].getNatureTokens() > winToken) {
-                    winPlayer = playerArray[i].getUserName();
-                    winToken = playerArray[i].getNatureTokens();
-                } else if (playerArray[i].getNatureTokens() == winToken) {
-                    winPlayer += " + " + playerArray[i].getUserName();
+                if (playerAL.get(i).getNatureTokens() > winToken) {
+                    winPlayer = playerAL.get(i).getUserName();
+                    winToken = playerAL.get(i).getNatureTokens();
+                } else if (playerAL.get(i).getNatureTokens() == winToken) {
+                    winPlayer += " + " + playerAL.get(i).getUserName();
                 }
             }
         }
