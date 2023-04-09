@@ -33,7 +33,7 @@ class BotTest {
             }
         }
 
-        // catches and discards all system outputs, used to prevent erroneous information from testing bot
+        // catches and discards all system outputs, used to prevent unnecessary information from printing to console
         PrintStream tempOut = new PrintStream(OutputStream.nullOutputStream());
         System.setOut(tempOut);
 
