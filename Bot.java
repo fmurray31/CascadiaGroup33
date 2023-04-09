@@ -18,6 +18,10 @@ public class Bot {
     // arraylist for the names of the central animal tiles
     private ArrayList<String> centralAnimalAL;
 
+    // arraylists for the possible animals that can be placed on the central habitat tiles, and an arraylist of the matching coordinates
+    ArrayList<String> centralHabitatAnimals;
+    ArrayList<Integer> centralHabitatAnimalsCoordinates;
+
     // class scope variables to hold the chosen animal and habitat tiles respectively
     private AnimalTiles selectedAnimal;
     private HabitatTiles selectedHabitat;
@@ -45,12 +49,12 @@ public class Bot {
 
         centralAnimalAL = new ArrayList<>();
 
-        ArrayList<String> centralHabitatAnimals = new ArrayList<>();
-        ArrayList<Integer> centralHabitatAnimalsCoordinates = new ArrayList<>();
+        centralHabitatAnimals = new ArrayList<>();
+        centralHabitatAnimalsCoordinates = new ArrayList<>();
 
         // methods to fill arraylists
-        botCentralAnimalsFetcher(centralAnimalAL);
-        botCentralHabitatAnimalFetcher(centralHabitatAnimals, centralHabitatAnimalsCoordinates);
+        botCentralAnimalsFetcher();
+        botCentralHabitatAnimalFetcher();
         botLocationFetcher(possibleAnimals, possibleAnimalLocations, possibleTileLocations);
 
 
@@ -88,6 +92,8 @@ public class Bot {
         selectedHabitat = tiles.centralHabitats.get(tileChoice);
         selectedAnimal = tiles.centralAnimals.get(animalChoice);
 
+        botHabitatPlacement();
+
         boolean placed = false;
 
         // attempts to place each of the animal types in the below order, if it fails then a method to handle a default case is needed
@@ -107,9 +113,7 @@ public class Bot {
             placed = botTileHelper("Fox");
         }
         // if an animal tile cannot be placed
-
-
-        botHabitatPlacement();
+        if (!placed) botDefaultAnimalPlacement();
 
         // habitat tile removed from central tiles here
         tiles.centralHabitats.remove(selectedHabitat);
@@ -143,6 +147,8 @@ public class Bot {
 
         boolean placed = false;
 
+        // places bear tiles next to other bear tiles
+        // TODO: 09/04/2023 could be expanded with improved functionality, currently only using very basic logic
         if (possibleAnimals.contains("Bear")) {
             for (int[] tileCoord : possibleTileLocations) {
                 if (adjacentCheck(tileCoord, "Bear")) {
@@ -181,7 +187,7 @@ public class Bot {
 //        }
 //    }
 
-    // methods which handle the placement of each of the animal types, in a valid and point scoring manner
+    // methods which handle the placement of each of the animal types, in a valid and point scoring manner. Each returns true if it successfully places the tile, false otherwise
     private boolean botBear () {
         System.out.println("bot bear placed");
         return true;
@@ -348,13 +354,14 @@ public class Bot {
     }
 
     // fills the central animal arraylist with the names of the central animals
-    private void botCentralAnimalsFetcher (ArrayList<String> centralAnimalAL) {
+    private void botCentralAnimalsFetcher () {
         for (int i=0; i<tiles.centralAnimals.size(); i++) {
             centralAnimalAL.add(i, tiles.centralAnimals.get(i).toString());
         }
     }
 
-    private void botCentralHabitatAnimalFetcher (ArrayList<String> centralHabitatAnimals, ArrayList<Integer> centralHabitatAnimalsCoordinates) {
+    // fills the arraylist for potential animals in the central habitat tiles
+    private void botCentralHabitatAnimalFetcher () {
         for (int i=0; i<tiles.centralHabitats.size(); i++) {
             centralHabitatAnimals.add(tiles.centralHabitats.get(i).getCreature1());
             centralHabitatAnimalsCoordinates.add(i);
