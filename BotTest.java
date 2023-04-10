@@ -10,6 +10,41 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BotTest {
     @Test
+    public void botRotationTest() {
+        Bot botClass = new Bot();
+        Tiles tiles = new Tiles();
+        Player bot = new Player("Bot");
+
+        HabitatTiles hab1 = new HabitatTiles("river", "river", "river", "forest", "forest", "forest","hawk", "fox", "elk");
+        HabitatTiles hab2 = new HabitatTiles("river", "river", "river", "mountain", "mountain", "mountain","hawk", "fox", "elk");
+        HabitatTiles hab3 = new HabitatTiles("forest", "forest", "forest", "mountain", "mountain", "mountain","hawk", "bear", "elk");
+
+        HabitatTiles hab4 = new HabitatTiles("forest", "forest", "forest", "mountain", "mountain", "mountain","hawk", "bear", "elk");
+
+        AnimalTiles testHawk = new AnimalTiles("Hawk");
+        AnimalTiles testBear = new AnimalTiles("Bear");
+
+        bot.addHabitatToMap(hab1, 15, 15);
+        bot.addHabitatToMap(hab2, 16, 15);
+        bot.addHabitatToMap(hab3, 16, 14);
+
+        // catches and discards all system outputs, used to prevent unnecessary information from printing to console
+        PrintStream tempOut = new PrintStream(OutputStream.nullOutputStream());
+        System.setOut(tempOut);
+
+        tiles.setupTiles();
+        tiles.setupCentralTiles();
+        tiles.centralAnimals.set(0, testHawk);
+        tiles.centralAnimals.set(1, testHawk);
+        tiles.centralAnimals.set(2, testBear);
+        tiles.centralAnimals.set(3, testBear);
+        tiles.centralHabitats.set(0, hab4);
+        botClass.botTurn(bot, tiles);
+
+        // tests that the tile has successfully been rotated
+        assertEquals("forest", bot.getPlayerMap()[15][14].getEast());
+    }
+    @Test
     public void botHawkTest() {
         Bot botClass = new Bot();
         Score score = new Score();
@@ -24,6 +59,7 @@ class BotTest {
 
         AnimalTiles testHawk = new AnimalTiles("Hawk");
         AnimalTiles testBear = new AnimalTiles("Bear");
+        AnimalTiles testElk = new AnimalTiles("Elk");
 
         scoreCards.add(new ScoreCards("HawkA", "desc"));
 
@@ -33,13 +69,15 @@ class BotTest {
             }
         }
 
-        // catches and discards all system outputs, used to prevent unnecessary information from printing to console
         PrintStream tempOut = new PrintStream(OutputStream.nullOutputStream());
         System.setOut(tempOut);
 
         tiles.setupTiles();
         tiles.setupCentralTiles();
         tiles.centralAnimals.set(0, testBear);
+        tiles.centralAnimals.set(1, testBear);
+        tiles.centralAnimals.set(2, testElk);
+        tiles.centralAnimals.set(3, testElk);
         botClass.botTurn(bot, tiles);
         score.scorePlayer(bot, scoreCards);
         assertEquals(0, bot.getScore());

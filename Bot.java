@@ -2,6 +2,7 @@ import java.util.*;
 
 public class Bot {
     Score score = new Score();
+    HabitatMajorities habitatMajorities = new HabitatMajorities();
     Tiles tiles;
     Player bot;
     Random rand = new Random();
@@ -30,6 +31,7 @@ public class Bot {
         this.tiles = tiles;
         this.bot = bot;
         this.score.setPlayer(bot);
+        habitatMajorities.player = bot;
 
         System.out.println("Bots' turn!");
 
@@ -74,26 +76,6 @@ public class Bot {
     // method to handle choice between different habitat and animal tiles from the central pool, returns an integer representing the choice of animal, and calls
     // the tile placement method. Currently just chooses the first tile pair
     private void botTileChoice () {
-        int tileChoice = 0;
-        int animalChoice = 0;
-
-        String[] aniOrder = {"Hawk", "Bear", "Elk", "Salmon", "Fox"};
-        for (int i = 0; i < aniOrder.length; i++) {
-            for (int j = 0; j < tiles.centralAnimals.size(); j++) {
-                if (tiles.centralAnimals.get(j).toString().equals(aniOrder[i])) {
-                    tileChoice = j;
-                    animalChoice = j;
-                    i += 5;
-                    break;
-                }
-            }
-        }
-
-        selectedHabitat = tiles.centralHabitats.get(tileChoice);
-        selectedAnimal = tiles.centralAnimals.get(animalChoice);
-
-        botHabitatPlacement();
-
         boolean placed = false;
 
         // attempts to place each of the animal types in the below order, if it fails then a method to handle a default case is needed
@@ -115,6 +97,8 @@ public class Bot {
         // if an animal tile cannot be placed
         if (!placed) botDefaultAnimalPlacement();
 
+        botHabitatPlacement();
+
         // habitat tile removed from central tiles here
         tiles.centralHabitats.remove(selectedHabitat);
         tiles.centralAnimals.remove(selectedAnimal);
@@ -131,11 +115,11 @@ public class Bot {
             selectedHabitat = tiles.centralHabitats.get(index);
 
             switch (name) {
-                case "Hawk": output = botHawk();
-                case "Bear": output = botBear();
-                case "Elk": output = botElk();
-                case "Salmon": output = botSalmon();
-                case "Fox": output = botFox();
+                case "Hawk": output = botHawk(); break;
+                case "Bear": output = botBear(); break;
+                case "Elk": output = botElk(); break;
+                case "Salmon": output = botSalmon(); break;
+                case "Fox": output = botFox(); break;
             }
         }
         return output;
@@ -149,10 +133,13 @@ public class Bot {
 
         // places bear tiles next to other bear tiles
         // TODO: 09/04/2023 could be expanded with improved functionality, currently only using very basic logic
-        if (possibleAnimals.contains("Bear")) {
+        if (possibleAnimals.contains("bear")) {
             for (int[] tileCoord : possibleTileLocations) {
-                if (adjacentCheck(tileCoord, "Bear")) {
+                if (adjacentCheck(tileCoord, "bear")) {
+                    botHabitatRotation(tileCoord[0], tileCoord[1]);
                     bot.addHabitatToMap(selectedHabitat, tileCoord[0], tileCoord[1]);
+                    placed = true;
+                    break;
                 }
             }
         }
@@ -173,19 +160,46 @@ public class Bot {
         if (!placed) botDefaultHabPlacement();
     }
 
-    // helper method which calls one of the animal specific placement methods
-    // deprecated
-//    private void botAnimalPlacement (int index) {
-//        switch (selectedAnimal.toString()) {
-//            case "Bear": botBear(); break;
-//            case "Fox": botFox(); break;
-//            case "Elk": botElk(); break;
-//            case "Hawk": botHawk(); break;
-//            case "Salmon": botSalmon(); break;
-//
-//            default: throw new IllegalArgumentException("Invalid animal passed in botAnimalPlacement: " + selectedAnimal);
-//        }
-//    }
+    // places a habitat tile in a way that maximises habitat corridors
+    private void botHabitatRotation (int i, int j) {
+        ArrayList<String> habitatTerrain = new ArrayList<>();
+        habitatTerrain.add(bot.getPlayerMap()[i][j].getEast());
+        habitatTerrain.add(bot.getPlayerMap()[i][j].getWest());
+
+        String[] sides = new String[]{"w", "nw", "ne", "e", "se", "sw"};
+
+        for (String side : sides) {
+            if (bot.getPlayerMap()[i][j].getWest().equals(habitatMajorities.adjacentSide(i, j, side))) {
+                habitatRotationHelper("w", side);
+            } else if (bot.getPlayerMap()[i][j].getEast().equals(habitatMajorities.adjacentSide(i, j, side))) {
+                habitatRotationHelper("e", side);
+            }
+        }
+    }
+
+    private void habitatRotationHelper (String current, String opposite) {
+        int rotations = 0;
+        if (current.equals("w")) {
+            switch (opposite) {
+                case "w": rotations = 3; break;
+                case "nw": rotations = 4; break;
+                case "ne": rotations = 5; break;
+                case "e": rotations = 0; break;
+                case "se": rotations = 1; break;
+                case "sw": rotations = 2; break;
+            }
+        } else {
+            switch (opposite) {
+                case "w": rotations = 0; break;
+                case "nw": rotations = 1; break;
+                case "ne": rotations = 2; break;
+                case "e": rotations = 3; break;
+                case "se": rotations = 4; break;
+                case "sw": rotations = 5; break;
+            }
+        }
+        selectedHabitat.rotateTile(rotations);
+    }
 
     // methods which handle the placement of each of the animal types, in a valid and point scoring manner. Each returns true if it successfully places the tile, false otherwise
     private boolean botBear () {

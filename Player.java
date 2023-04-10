@@ -79,6 +79,7 @@ public class Player {
 
     // prints a players map of habitat tiles, with indents on even rows to represent six sided tiles.
     public void printMap (Player player) {
+        //player = this;
         boolean first;
 
         boolean hasReachedLine = false;

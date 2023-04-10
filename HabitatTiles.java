@@ -22,17 +22,6 @@ public class HabitatTiles {
         shuffleHabitats(habitatArray);
     }
 
-    // takes an arraylist of habitat tiles and returns a smaller habitat tile arraylist, based on the player count
-    // no longer necessary (hopefully)
-//    private ArrayList<HabitatTiles> drawHabitats (ArrayList<HabitatTiles> habArr, int playerCount) {
-//        ArrayList<HabitatTiles> output = new ArrayList<>();
-//        playerCount = playerCount * 20 + 3;
-//        for (int i=0; i<playerCount; i++){
-//            output.add(habArr.get(i));
-//        }
-//        return output;
-//    }
-
     public ArrayList<HabitatTiles> getHabitatArray() {
         return habitatArray;
     }

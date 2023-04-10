@@ -49,7 +49,7 @@ public class HabitatMajorities {
     }
 
     // takes a string representing a side of a hex tile and the coordinates of a tile, then returns the neighbouring tile side
-    private String adjacentSide (int i, int j, String side) {
+    public String adjacentSide (int i, int j, String side) {
         switch (side) {
             case "w": return player.getPlayerMap()[i][j-1].getEast(); 
             case "e": return player.getPlayerMap()[i][j+1].getWest(); 
