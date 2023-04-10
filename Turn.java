@@ -30,7 +30,7 @@ public class Turn {
             System.out.println(player.getUserName() + "'s nature token count is: " + player.getNatureTokens());
             System.out.println("\n" + player.getUserName() + "'s map: \n");
 
-            player.printMap(player);
+            player.printMap();
             System.out.println("\n\n-----------------------------------------------------------\n");
 
             // sets up tiles on the first loop
@@ -144,7 +144,7 @@ public class Turn {
                 boolean mistake = false;
                 int habRow = 0;
                 int habColumn = 0;
-                player.printMap(player);
+                player.printMap();
 
                 // Loop for rotating a tile before placing
                 boolean rotateDone = false;
@@ -210,7 +210,7 @@ public class Turn {
                             System.out.println("Newly placed tiles must be adjacent to current map");
                         } else {
                             player.addHabitatToMap(tiles.centralHabitats.get(centralHabChoice), habRow, habColumn);
-                            player.printMap(player);
+                            player.printMap();
                             choice = true;
                         }
                     }
@@ -279,7 +279,7 @@ public class Turn {
                     }
                 }
                 if (!mistake) {
-                    player.printMap(player);
+                    player.printMap();
 
                     choice = true;
                 }

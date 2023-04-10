@@ -136,7 +136,7 @@ public class Cascadia {
 
         for (Player currentPlayer : playerAL) {
             System.out.println("Player " + currentPlayer.getUserName() + "'s map:");
-            currentPlayer.printMap(currentPlayer);
+            currentPlayer.printMap();
             score.scorePlayer(currentPlayer, chosenScoreCards);
             System.out.print("Player " + currentPlayer.getUserName() + "'s score: ");
             System.out.println(currentPlayer.getScore());

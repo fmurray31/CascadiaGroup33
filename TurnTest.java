@@ -24,6 +24,7 @@ class TurnTest {
 
     @Test
     public void testAutomaticCull() {
+        turn.tiles = new Tiles();
         ArrayList<AnimalTiles> tempAnimals = new ArrayList<>();
         for (int i=0; i<4; i++) {
             tempAnimals.add(new AnimalTiles("Hawk"));
@@ -50,6 +51,7 @@ class TurnTest {
 
     @Test
     public void optionalCull() {
+        turn.tiles = new Tiles();
         ArrayList<AnimalTiles> tempAnimals = new ArrayList<>();
         for (int i=0; i<3; i++) {
             tempAnimals.add(new AnimalTiles("Hawk"));

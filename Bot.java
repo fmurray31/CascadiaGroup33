@@ -57,7 +57,7 @@ public class Bot {
         // methods to fill arraylists
         botCentralAnimalsFetcher();
         botCentralHabitatAnimalFetcher();
-        botLocationFetcher(possibleAnimals, possibleAnimalLocations, possibleTileLocations);
+        botLocationFetcher();
 
 
         // bot logic
@@ -67,7 +67,7 @@ public class Bot {
 
 
         System.out.println("Bots' map:");
-        bot.printMap(bot);
+        bot.printMap();
         System.out.println("");
 
         tiles.drawCentralTiles();
@@ -344,7 +344,7 @@ public class Bot {
     // Searches through the bots' map, finding every possible animal which can be placed (animal on unoccupied habitat) and adds
     // those animals to the arraylist possibleAnimals, and adds the coordinates of that animal to the same "array" location in the
     // arraylist possibleAnimalLocations
-    private void botLocationFetcher (ArrayList<String> possibleAnimals, ArrayList<int[]> possibleAnimalLocations, ArrayList<int[]> possibleHabitatLocations) {
+    private void botLocationFetcher () {
         for (int i=1; i<bot.getMaxMap()-1; i++) {
             for (int j=1; j<bot.getMaxMap()-1; j++) {
                     if (!bot.getPlayerMap()[i][j].isBlankHabitat(bot, i, j) && !bot.getPlayerMap()[i][j].isOccupied()) {
@@ -361,7 +361,7 @@ public class Bot {
                             }
                         }
                     } else if (!bot.getPlayerMap()[i][j].isIsolated(bot, i, j) && !bot.getPlayerMap()[i][j].isOccupied()) {
-                        possibleHabitatLocations.add(new int[]{i, j});
+                        possibleTileLocations.add(new int[]{i, j});
                     }
             }
         }
@@ -397,8 +397,8 @@ public class Bot {
         int index = rand.nextInt(possibleTileLocations.size());
         int[] tempCoords = possibleTileLocations.get(index);
 
+        botHabitatRotation(tempCoords[0], tempCoords[1]);
         bot.addHabitatToMap(selectedHabitat, tempCoords[0], tempCoords[1]);
-        possibleTileLocations.remove(index);
     }
 
     // places an animal tile in any valid place, throws an error if there is none. For use when a scoring place cannot be found
