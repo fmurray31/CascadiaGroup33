@@ -145,15 +145,43 @@ public class Bot {
         }
         if (possibleAnimals.contains("Hawk") && !placed) {
 
+
         }
         if (possibleAnimals.contains("Elk") && !placed) {
+            for (int[] tileCoord : possibleTileLocations) {
+                if (adjacentCheck(tileCoord, "elk")) {
+                    int [] elkLine = score.directionToLocation("w",tileCoord[0], tileCoord[1]);
 
+                    //check if elkline coords has an empty space
+                    if (bot.getPlayerMap()[elkLine[0]][elkLine[1]] == null) {
+                        botHabitatRotation(tileCoord[0], tileCoord[1]);
+                        bot.addHabitatToMap(selectedHabitat, tileCoord[0], tileCoord[1]);
+                        placed = true;
+                        break;
+                    } else {
+                        elkLine = score.directionToLocation("e",tileCoord[0], tileCoord[1]);
+                        if (bot.getPlayerMap()[elkLine[0]][elkLine[1]] == null) {
+                            botHabitatRotation(tileCoord[0], tileCoord[1]);
+                            bot.addHabitatToMap(selectedHabitat, tileCoord[0], tileCoord[1]);
+                            placed = true;
+                            break;
+                        }
+                    }
+                }
+            }
         }
         if (possibleAnimals.contains("Salmon") && !placed) {
 
         }
         if (possibleAnimals.contains("Fox") && !placed) {
-
+            for (int[] tileCoord : possibleTileLocations) {
+                if (adjacentCheck(tileCoord, "fox")) {
+                    botHabitatRotation(tileCoord[0], tileCoord[1]);
+                    bot.addHabitatToMap(selectedHabitat, tileCoord[0], tileCoord[1]);
+                    placed = true;
+                    break;
+                }
+            }
         }
 
         // if tile still hasn't been placed, place it randomly
