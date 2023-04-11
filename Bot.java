@@ -78,6 +78,11 @@ public class Bot {
     private void botTileChoice () {
         boolean placed = false;
 
+        // nature token implementation
+        if (bot.getNatureTokens() > 0) {
+
+        }
+
         // attempts to place each of the animal types in the below order, if it fails then a method to handle a default case is needed
         if (centralAnimalAL.contains("Hawk")) {
             placed = botTileHelper("Hawk");
@@ -123,6 +128,13 @@ public class Bot {
             }
         }
         return output;
+    }
+
+    private int isKeystone(String animal){
+        for (HabitatTiles hab : tiles.centralHabitats) {
+
+        }
+        return -1;
     }
 
     // attempts to place a tile optimally in the below order, and if it fails places it randomly

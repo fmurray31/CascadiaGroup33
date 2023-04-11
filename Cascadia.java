@@ -5,7 +5,6 @@ Jed Rena – jrena7
 Mark Dwyer – MarkDwyer41
  */
 
-import org.junit.rules.Stopwatch;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,12 +16,10 @@ public class Cascadia {
         Setup setup = new Setup();
         Tiles tiles = new Tiles();
         Score score = new Score();
-        //commetn
         ScoreCards scoreCards = new ScoreCards("blank", "blank");
         HabitatMajorities habitatMajorities = new HabitatMajorities();
         Turn turn = new Turn();
         Bot bot = new Bot();
-        Stopwatch stopwatch = new Stopwatch();
 
         boolean botGame = false;
 
@@ -81,14 +78,25 @@ public class Cascadia {
             remainingTurns--;
             int currentPlayerIndex = turnCount % playerAL.size();
             if (playerAL.get(currentPlayerIndex).getUserName().equals("Bot")) {
+                long timer = System.currentTimeMillis();
+
                 bot.botTurn(playerAL.get(currentPlayerIndex), tiles);
+                timer = System.currentTimeMillis() - timer;
+
+                if (timer > 5000) {
+                    System.out.println("Bot was not scored this turn, as it took longer than 5 seconds to play");
+                } else {
+                    score.scorePlayer(playerAL.get(currentPlayerIndex), chosenScoreCards);
+                    System.out.println(playerAL.get(currentPlayerIndex).getUserName() + "'s current score is: " + playerAL.get(currentPlayerIndex).getScore());
+                    System.out.println("\n\n");
+                }
             } else {
                 turn.turnLoop(playerAL.get(currentPlayerIndex), tiles);
-            }
 
-            score.scorePlayer(playerAL.get(currentPlayerIndex), chosenScoreCards);
-            System.out.println(playerAL.get(currentPlayerIndex).getUserName() + "'s current score is: " + playerAL.get(currentPlayerIndex).getScore());
-            System.out.println("\n\n");
+                score.scorePlayer(playerAL.get(currentPlayerIndex), chosenScoreCards);
+                System.out.println(playerAL.get(currentPlayerIndex).getUserName() + "'s current score is: " + playerAL.get(currentPlayerIndex).getScore());
+                System.out.println("\n\n");
+            }
 
             turnCount++;
         }
