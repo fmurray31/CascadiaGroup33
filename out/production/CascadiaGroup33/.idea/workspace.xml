@@ -6,6 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="e4f16033-bdeb-4571-918c-7b30693a5e47" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/Bot.java" beforeDir="false" afterPath="$PROJECT_DIR$/Bot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/Cascadia.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/Cascadia.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/HabitatMajorities.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/HabitatMajorities.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/HabitatMajoritiesTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/HabitatMajoritiesTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/HabitatTiles.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/HabitatTiles.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/Score.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/Score.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/ScoreTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/ScoreTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/Setup.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/Setup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/StarterHabitat.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/StarterHabitat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/Tiles.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/Tiles.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/Turn.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/Turn.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/CascadiaGroup33/TurnTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/CascadiaGroup33/TurnTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

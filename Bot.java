@@ -155,15 +155,23 @@ public class Bot {
                 }
             }
         }
+
         if (possibleAnimals.contains("Hawk") && !placed) {
-
-
+            for (int[] tileCoord : possibleTileLocations) {
+                if (!adjacentCheck(tileCoord, "hawk")) {
+                    botHabitatRotation(tileCoord[0], tileCoord[1]);
+                    bot.addHabitatToMap(selectedHabitat, tileCoord[0], tileCoord[1]);
+                    placed = true;
+                    break;
+                }
+            }
         }
+
+        // TODO: Handle cases where there is an elk above or below the elkline
         if (possibleAnimals.contains("Elk") && !placed) {
             for (int[] tileCoord : possibleTileLocations) {
                 if (adjacentCheck(tileCoord, "elk")) {
                     int [] elkLine = score.directionToLocation("w",tileCoord[0], tileCoord[1]);
-
                     //check if elkline coords has an empty space
                     if (bot.getPlayerMap()[elkLine[0]][elkLine[1]] == null) {
                         botHabitatRotation(tileCoord[0], tileCoord[1]);
@@ -182,9 +190,11 @@ public class Bot {
                 }
             }
         }
+
         if (possibleAnimals.contains("Salmon") && !placed) {
 
         }
+
         if (possibleAnimals.contains("Fox") && !placed) {
             for (int[] tileCoord : possibleTileLocations) {
                 if (adjacentCheck(tileCoord, "fox")) {
@@ -253,6 +263,11 @@ public class Bot {
     }
 
     private boolean botElk () {
+        int[][] tempArray = new int[bot.getMaxMap()][bot.getMaxMap()];
+        int elkIndex = possibleAnimals.indexOf("elk");
+        int[] elkCoords;
+
+
         System.out.println("bot elk placed");
         return true;
     }
@@ -267,7 +282,7 @@ public class Bot {
 
             if (score.adjacentAnimal("Hawk", tempArray, hawkCoords[0], hawkCoords[1])[0] == -1) {
                 tiles.placeAnimal(bot.getPlayerMap()[hawkCoords[0]][hawkCoords[1]], selectedAnimal);
-                return  true;
+                return true;
             }
 
             hawkIndex = getNext(possibleAnimals, hawkIndex);
@@ -387,22 +402,22 @@ public class Bot {
     private void botLocationFetcher () {
         for (int i=1; i<bot.getMaxMap()-1; i++) {
             for (int j=1; j<bot.getMaxMap()-1; j++) {
-                    if (!bot.getPlayerMap()[i][j].isBlankHabitat(bot, i, j) && !bot.getPlayerMap()[i][j].isOccupied()) {
-                        possibleAnimals.add(bot.getPlayerMap()[i][j].getCreature1());
+                if (!bot.getPlayerMap()[i][j].isBlankHabitat(bot, i, j) && !bot.getPlayerMap()[i][j].isOccupied()) {
+                    possibleAnimals.add(bot.getPlayerMap()[i][j].getCreature1());
+                    possibleAnimalLocations.add(new int[]{i, j});
+
+                    if (!bot.getPlayerMap()[i][j].getCreature2().equals("")) {
+                        possibleAnimals.add(bot.getPlayerMap()[i][j].getCreature2());
                         possibleAnimalLocations.add(new int[]{i, j});
 
-                        if (!bot.getPlayerMap()[i][j].getCreature2().equals("")) {
-                            possibleAnimals.add(bot.getPlayerMap()[i][j].getCreature2());
+                        if (!bot.getPlayerMap()[i][j].getCreature3().equals("")) {
+                            possibleAnimals.add(bot.getPlayerMap()[i][j].getCreature3());
                             possibleAnimalLocations.add(new int[]{i, j});
-
-                            if (!bot.getPlayerMap()[i][j].getCreature3().equals("")) {
-                                possibleAnimals.add(bot.getPlayerMap()[i][j].getCreature3());
-                                possibleAnimalLocations.add(new int[]{i, j});
-                            }
                         }
-                    } else if (!bot.getPlayerMap()[i][j].isIsolated(bot, i, j) && !bot.getPlayerMap()[i][j].isOccupied()) {
-                        possibleTileLocations.add(new int[]{i, j});
                     }
+                } else if (!bot.getPlayerMap()[i][j].isIsolated(bot, i, j) && !bot.getPlayerMap()[i][j].isOccupied()) {
+                    possibleTileLocations.add(new int[]{i, j});
+                }
             }
         }
     }
