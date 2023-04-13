@@ -851,7 +851,7 @@ public class Score {
     }
 
     // recursively counts the number of a given animal in a straight line
-    private int searchLineCount (String animal, String direction, int[][]coordinates, int i, int j) {
+    public int searchLineCount (String animal, String direction, int[][]coordinates, int i, int j) {
         int[] current = directionToLocation(direction, i, j);
 
         if (player.getPlayerMap()[current[0]][current[1]].isOccupied() && player.getPlayerMap()[current[0]][current[1]].getCreature1().equals(animal) && coordinates[current[0]][current[1]] == 0) {
@@ -889,7 +889,7 @@ public class Score {
     }
 
     // method which marks chosen tiles from elkAScore as already counted
-    private void elkAHelper (String direction, int[][] coordinates, int i, int j) {
+    public void elkAHelper (String direction, int[][] coordinates, int i, int j) {
         int[] next = directionToLocation(direction, i, j);
 
         while (player.getPlayerMap()[next[0]][next[1]].isOccupied() && player.getPlayerMap()[next[0]][next[1]].getCreature1().equals("Elk")) {
