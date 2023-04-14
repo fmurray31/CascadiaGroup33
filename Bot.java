@@ -324,15 +324,6 @@ public class Bot {
                         score.elkAHelper("sw", coordinates, i, j);
                         score.elkAHelper("ne", coordinates, i, j);
                     }
-
-                    //maxCount++;
-                    switch (maxCount) {
-                        case 0: break;
-                        case 1: bot.addScore(2); break;
-                        case 2: bot.addScore(5); break;
-                        case 3: bot.addScore(9); break;
-                        default: bot.addScore(13); break;
-                    }
                 }
             }
         }
