@@ -27,6 +27,10 @@ public class Bot {
     private AnimalTiles selectedAnimal;
     private HabitatTiles selectedHabitat;
 
+    // static trackers for number of placed animals
+    private static int placedHawkCount = 0;
+    private static int placedBearPairCount = 0;
+
     public void botTurn (Player bot, Tiles tiles) {
         this.tiles = tiles;
         this.bot = bot;
@@ -61,9 +65,7 @@ public class Bot {
 
 
         // bot logic
-        //botAnimalPlacement(botTileChoice());
         botTileChoice();
-
 
 
         System.out.println("Bots' map:");
@@ -80,7 +82,7 @@ public class Bot {
 
         // nature token implementation
         if (bot.getNatureTokens() > 0) {
-
+            botNatureToken();
         }
 
         // attempts to place each of the animal types in the below order, if it fails then a method to handle a default case is needed
@@ -130,11 +132,32 @@ public class Bot {
         return output;
     }
 
-    private int isKeystone(String animal){
-        for (HabitatTiles hab : tiles.centralHabitats) {
+    // handles the logic for bot nature token use
+    private void botNatureToken() {
+        boolean shuffled = false;
+        StringBuilder output = new StringBuilder("Bot is shuffling ");
 
+        if (placedHawkCount >= 8) {
+            tiles.redrawAnimals(new AnimalTiles("Hawk"));
+            output.append("all Hawk tiles, ");
+            shuffled = true;
         }
-        return -1;
+
+        if (placedBearPairCount >= 4) {
+            tiles.redrawAnimals(new AnimalTiles("Bear"));
+            output.append("all Bear tiles, ");
+            shuffled = true;
+        }
+
+        if(shuffled) {
+            output.deleteCharAt(output.length());
+            System.out.println(output);
+            bot.removeNatureToken();
+        }
+
+        if (shuffled) {
+            bot.removeNatureToken();
+        }
     }
 
     // attempts to place a tile optimally in the below order, and if it fails places it randomly
@@ -192,7 +215,7 @@ public class Bot {
         }
 
         if (possibleAnimals.contains("Salmon") && !placed) {
-
+            botDefaultHabPlacement();
         }
 
         if (possibleAnimals.contains("Fox") && !placed) {
@@ -253,12 +276,15 @@ public class Bot {
 
     // methods which handle the placement of each of the animal types, in a valid and point scoring manner. Each returns true if it successfully places the tile, false otherwise
     private boolean botBear () {
-        System.out.println("bot bear placed");
+
+        System.out.println("Bot placed a Bear");
         return true;
     }
 
     private boolean botFox () {
-        System.out.println("bot fox placed");
+
+
+        System.out.println("Bot placed a Fox");
         return true;
     }
 
@@ -328,7 +354,7 @@ public class Bot {
             }
         }
 
-        System.out.println("bot elk placed");
+        System.out.println("Bot placed an Elk");
         return true;
     }
 
@@ -342,6 +368,8 @@ public class Bot {
 
             if (score.adjacentAnimal("Hawk", tempArray, hawkCoords[0], hawkCoords[1])[0] == -1) {
                 tiles.placeAnimal(bot.getPlayerMap()[hawkCoords[0]][hawkCoords[1]], selectedAnimal);
+                placedHawkCount++;
+                System.out.println("Bot placed a Hawk");
                 return true;
             }
 
@@ -351,7 +379,8 @@ public class Bot {
     }
 
     private boolean botSalmon () {
-        System.out.println("bot salmon placed");
+
+        System.out.println("Bot placed a Salmon");
         return true;
     }
 
@@ -518,10 +547,16 @@ public class Bot {
 
     // places an animal tile in any valid place, throws an error if there is none. For use when a scoring place cannot be found
     private void botDefaultAnimalPlacement () {
-        if (possibleAnimals.contains(selectedAnimal.toString())) {
-            int[] coords = possibleAnimalLocations.get(possibleAnimals.indexOf(selectedAnimal.toString()));
-            tiles.placeAnimal(bot.getPlayerMap()[coords[0]][coords[1]], selectedAnimal);
-        } else throw new IllegalArgumentException("animal tile: " + selectedAnimal + " could not be placed by the bot");
+        for (int i=0; i<4; i++) {
+            selectedAnimal = tiles.centralAnimals.get(i);
+            selectedHabitat = tiles.centralHabitats.get(i);
+            if (possibleAnimals.contains(selectedAnimal.toString())) {
+                int[] coords = possibleAnimalLocations.get(possibleAnimals.indexOf(selectedAnimal.toString()));
+                tiles.placeAnimal(bot.getPlayerMap()[coords[0]][coords[1]], selectedAnimal);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("no animal could be placed by the bot");
     }
 
 }

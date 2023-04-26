@@ -188,7 +188,8 @@ public class Turn {
                 }
 
                 if (!mistake) {
-                    player.printSingleRow(player, habRow);
+                    player.printRow(player, habRow);
+
                     System.out.println("Enter the number of the column where you want to place your habitat tile");
 
                     try {
@@ -243,7 +244,7 @@ public class Turn {
                 }
 
                 if (!mistake) {
-                    player.printSingleRow(player, aniRow);
+                    player.printRow(player, aniRow);
                     System.out.println("Enter the number of the column where you want to place your animal tile: " + tempAnimal);
                     try {
                         input = Integer.parseInt(in.nextLine());

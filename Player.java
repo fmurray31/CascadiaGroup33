@@ -285,35 +285,58 @@ public class Player {
     }
 
     // prints a single row, specified by player input, with a number under each column
-    public void printSingleRow (Player player, int row) {
+    public void printRow(Player player, int row) {
+        printRowHelper(player, row-1);
         int column = 1;
+        boolean first = true;
 
         for (int i=0; i<=4; i++) {
+            first = true;
             for (int j=1; j<maxMap-1; j++) {
                 if (columnCheck(player, j) || columnCheck(player, j-1) || columnCheck(player, j+1))
                 switch (i){
                     case 0:
+                        if (row % 2==0 && first) {
+                            System.out.print("                ");
+                        }
+                        first = false;
+
                         System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getNorthWest()));
                         System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getNorthWest()));
                         System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getNorthEast()));
                         System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getNorthEast()));
                         break;
-                        
+
                     case 1:
+                        if (row % 2==0 && first) {
+                            System.out.print("                ");
+                        }
+                        first = false;
+
                         System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getWest()));
                         System.out.print(player.playerMap[row][j].occupiedBackground() + habitatTiles.animalToAscii(player.playerMap[row][j].getCreature1()));
                         System.out.print(player.playerMap[row][j].occupiedBackground() + habitatTiles.animalToAscii(player.playerMap[row][j].getCreature2()));
                         System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getEast()));
                         break;
-                        
+
                     case 2:
+                        if (row % 2==0 && first) {
+                            System.out.print("                ");
+                        }
+                        first = false;
+
                         System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getWest()));
                         System.out.print(player.playerMap[row][j].occupiedBackground() + habitatTiles.animalToAscii(player.playerMap[row][j].getCreature3()));
                         System.out.print(player.playerMap[row][j].occupiedBackground() + "        ");
                         System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getEast()));
                         break;
-                        
+
                     case 3:
+                        if (row % 2==0 && first) {
+                            System.out.print("                ");
+                        }
+                        first = false;
+
                         System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getSouthWest()));
                         System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getSouthWest()));
                         System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getSouthEast()));
@@ -321,7 +344,12 @@ public class Player {
                         break;
 
                     case 4:
-                        // prints the number beneath each column, with support for double digit numbers being differently sized
+                        if (row % 2==0 && first) {
+                            System.out.print("                ");
+                        }
+                        first = false;
+
+                        // prints the number beneath each column, with support for double-digit numbers being differently sized
                         if (column < 10) {
                             System.out.print("        " + column + "       " + "        " + "        ");
                         } else {
@@ -329,6 +357,69 @@ public class Player {
                         }
                         column++;
                 }
+            }
+            System.out.println("");
+        }
+        printRowHelper(player, row+1);
+    }
+
+    private void printRowHelper(Player player, int row) {
+        int column = 1;
+        boolean first = true;
+
+        for (int i=0; i<=3; i++) {
+            first = true;
+            for (int j=1; j<maxMap-1; j++) {
+                if (columnCheck(player, j) || columnCheck(player, j-1) || columnCheck(player, j+1))
+                    switch (i){
+                        case 0:
+                            if (row % 2==0 && first) {
+                                System.out.print("                ");
+                            }
+                            first = false;
+
+                            System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getNorthWest()));
+                            System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getNorthWest()));
+                            System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getNorthEast()));
+                            System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getNorthEast()));
+                            break;
+
+                        case 1:
+                            if (row % 2==0 && first) {
+                                System.out.print("                ");
+                            }
+                            first = false;
+
+                            System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getWest()));
+                            System.out.print(player.playerMap[row][j].occupiedBackground() + habitatTiles.animalToAscii(player.playerMap[row][j].getCreature1()));
+                            System.out.print(player.playerMap[row][j].occupiedBackground() + habitatTiles.animalToAscii(player.playerMap[row][j].getCreature2()));
+                            System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getEast()));
+                            break;
+
+                        case 2:
+                            if (row % 2==0 && first) {
+                                System.out.print("                ");
+                            }
+                            first = false;
+
+                            System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getWest()));
+                            System.out.print(player.playerMap[row][j].occupiedBackground() + habitatTiles.animalToAscii(player.playerMap[row][j].getCreature3()));
+                            System.out.print(player.playerMap[row][j].occupiedBackground() + "        ");
+                            System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getEast()));
+                            break;
+
+                        case 3:
+                            if (row % 2==0 && first) {
+                                System.out.print("                ");
+                            }
+                            first = false;
+
+                            System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getSouthWest()));
+                            System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getSouthWest()));
+                            System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getSouthEast()));
+                            System.out.print(habitatTiles.terrainToAscii(player.playerMap[row][j].getSouthEast()));
+                            break;
+                    }
             }
             System.out.println("");
         }
