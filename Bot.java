@@ -235,10 +235,6 @@ public class Bot {
 
     // places a habitat tile in a way that maximises habitat corridors
     private void botHabitatRotation (int i, int j) {
-        ArrayList<String> habitatTerrain = new ArrayList<>();
-        habitatTerrain.add(bot.getPlayerMap()[i][j].getEast());
-        habitatTerrain.add(bot.getPlayerMap()[i][j].getWest());
-
         String[] sides = new String[]{"w", "nw", "ne", "e", "se", "sw"};
 
         for (String side : sides) {
@@ -276,9 +272,32 @@ public class Bot {
 
     // methods which handle the placement of each of the animal types, in a valid and point scoring manner. Each returns true if it successfully places the tile, false otherwise
     private boolean botBear () {
+        int[][] tempArray = new int[bot.getMaxMap()][bot.getMaxMap()];
+        int bearIndex = possibleAnimals.indexOf("bear");
+        int[] bearCoords;
 
-        System.out.println("Bot placed a Bear");
-        return true;
+        do {
+            bearCoords = possibleAnimalLocations.get(bearIndex);
+            int[] tempCoords = score.adjacentAnimal("Bear", tempArray, bearCoords[0], bearCoords[1]);
+
+            // finds already placed bear
+            if (tempCoords[0] != -1) {
+                // check if already placed bear is part of a pair or not
+                if (score.adjacentAnimal("Bear", tempArray, tempCoords[0], tempCoords[1])[0] == -1) {
+                    // bear placement
+
+                    // a pair has been placed, so pairCount++
+                    placedBearPairCount++;
+                    return true;
+                }
+            }
+
+            bearIndex = getNext(possibleAnimals, bearIndex);
+        } while (bearIndex != -1);
+
+        // need second case then for if place beside already placed bear
+
+        return false;
     }
 
     private boolean botFox () {
