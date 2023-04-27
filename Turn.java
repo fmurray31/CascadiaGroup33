@@ -211,7 +211,6 @@ public class Turn {
                             System.out.println("Newly placed tiles must be adjacent to current map");
                         } else {
                             player.addHabitatToMap(tiles.centralHabitats.get(centralHabChoice), habRow, habColumn);
-                            player.printMap();
                             choice = true;
                         }
                     }

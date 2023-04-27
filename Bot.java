@@ -164,11 +164,15 @@ public class Bot {
     private void botHabitatPlacement () {
         ArrayList<String> possibleAnimals = habitatContains(selectedHabitat);
 
+        // temp
+        System.out.println("bot map before new tile placed:");
+        bot.printMap();
+
         boolean placed = false;
 
         // places bear tiles next to other bear tiles
         // TODO: 09/04/2023 could be expanded with improved functionality, currently only using very basic logic
-        if (possibleAnimals.contains("bear")) {
+        if (possibleAnimals.contains("bear") && placedBearPairCount < 8) {
             for (int[] tileCoord : possibleTileLocations) {
                 if (adjacentCheck(tileCoord, "bear")) {
                     botHabitatRotation(tileCoord[0], tileCoord[1]);
@@ -179,9 +183,10 @@ public class Bot {
             }
         }
 
-        if (possibleAnimals.contains("Hawk") && !placed) {
+        // attempts to place a hawk habitat away from other hawk habitats
+        if (possibleAnimals.contains("hawk") && !placed) {
             for (int[] tileCoord : possibleTileLocations) {
-                if (!adjacentCheck(tileCoord, "hawk")) {
+                if (!adjacentCheck(tileCoord, "hawk") && adjacentCount("hawk", tileCoord[0], tileCoord[1]) == 0) {
                     botHabitatRotation(tileCoord[0], tileCoord[1]);
                     bot.addHabitatToMap(selectedHabitat, tileCoord[0], tileCoord[1]);
                     placed = true;
@@ -191,7 +196,7 @@ public class Bot {
         }
 
         // TODO: Handle cases where there is an elk above or below the elkline
-        if (possibleAnimals.contains("Elk") && !placed) {
+        if (possibleAnimals.contains("elk") && !placed) {
             for (int[] tileCoord : possibleTileLocations) {
                 if (adjacentCheck(tileCoord, "elk")) {
                     int [] elkLine = score.directionToLocation("w",tileCoord[0], tileCoord[1]);
@@ -214,11 +219,11 @@ public class Bot {
             }
         }
 
-        if (possibleAnimals.contains("Salmon") && !placed) {
+        if (possibleAnimals.contains("salmon") && !placed) {
             botDefaultHabPlacement();
         }
 
-        if (possibleAnimals.contains("Fox") && !placed) {
+        if (possibleAnimals.contains("fox") && !placed) {
             for (int[] tileCoord : possibleTileLocations) {
                 if (adjacentCheck(tileCoord, "fox")) {
                     botHabitatRotation(tileCoord[0], tileCoord[1]);
@@ -272,31 +277,34 @@ public class Bot {
 
     // methods which handle the placement of each of the animal types, in a valid and point scoring manner. Each returns true if it successfully places the tile, false otherwise
     private boolean botBear () {
-        int[][] tempArray = new int[bot.getMaxMap()][bot.getMaxMap()];
-        int bearIndex = possibleAnimals.indexOf("bear");
-        int[] bearCoords;
-
-        do {
-            bearCoords = possibleAnimalLocations.get(bearIndex);
-            int[] tempCoords = score.adjacentAnimal("Bear", tempArray, bearCoords[0], bearCoords[1]);
-
-            // finds already placed bear
-            if (tempCoords[0] != -1) {
-                // check if already placed bear is part of a pair or not
-                if (score.adjacentAnimal("Bear", tempArray, tempCoords[0], tempCoords[1])[0] == -1) {
-                    // bear placement
-
-                    // a pair has been placed, so pairCount++
-                    placedBearPairCount++;
-                    return true;
-                }
-            }
-
-            bearIndex = getNext(possibleAnimals, bearIndex);
-        } while (bearIndex != -1);
-
-        // need second case then for if place beside already placed bear
-
+//        int[][] tempArray = new int[bot.getMaxMap()][bot.getMaxMap()];
+//        int bearIndex = possibleAnimals.indexOf("bear");
+//        int[] bearCoords;
+//
+//        do {
+//            bearCoords = possibleAnimalLocations.get(bearIndex);
+//            int[] tempCoords = score.adjacentAnimal("Bear", tempArray, bearCoords[0], bearCoords[1]);
+//
+//            // finds already placed bear
+//            if (tempCoords[0] != -1) {
+//                // check if already placed bear is part of a pair or not
+//                if (score.adjacentAnimal("Bear", tempArray, tempCoords[0], tempCoords[1])[0] == -1) {
+//                    // bear placement
+//
+//                    // a pair has been placed, so pairCount++
+//                    placedBearPairCount++;
+//                    return true;
+//                }
+//            }
+//
+//            bearIndex = getNext(possibleAnimals, bearIndex);
+//        } while (bearIndex != -1);
+//
+//        // need second case then for if place beside already placed bear
+//
+//        return false;
+        //temp
+        System.out.println("bot attempted to place a bear");
         return false;
     }
 
@@ -373,10 +381,11 @@ public class Bot {
             }
         }
 
-        System.out.println("Bot placed an Elk");
-        return true;
+        System.out.println("Bot attempted to place an Elk");
+        return false;
     }
 
+    // places hawk in a tile without adjacent hawks
     private boolean botHawk () {
         int[][] tempArray = new int[bot.getMaxMap()][bot.getMaxMap()];
         int hawkIndex = possibleAnimals.indexOf("hawk");
@@ -397,10 +406,83 @@ public class Bot {
         return false;
     }
 
+    // attempts to place salmon token next to already existing line of salmon, if it fails attempts to place next to a habitat tile with a salmon space, else returns false
     private boolean botSalmon () {
+        int[][] tempArray = new int[bot.getMaxMap()][bot.getMaxMap()];
+        int salmonIndex = possibleAnimals.indexOf("salmon");
+        int[] salmonCoords;
 
-        System.out.println("Bot placed a Salmon");
-        return true;
+        // placing salmon next to already placed salmon
+        do {
+            salmonCoords = possibleAnimalLocations.get(salmonIndex);
+            int[] adjacentSalmon = score.adjacentAnimal("salmon", tempArray, salmonCoords[0], salmonCoords[1]);
+
+            if (adjacentSalmon[0] != -1){
+                if (adjacentCount("salmon", adjacentSalmon[0], adjacentSalmon[1]) < 2 && adjacentCount("Salmon", salmonCoords[0], salmonCoords[1]) < 2) {
+                    tiles.placeAnimal(bot.getPlayerMap()[salmonCoords[0]][salmonCoords[1]], selectedAnimal);
+                    System.out.println("Bot placed a Salmon");
+                    return true;
+                }
+            }
+
+            salmonIndex = getNext(possibleAnimals, salmonIndex);
+        } while (salmonIndex != -1);
+
+        salmonIndex = possibleAnimals.indexOf("salmon");
+        // place salmon next to other salmon habitat
+        do {
+            salmonCoords = possibleAnimalLocations.get(salmonIndex);
+
+            if (adjacentCheck(salmonCoords, "salmon")) {
+                tiles.placeAnimal(bot.getPlayerMap()[salmonCoords[0]][salmonCoords[1]], selectedAnimal);
+                System.out.println("Bot placed a Salmon");
+                return true;
+            }
+
+            salmonIndex = getNext(possibleAnimals, salmonIndex);
+        } while (salmonIndex != -1);
+
+        // place salmon next to empty habitat space
+        salmonIndex = possibleAnimals.indexOf("salmon");
+        do {
+            salmonCoords = possibleAnimalLocations.get(salmonIndex);
+
+            if (emptyAdjacent(salmonCoords)) {
+                tiles.placeAnimal(bot.getPlayerMap()[salmonCoords[0]][salmonCoords[1]], selectedAnimal);
+                System.out.println("Bot placed a Salmon");
+                return true;
+            }
+
+            salmonIndex = getNext(possibleAnimals, salmonIndex);
+        } while (salmonIndex != -1);
+
+        return false;
+    }
+
+    // takes an animal and coordinates, returns the number of placed animals of that type adjacent to the coordinates
+    private int adjacentCount (String animal, int i, int j) {
+        int[][] tempArray = new int[bot.getMaxMap()][bot.getMaxMap()];
+        int count = 0;
+
+        while (score.adjacentAnimal(animal, tempArray, i, j)[0] != -1) {
+            count++;
+        }
+        return count;
+    }
+
+    // returns true if any space adjacent to the given coordinates are empty spaces
+    private boolean emptyAdjacent (int[] coordinates) {
+        String[] directions = new String[]{"w", "nw", "ne", "e", "se", "sw"};
+
+        for (String direction : directions) {
+            int[] adjCoordinates =  score.directionToLocation(direction, coordinates[0], coordinates[1]);
+            HabitatTiles checkedLocation = bot.getPlayerMap()[adjCoordinates[0]][adjCoordinates[1]];
+
+            if (checkedLocation.isBlankHabitat(bot, adjCoordinates[0], adjCoordinates[1])) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // takes an arraylist and an index, returns the index of the next instance of the given item, or -1 if none found

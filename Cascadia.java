@@ -83,6 +83,7 @@ public class Cascadia {
                 bot.botTurn(playerAL.get(currentPlayerIndex), tiles);
                 timer = System.currentTimeMillis() - timer;
 
+                // timer setup, doesn't score the bots turn if it takes more than 5 seconds
                 if (timer > 5000) {
                     System.out.println("Bot was not scored this turn, as it took longer than 5 seconds to play");
                 } else {
