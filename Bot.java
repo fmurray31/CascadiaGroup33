@@ -165,8 +165,8 @@ public class Bot {
         ArrayList<String> possibleAnimals = habitatContains(selectedHabitat);
 
         // temp
-        System.out.println("bot map before new tile placed:");
-        bot.printMap();
+//        System.out.println("bot map before new tile placed:");
+//        bot.printMap();
 
         boolean placed = false;
 
@@ -415,10 +415,10 @@ public class Bot {
         // placing salmon next to already placed salmon
         do {
             salmonCoords = possibleAnimalLocations.get(salmonIndex);
-            int[] adjacentSalmon = score.adjacentAnimal("salmon", tempArray, salmonCoords[0], salmonCoords[1]);
+            int[] adjacentSalmon = score.adjacentAnimal("Salmon", tempArray, salmonCoords[0], salmonCoords[1]);
 
             if (adjacentSalmon[0] != -1){
-                if (adjacentCount("salmon", adjacentSalmon[0], adjacentSalmon[1]) < 2 && adjacentCount("Salmon", salmonCoords[0], salmonCoords[1]) < 2) {
+                if (adjacentCount("Salmon", adjacentSalmon[0], adjacentSalmon[1]) < 2 && adjacentCount("Salmon", salmonCoords[0], salmonCoords[1]) < 2) {
                     tiles.placeAnimal(bot.getPlayerMap()[salmonCoords[0]][salmonCoords[1]], selectedAnimal);
                     System.out.println("Bot placed a Salmon");
                     return true;
@@ -463,8 +463,11 @@ public class Bot {
     private int adjacentCount (String animal, int i, int j) {
         int[][] tempArray = new int[bot.getMaxMap()][bot.getMaxMap()];
         int count = 0;
+        int[] adjacentCoords = score.adjacentAnimal(animal, tempArray, i, j);
 
-        while (score.adjacentAnimal(animal, tempArray, i, j)[0] != -1) {
+        while (adjacentCoords[0] != -1) {
+            tempArray[adjacentCoords[0]][adjacentCoords[1]] = 1;
+            adjacentCoords = score.adjacentAnimal(animal, tempArray, i, j);
             count++;
         }
         return count;
@@ -651,8 +654,8 @@ public class Bot {
         for (int i=0; i<4; i++) {
             selectedAnimal = tiles.centralAnimals.get(i);
             selectedHabitat = tiles.centralHabitats.get(i);
-            if (possibleAnimals.contains(selectedAnimal.toString())) {
-                int[] coords = possibleAnimalLocations.get(possibleAnimals.indexOf(selectedAnimal.toString()));
+            if (possibleAnimals.contains(selectedAnimal.toString().toLowerCase())) {
+                int[] coords = possibleAnimalLocations.get(possibleAnimals.indexOf(selectedAnimal.toString().toLowerCase()));
                 tiles.placeAnimal(bot.getPlayerMap()[coords[0]][coords[1]], selectedAnimal);
                 return;
             }

@@ -145,4 +145,106 @@ class BotTest {
         score.scorePlayer(bot, scoreCards);
         assertEquals(26, bot.getScore());
     }
+
+    @Test
+    public void botSalmon() {
+        Bot botClass = new Bot();
+        Score score = new Score();
+        Tiles tiles = new Tiles();
+        Player bot = new Player("Bot");
+        List<ScoreCards> scoreCards = new ArrayList<>();
+
+        Stack<HabitatTiles> habStack = new Stack<>();
+        for (int i=0; i<100; i++) {
+            habStack.add(new HabitatTiles("river", "river", "river", "forest", "forest", "forest", "hawk", "salmon", "fox"));
+        }
+
+        AnimalTiles testHawk = new AnimalTiles("Hawk");
+        AnimalTiles testSalmon = new AnimalTiles("Salmon");
+        AnimalTiles testFox = new AnimalTiles("Fox");
+
+        scoreCards.add(new ScoreCards("SalmonA", "desc"));
+
+        for (int i=0; i<10; i++) {
+            for (int j=0; j<10; j++) {
+                bot.addHabitatToMap(habStack.pop(), i+10, j+10);
+            }
+        }
+
+//        PrintStream tempOut = new PrintStream(OutputStream.nullOutputStream());
+//        System.setOut(tempOut);
+
+        tiles.setupTiles();
+        tiles.setupCentralTiles();
+
+        setCentralHabs(tiles, "bear");
+        tiles.centralAnimals.set(0, testSalmon);
+        tiles.centralAnimals.set(1, testSalmon);
+        tiles.centralAnimals.set(2, testFox);
+        tiles.centralAnimals.set(3, testFox);
+        botClass.botTurn(bot, tiles);
+        score.scorePlayer(bot, scoreCards);
+        assertEquals(2, bot.getScore());
+
+        setCentralHabs(tiles, "bear");
+        tiles.centralAnimals.set(0, testHawk);
+        tiles.centralAnimals.set(1, testSalmon);
+        tiles.centralAnimals.set(2, testFox);
+        tiles.centralAnimals.set(3, testFox);
+        botClass.botTurn(bot, tiles);
+        score.scorePlayer(bot, scoreCards);
+        assertEquals(2, bot.getScore());
+
+        setCentralHabs(tiles, "bear");
+        tiles.centralAnimals.set(0, testSalmon);
+        tiles.centralAnimals.set(1, testSalmon);
+        tiles.centralAnimals.set(2, testFox);
+        tiles.centralAnimals.set(3, testFox);
+        botClass.botTurn(bot, tiles);
+        score.scorePlayer(bot, scoreCards);
+        assertEquals(4, bot.getScore());
+
+        setCentralHabs(tiles, "bear");
+        tiles.centralAnimals.set(0, testSalmon);
+        tiles.centralAnimals.set(1, testSalmon);
+        tiles.centralAnimals.set(2, testFox);
+        tiles.centralAnimals.set(3, testFox);
+        botClass.botTurn(bot, tiles);
+        score.scorePlayer(bot, scoreCards);
+        assertEquals(7, bot.getScore());
+
+        setCentralHabs(tiles, "bear");
+        tiles.centralAnimals.set(0, testSalmon);
+        tiles.centralAnimals.set(1, testSalmon);
+        tiles.centralAnimals.set(2, testFox);
+        tiles.centralAnimals.set(3, testFox);
+        botClass.botTurn(bot, tiles);
+        score.scorePlayer(bot, scoreCards);
+        assertEquals(11, bot.getScore());
+
+        setCentralHabs(tiles, "bear");
+        tiles.centralAnimals.set(0, testSalmon);
+        tiles.centralAnimals.set(1, testSalmon);
+        tiles.centralAnimals.set(2, testFox);
+        tiles.centralAnimals.set(3, testFox);
+        botClass.botTurn(bot, tiles);
+        score.scorePlayer(bot, scoreCards);
+        assertEquals(15, bot.getScore());
+
+        setCentralHabs(tiles, "bear");
+        tiles.centralAnimals.set(0, testSalmon);
+        tiles.centralAnimals.set(1, testSalmon);
+        tiles.centralAnimals.set(2, testFox);
+        tiles.centralAnimals.set(3, testFox);
+        botClass.botTurn(bot, tiles);
+        score.scorePlayer(bot, scoreCards);
+        assertEquals(20, bot.getScore());
+    }
+
+    // helper method used to set all central tiles to a given animal, used to prevent unexpected outcomes when testing
+    private void setCentralHabs (Tiles tiles, String animal) {
+        for (int i=0; i<4; i++) {
+            tiles.centralHabitats.set(i, new HabitatTiles("forest", "forest", "forest", "forest", "forest", "forest", animal, "", ""));
+        }
+    }
 }
