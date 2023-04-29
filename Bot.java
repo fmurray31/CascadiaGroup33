@@ -164,10 +164,6 @@ public class Bot {
     private void botHabitatPlacement () {
         ArrayList<String> possibleAnimals = habitatContains(selectedHabitat);
 
-        // temp
-//        System.out.println("bot map before new tile placed:");
-//        bot.printMap();
-
         boolean placed = false;
 
         // places bear tiles next to other bear tiles
@@ -220,12 +216,46 @@ public class Bot {
         }
 
         if (possibleAnimals.contains("salmon") && !placed) {
-            botDefaultHabPlacement();
+            int[][] tempCoords = new int[bot.getMaxMap()][bot.getMaxMap()];
+            // attempts to place salmon habitat next to occupied salmon habitat
+            for (int[] tileCoord : possibleTileLocations) {
+                // single occupied neighbouring salmon
+                if (adjacentCount("Salmon", tileCoord[0], tileCoord[1]) == 1) {
+                    int[] adjSalmon = score.adjacentAnimal("Salmon", tempCoords,tileCoord[0], tileCoord[1]);
+                    // neighbouring salmon is not in the middle of a line of salmon
+                    if (adjacentCount("Salmon", adjSalmon[0], adjSalmon[1]) < 2) {
+                        botHabitatRotation(tileCoord[0], tileCoord[1]);
+                        bot.addHabitatToMap(selectedHabitat, tileCoord[0], tileCoord[1]);
+                        placed = true;
+                        break;
+                    }
+                }
+            }
+
+            // if cannot place at the end of a line of placed salmon tokens, place next to empty salmon habitats
+            if (!placed) {
+                for (int[] tileCoord : possibleTileLocations) {
+                    if (adjacentCheck(tileCoord, "salmon")) {
+                        botHabitatRotation(tileCoord[0], tileCoord[1]);
+                        bot.addHabitatToMap(selectedHabitat, tileCoord[0], tileCoord[1]);
+                        placed = true;
+                        break;
+                    }
+                }
+            }
         }
 
+        // attempts to place fox habitat next to 3 or more occupied tiles, otherwise uses default habitat placement
         if (possibleAnimals.contains("fox") && !placed) {
             for (int[] tileCoord : possibleTileLocations) {
-                if (adjacentCheck(tileCoord, "fox")) {
+                int adjacentAnimals = 0;
+                if (adjacentCheck(tileCoord, "hawk")) adjacentAnimals++;
+                if (adjacentCheck(tileCoord, "bear")) adjacentAnimals++;
+                if (adjacentCheck(tileCoord, "salmon")) adjacentAnimals++;
+                if (adjacentCheck(tileCoord, "elk")) adjacentAnimals++;
+                if (adjacentCheck(tileCoord, "fox")) adjacentAnimals++;
+
+                if (adjacentAnimals > 2) {
                     botHabitatRotation(tileCoord[0], tileCoord[1]);
                     bot.addHabitatToMap(selectedHabitat, tileCoord[0], tileCoord[1]);
                     placed = true;
@@ -311,8 +341,8 @@ public class Bot {
     private boolean botFox () {
 
 
-        System.out.println("Bot placed a Fox");
-        return true;
+        System.out.println("bot attempted to place a fox");
+        return false;
     }
 
     private boolean botElk () {
@@ -488,7 +518,7 @@ public class Bot {
         return false;
     }
 
-    // takes an arraylist and an index, returns the index of the next instance of the given item, or -1 if none found
+    // takes an arraylist and an index, returns the index of the next instance of the given item, or -1 if none found, used to increment through possibleAnimals
     private int getNext (ArrayList arrayList, int index) {
         for (int i=index+1; i<arrayList.size(); i++) {
             if (arrayList.get(i).equals(arrayList.get(index))) {
@@ -660,7 +690,7 @@ public class Bot {
                 return;
             }
         }
-        throw new IllegalArgumentException("no animal could be placed by the bot");
+        System.out.println("Bot failed to place any animal");
     }
 
 }

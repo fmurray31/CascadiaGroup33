@@ -148,7 +148,6 @@ public class Score {
 
                     outputCoordinates = adjacentAnimal("Bear", placeHolder, i, j);
                     if (outputCoordinates[0] != -1) {
-
                         uniqueCount++;
                     }
 
