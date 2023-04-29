@@ -694,14 +694,14 @@ public class Score {
         int[] output = new int[2];
 
         // tiles to the left and right are always at the same coordinates, whether x is even or not
-        if (player.getPlayerMap()[i][j - 1].isOccupied() && player.getPlayerMap()[i][j - 1].getCreature1().equals(animal)) {
+        if (player.getPlayerMap()[i][j - 1].isOccupied() && player.getPlayerMap()[i][j - 1].getCreature1().equalsIgnoreCase(animal)) {
             if (coordinates[i][j-1] == 0) {
                 output[0] = i;
                 output[1] = j-1;
                 return output;
             }
         }
-        if (player.getPlayerMap()[i][j + 1].isOccupied() && player.getPlayerMap()[i][j + 1].getCreature1().equals(animal)) {
+        if (player.getPlayerMap()[i][j + 1].isOccupied() && player.getPlayerMap()[i][j + 1].getCreature1().equalsIgnoreCase(animal)) {
             if (coordinates[i][j+1] == 0) {
                 output[0] = i;
                 output[1] = j+1;
@@ -712,13 +712,13 @@ public class Score {
         // checking adjacent tiles to an even x coordinate
         if (i % 2 == 0) {
             // tiles below x
-            if (player.getPlayerMap()[i - 1][j].isOccupied() && player.getPlayerMap()[i - 1][j].getCreature1().equals(animal)) {
+            if (player.getPlayerMap()[i - 1][j].isOccupied() && player.getPlayerMap()[i - 1][j].getCreature1().equalsIgnoreCase(animal)) {
                 if (coordinates[i-1][j] == 0) {
                     output[0] = i-1;
                     output[1] = j;
                     return output;
                 }
-            } if (player.getPlayerMap()[i - 1][j + 1].isOccupied() && player.getPlayerMap()[i - 1][j + 1].getCreature1().equals(animal)) {
+            } if (player.getPlayerMap()[i - 1][j + 1].isOccupied() && player.getPlayerMap()[i - 1][j + 1].getCreature1().equalsIgnoreCase(animal)) {
                 if (coordinates[i-1][j+1] == 0) {
                     output[0] = i-1;
                     output[1] = j+1;
@@ -726,13 +726,13 @@ public class Score {
                 }
             }
             // tiles above x
-            if (player.getPlayerMap()[i + 1][j].isOccupied() && player.getPlayerMap()[i+1][j].getCreature1().equals(animal)) {
+            if (player.getPlayerMap()[i + 1][j].isOccupied() && player.getPlayerMap()[i+1][j].getCreature1().equalsIgnoreCase(animal)) {
                 if (coordinates[i+1][j] == 0) {
                     output[0] = i+1;
                     output[1] = j;
                     return output;
                 }
-            } if (player.getPlayerMap()[i + 1][j+1].isOccupied() && player.getPlayerMap()[i+1][j+1].getCreature1().equals(animal)) {
+            } if (player.getPlayerMap()[i + 1][j+1].isOccupied() && player.getPlayerMap()[i+1][j+1].getCreature1().equalsIgnoreCase(animal)) {
                 if (coordinates[i+1][j+1] == 0) {
                     output[0] = i+1;
                     output[1] = j+1;
@@ -744,13 +744,13 @@ public class Score {
         // checking adjacent tiles to an odd x coordinate
         else {
             // checking tiles below x
-            if (player.getPlayerMap()[i - 1][j-1].isOccupied() && player.getPlayerMap()[i - 1][j-1].getCreature1().equals(animal)) {
+            if (player.getPlayerMap()[i - 1][j-1].isOccupied() && player.getPlayerMap()[i - 1][j-1].getCreature1().equalsIgnoreCase(animal)) {
                 if (coordinates[i-1][j-1] == 0) {
                     output[0] = i-1;
                     output[1] = j-1;
                     return output;
                 }
-            } if (player.getPlayerMap()[i - 1][j].isOccupied() && player.getPlayerMap()[i - 1][j].getCreature1().equals(animal)) {
+            } if (player.getPlayerMap()[i - 1][j].isOccupied() && player.getPlayerMap()[i - 1][j].getCreature1().equalsIgnoreCase(animal)) {
                 if (coordinates[i-1][j] == 0) {
                     output[0] = i-1;
                     output[1] = j;
@@ -759,13 +759,13 @@ public class Score {
             }
 
             // tiles above x
-            if (player.getPlayerMap()[i + 1][j-1].isOccupied() && player.getPlayerMap()[i + 1][j-1].getCreature1().equals(animal)) {
+            if (player.getPlayerMap()[i + 1][j-1].isOccupied() && player.getPlayerMap()[i + 1][j-1].getCreature1().equalsIgnoreCase(animal)) {
                 if (coordinates[i+1][j-1] == 0) {
                     output[0] = i+1;
                     output[1] = j-1;
                     return output;
                 }
-            } if (player.getPlayerMap()[i + 1][j].isOccupied() && player.getPlayerMap()[i + 1][j].getCreature1().equals(animal)) {
+            } if (player.getPlayerMap()[i + 1][j].isOccupied() && player.getPlayerMap()[i + 1][j].getCreature1().equalsIgnoreCase(animal)) {
                 if (coordinates[i+1][j] == 0) {
                     output[0] = i+1;
                     output[1] = j;

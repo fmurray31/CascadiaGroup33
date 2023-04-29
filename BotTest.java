@@ -29,8 +29,8 @@ class BotTest {
         bot.addHabitatToMap(hab3, 16, 14);
 
         // catches and discards all system outputs, used to prevent unnecessary information from printing to console
-        PrintStream tempOut = new PrintStream(OutputStream.nullOutputStream());
-        System.setOut(tempOut);
+//        PrintStream tempOut = new PrintStream(OutputStream.nullOutputStream());
+//        System.setOut(tempOut);
 
         tiles.setupTiles();
         tiles.setupCentralTiles();
@@ -171,8 +171,8 @@ class BotTest {
             }
         }
 
-//        PrintStream tempOut = new PrintStream(OutputStream.nullOutputStream());
-//        System.setOut(tempOut);
+        PrintStream tempOut = new PrintStream(OutputStream.nullOutputStream());
+        System.setOut(tempOut);
 
         tiles.setupTiles();
         tiles.setupCentralTiles();
