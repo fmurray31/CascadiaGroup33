@@ -96,10 +96,10 @@ public class Bot {
         }
 
         // attempts to place each of the animal types in the below order, if it fails then a method to handle a default case is needed
-        if (centralAnimalAL.contains("Hawk")) {
+        if (centralAnimalAL.contains("Hawk") && placedHawkCount<8) {
             placed = botTileHelper("Hawk");
         }
-        if (centralAnimalAL.contains("Bear") && !placed) {
+        if (centralAnimalAL.contains("Bear") && !placed && placedBearPairCount<4) {
             placed = botTileHelper("Bear");
         }
         if (centralAnimalAL.contains("Elk") && !placed) {
