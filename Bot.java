@@ -376,37 +376,34 @@ public class Bot {
         int elkIndex = possibleAnimals.indexOf("elk");
         int[] elkCoords;
 
+        // placing elk next to already placed elk
         do {
             elkCoords = possibleAnimalLocations.get(elkIndex);
-            int[] tempCoords = score.adjacentAnimal("Elk", tempArray, elkCoords[0], elkCoords[1]);
-            int elkLineCount = 1;
-            Boolean continueLoop = true;
+            int[] adjElk = score.adjacentAnimal("Elk", tempArray, elkCoords[0], elkCoords[1]);
 
-
-            while ((score.adjacentToDirection(elkCoords[0], elkCoords[1], tempCoords).equals("w") || score.adjacentToDirection(elkCoords[0], elkCoords[1], tempCoords).equals("e")) && continueLoop) {
-                tempCoords = score.adjacentAnimal("Elk", tempArray, tempCoords[0], tempCoords[1]);
-                elkLineCount++;
-
-                //If there are 4 or more elk in a line then next elk coordinate is examined
-                if (elkLineCount >= 4) {
-                    continueLoop = false;
-                    break;
-                }
-
-                //If there are 3 elk in a line then place elk
-                if (elkLineCount == 3) {
-                    // elk placement
-                    tiles.placeAnimal(bot.getPlayerMap()[elkCoords[0]][elkCoords[1]], selectedAnimal);
-                    placedElkCount++;
-                    System.out.println("Bot placed an Elk");
-                    return true;
-                }
+            if (adjElk[0] != -1) {
+                tiles.placeAnimal(bot.getPlayerMap()[elkCoords[0]][elkCoords[1]], selectedAnimal);
+                System.out.println("Bot placed an Elk");
+                return true;
             }
 
             elkIndex = getNext(possibleAnimals, elkIndex);
         } while (elkIndex != -1);
 
-        System.out.println("Bot attempted to place an Elk");
+        elkIndex = possibleAnimals.indexOf("elk");
+        // place elk next to other elk habitat
+        do {
+            elkCoords = possibleAnimalLocations.get(elkIndex);
+
+            if (adjacentCheck(elkCoords, "salmon")[0] != -1) {
+                tiles.placeAnimal(bot.getPlayerMap()[elkCoords[0]][elkCoords[1]], selectedAnimal);
+                System.out.println("Bot placed a Salmon");
+                return true;
+            }
+
+            elkIndex = getNext(possibleAnimals, elkIndex);
+        } while (elkIndex != -1);
+        
         return false;
     }
 
