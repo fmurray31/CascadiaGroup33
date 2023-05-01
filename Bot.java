@@ -30,9 +30,6 @@ public class Bot {
     // static trackers for number of placed animals
     private static int placedHawkCount = 0;
     private static int placedBearPairCount = 0;
-    private static int placedElkCount = 0;
-    private static int placedSalmonCount = 0;
-    private static int placedFoxCount = 0;
 
 
 
@@ -380,9 +377,21 @@ public class Bot {
     }
 
     private boolean botFox () {
+        int[][] tempArray = new int[bot.getMaxMap()][bot.getMaxMap()];
+        int foxIndex = possibleAnimals.indexOf("fox");
+        int[] foxCoords;
 
+        do {
+            foxCoords = possibleAnimalLocations.get(foxIndex);
 
-        System.out.println("bot attempted to place a fox");
+            if (score.adjacentAnimal("Fox", tempArray, foxCoords[0], foxCoords[1])[0] == -1) {
+                tiles.placeAnimal(bot.getPlayerMap()[foxCoords[0]][foxCoords[1]], selectedAnimal);
+                System.out.println("Bot placed a Fox");
+                return true;
+            }
+
+             foxIndex = getNext(possibleAnimals, foxIndex);
+        } while ( foxIndex!= -1);
         return false;
     }
 
