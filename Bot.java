@@ -393,7 +393,7 @@ public class Bot {
         } else {
             foxCoords = possibleAnimalLocations.get(foxIndex);
             tiles.placeAnimal(bot.getPlayerMap()[foxCoords[0]][foxCoords[1]], selectedAnimal);
-            System.out.println("Bot placed an Fox");
+            System.out.println("Bot placed a Fox");
             return true;
         }
     }
@@ -424,7 +424,7 @@ public class Bot {
 
             if (adjacentCheck(elkCoords, "elk")[0] != -1) {
                 tiles.placeAnimal(bot.getPlayerMap()[elkCoords[0]][elkCoords[1]], selectedAnimal);
-                System.out.println("Bot placed a Elk");
+                System.out.println("Bot placed an Elk");
                 return true;
             }
 
