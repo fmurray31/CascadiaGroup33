@@ -217,29 +217,48 @@ public class Bot {
             }
         }
 
-        // TODO: Handle cases where there is an elk above or below the elkline
+        // attempts to place elk beside elk habitats
         if (possibleAnimals.contains("elk") && !placed) {
             for (int[] tileCoord : possibleTileLocations) {
+                //if beside an elk habitat then place
                 if (adjacentCheck(tileCoord, "elk")[0] != -1) {
-                    int [] elkLine = score.directionToLocation("w",tileCoord[0], tileCoord[1]);
-                    //check if elkline coords has an empty space
-                    if (bot.getPlayerMap()[elkLine[0]][elkLine[1]] == null) {
+                    botHabitatRotation(tileCoord[0], tileCoord[1]);
+                        bot.addHabitatToMap(selectedHabitat, tileCoord[0], tileCoord[1]);
+                        placed = true;
+                        break;
+                }
+            }
+
+            //if not placed, place where elk tokens are located
+            if (!placed) {
+                for (int[] tileCoord : possibleTileLocations) {
+                    if (adjacentCheck(tileCoord, "elk")[0] != -1) {
                         botHabitatRotation(tileCoord[0], tileCoord[1]);
                         bot.addHabitatToMap(selectedHabitat, tileCoord[0], tileCoord[1]);
                         placed = true;
                         break;
-                    } else {
-                        elkLine = score.directionToLocation("e",tileCoord[0], tileCoord[1]);
-                        if (bot.getPlayerMap()[elkLine[0]][elkLine[1]] == null) {
-                            botHabitatRotation(tileCoord[0], tileCoord[1]);
-                            bot.addHabitatToMap(selectedHabitat, tileCoord[0], tileCoord[1]);
-                            placed = true;
-                            break;
-                        }
                     }
                 }
             }
         }
+
+//                    //check if elkline coords has an empty space
+
+//                        botHabitatRotation(tileCoord[0], tileCoord[1]);
+//                        bot.addHabitatToMap(selectedHabitat, tileCoord[0], tileCoord[1]);
+//                        placed = true;
+//                        break;
+//                    } else {
+//                        elkLine = score.directionToLocation("e",tileCoord[0], tileCoord[1]);
+//                        if (bot.getPlayerMap()[elkLine[0]][elkLine[1]] == null) {
+//                            botHabitatRotation(tileCoord[0], tileCoord[1]);
+//                            bot.addHabitatToMap(selectedHabitat, tileCoord[0], tileCoord[1]);
+//                            placed = true;
+//                            break;
+//                        }
+//                    }
+//                }
+//            }
 
         if (possibleAnimals.contains("salmon") && !placed) {
             int[][] tempCoords = new int[bot.getMaxMap()][bot.getMaxMap()];
@@ -403,7 +422,7 @@ public class Bot {
 
             elkIndex = getNext(possibleAnimals, elkIndex);
         } while (elkIndex != -1);
-        
+
         return false;
     }
 
