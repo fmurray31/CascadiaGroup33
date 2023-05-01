@@ -379,20 +379,17 @@ public class Bot {
     private boolean botFox () {
         int[][] tempArray = new int[bot.getMaxMap()][bot.getMaxMap()];
         int foxIndex = possibleAnimals.indexOf("fox");
-        int[] foxCoords;
+        int[] foxCoords = possibleAnimalLocations.get(foxIndex);
 
-        do {
-            foxCoords = possibleAnimalLocations.get(foxIndex);
+        //if foxCoords is empty return false
+        if (foxCoords == null) {
+            return false;
+        }
 
-            if (score.adjacentAnimal("Fox", tempArray, foxCoords[0], foxCoords[1])[0] == -1) {
-                tiles.placeAnimal(bot.getPlayerMap()[foxCoords[0]][foxCoords[1]], selectedAnimal);
-                System.out.println("Bot placed a Fox");
-                return true;
-            }
-
-             foxIndex = getNext(possibleAnimals, foxIndex);
-        } while ( foxIndex!= -1);
-        return false;
+        //Place fox on possible location
+        tiles.placeAnimal(bot.getPlayerMap()[foxCoords[0]][foxCoords[1]], selectedAnimal);
+        System.out.println("Bot placed a Fox");
+        return true;
     }
 
     private boolean botElk () {
