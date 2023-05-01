@@ -30,6 +30,12 @@ public class Bot {
     // static trackers for number of placed animals
     private static int placedHawkCount = 0;
     private static int placedBearPairCount = 0;
+    private static int placedElkCount = 0;
+    private static int placedSalmonCount = 0;
+    private static int placedFoxCount = 0;
+
+
+
 
     public void botTurn (Player bot, Tiles tiles) {
         this.tiles = tiles;
@@ -370,66 +376,35 @@ public class Bot {
         int elkIndex = possibleAnimals.indexOf("elk");
         int[] elkCoords;
 
-        int[] output;
-        int[][] coordinates = new int[bot.getMaxMap()][bot.getMaxMap()];
-
-        for (int i=0; i< bot.getMaxMap(); i++) {
-            for (int j = 0; j < bot.getMaxMap(); j++) {
-                if (bot.getPlayerMap()[i][j].isOccupied() && bot.getPlayerMap()[i][j].getCreature1().equals("Elk") && coordinates[i][j] == 0) {
-                    coordinates[i][j] = 1;
-                    output = score.adjacentAnimal("Elk", coordinates, i, j);
-                    String direction;
-                    int temp;
-                    int maxCount = 1;
-                    String maxDirection = "";
-
-                    while (output[0] != -1) {
-                        direction = score.adjacentToDirection(i, j, output);
-                        coordinates[output[0]][output[1]] = 1;
-
-                        temp = 1;
-
-                        if (direction.equals("w") || direction.equals("e")) {
-                            temp += score.searchLineCount("Elk", "w", coordinates, output[0], output[1]) + 1;
-                            temp += score.searchLineCount("Elk", "e", coordinates, output[0], output[1]);
-                        }
-
-                        if (direction.equals("nw") || direction.equals("se")) {
-                            temp += score.searchLineCount("Elk", "nw", coordinates, output[0], output[1]) + 1;
-                            temp += score.searchLineCount("Elk", "se", coordinates, output[0], output[1]);
-                        }
-
-                        if (direction.equals("sw") || direction.equals("ne")) {
-                            temp += score.searchLineCount("Elk", "sw", coordinates, output[0], output[1]) + 1;
-                            temp += score.searchLineCount("Elk", "ne", coordinates, output[0], output[1]);
-                        }
+        do {
+            elkCoords = possibleAnimalLocations.get(elkIndex);
+            int[] tempCoords = score.adjacentAnimal("Elk", tempArray, elkCoords[0], elkCoords[1]);
+            int elkLineCount = 1;
+            Boolean continueLoop = true;
 
 
-                        if (temp > maxCount) {
-                            maxCount = temp;
-                            maxDirection = direction;
-                        }
+            while ((score.adjacentToDirection(elkCoords[0], elkCoords[1], tempCoords).equals("w") || score.adjacentToDirection(elkCoords[0], elkCoords[1], tempCoords).equals("e")) && continueLoop) {
+                tempCoords = score.adjacentAnimal("Elk", tempArray, tempCoords[0], tempCoords[1]);
+                elkLineCount++;
 
-                        output = score.adjacentAnimal("Elk", coordinates, i, j);
-                    }
+                //If there are 4 or more elk in a line then next elk coordinate is examined
+                if (elkLineCount >= 4) {
+                    continueLoop = false;
+                    break;
+                }
 
-                    if (maxDirection.equals("w") || maxDirection.equals("e")) {
-                        score.elkAHelper("w", coordinates, i, j);
-                        score.elkAHelper("e", coordinates, i, j);
-                    }
-
-                    if (maxDirection.equals("nw") || maxDirection.equals("se")) {
-                        score.elkAHelper("nw", coordinates, i, j);
-                        score.elkAHelper("se", coordinates, i, j);
-                    }
-
-                    if (maxDirection.equals("sw") || maxDirection.equals("ne")) {
-                        score.elkAHelper("sw", coordinates, i, j);
-                        score.elkAHelper("ne", coordinates, i, j);
-                    }
+                //If there are 3 elk in a line then place elk
+                if (elkLineCount == 3) {
+                    // elk placement
+                    tiles.placeAnimal(bot.getPlayerMap()[elkCoords[0]][elkCoords[1]], selectedAnimal);
+                    placedElkCount++;
+                    System.out.println("Bot placed an Elk");
+                    return true;
                 }
             }
-        }
+
+            elkIndex = getNext(possibleAnimals, elkIndex);
+        } while (elkIndex != -1);
 
         System.out.println("Bot attempted to place an Elk");
         return false;
